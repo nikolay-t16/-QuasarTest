@@ -1,3 +1,4 @@
+import admin from './routesAdmin';
 
 const routes = [
   {
@@ -7,6 +8,7 @@ const routes = [
       { path: '', component: () => import('pages/Index.vue') },
     ],
   },
+  admin,
 ];
 
 // Always leave this as last one
