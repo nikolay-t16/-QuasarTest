@@ -11,11 +11,9 @@
         >
           <q-icon name="menu" />
         </q-btn>
-
         <q-toolbar-title clickable to="/">
           <q-item to="/">На сайт</q-item>
         </q-toolbar-title>
-
         <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
     </q-header>

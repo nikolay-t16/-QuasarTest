@@ -16,7 +16,7 @@ const route = {
     },
     {
       path: '/admin/catalog/',
-      component: () => import('pages/catalog/Index.vue'),
+      component: () => import('pages/admin/Catalog.vue'),
     },
     {
       path: '/admin/products/',
