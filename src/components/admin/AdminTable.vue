@@ -9,19 +9,11 @@
       >
         <template v-slot:body="props">
           <q-tr :props="props">
-            <q-td key="name" :props="props">
-              {{ props.row.name }}123
-              <q-popup-edit v-model="props.row.name">
-                <q-input v-model="props.row.name" dense autofocus counter/>
+            <q-td  v-for="item in columns" v-bind:key="item.name" :props="props">
+              {{ props.row[item.name] }}
+              <q-popup-edit v-model="props.row[item.name]">
+                <q-input v-model="props.row[item.name]" dense autofocus counter/>
               </q-popup-edit>
-            </q-td>
-            <q-td key="id" :props="props">
-              {{ props.row.id }}
-              <q-icon name='home' />
-            </q-td>
-            <q-td key="edit" :props="props">
-              <q-icon name='home' />
-              {{ props.row.id }}
             </q-td>
             <q-td>
               <q-icon name='edit' class="admin-table__icon"/>
@@ -39,49 +31,9 @@
 <script>
 export default {
   name: 'AdminTable',
+  props: ['data', 'columns'],
   data() {
-    return {
-      columns: [
-        {
-          // unique id (used by row-key, pagination.sortBy, ...)
-          name: 'name',
-
-          // label for header
-          label: 'Dessert (100g serving)',
-
-          // row Object property to determine value for this column
-          field: 'name',
-          // OR field: row => row.some.nested.prop
-
-          // (optional) if we use visible-columns, this col will always be visible
-          required: true,
-
-          // (optional) alignment
-          align: 'left',
-
-          // (optional) tell QTable you want this column sortable
-          sortable: true,
-
-          // (optional) compare function if you have
-          // some custom data or want a specific way to compare two rows
-          sort: (a, b) => parseInt(a, 10) - parseInt(b, 10),
-          format: val => `${val}%`,
-          // v0.17.9+; if using scoped slots, apply this yourself instead
-          style: 'width: 500px',
-          classes: 'my-special-class',
-        },
-        {
-          name: 'id',
-          label: 'Id',
-          field: 'id',
-          sortable: true,
-        },
-      ],
-      data: [
-        { name: 'test1', id: 1 },
-        { name: 'test2', id: 2 },
-      ],
-    };
+    return {};
   },
 };
 </script>
