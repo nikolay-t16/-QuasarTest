@@ -1,6 +1,6 @@
 <template>
   <q-page class="flex justify-center">
-    <AdminTree></AdminTree>
+    <AdminTree v-bind:simple=simple></AdminTree>
   </q-page>
 </template>
 
@@ -8,7 +8,7 @@
 import AdminTree from '../../components/admin/AdminTree';
 
 export default {
-  name: 'Products',
+  name: 'Catalog',
   components: { AdminTree },
   data() {
     return {
