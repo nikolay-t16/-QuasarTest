@@ -33,26 +33,35 @@ module.exports = function (ctx) {
       // all: true, // --- includes everything; for dev only!
 
       components: [
+        'QAvatar',
+        'QDialog',
         'QLayout',
         'QHeader',
         'QDrawer',
         'QPageContainer',
         'QPage',
+        'QPopupEdit',
         'QTable',
         'QTh',
         'QTr',
         'QTd',
         'QToolbar',
         'QToolbarTitle',
+        'QToggle',
         'QBtn',
         'QIcon',
         'QList',
+        'QInput',
         'QItem',
         'QItemSection',
         'QItemLabel',
+        'QCard',
+        'QCardSection',
+        'QCardActions',
       ],
 
       directives: [
+        'ClosePopup',
         'Ripple',
       ],
 

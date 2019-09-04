@@ -1,6 +1,12 @@
 <template>
   <q-page class="flex justify-center">
-    <AdminTable v-bind:data=data v-bind:columns=columns></AdminTable>
+    <AdminTable
+      v-bind:data="this.$store.state.products.allProducts"
+      v-bind:columns=columns
+      fieldId="product_id"
+      v-on:rowAction="rowAction"
+      v-on:rowEdit="rowEdit"
+    ></AdminTable>
   </q-page>
 </template>
 
@@ -11,50 +17,89 @@ export default {
   name: 'Products',
   components: { AdminTable },
   data() {
+    this.$store.dispatch('products/getAllProducts');
     return {
       columns: [
         {
           name: 'id',
           label: 'Id',
-          field: 'id',
-          sortable: true,
+          field: 'product_id',
           align: 'left',
+          sortable: true,
+          style: 'width: 40px',
         },
         {
-          // unique id (used by row-key, pagination.sortBy, ...)
-          name: 'name',
-          // label for header
-          label: 'Dessert (100g serving)',
-          // row Object property to determine value for this column
-          field: 'name',
-          // OR field: row => row.some.nested.prop
-          // (optional) if we use visible-columns, this col will always be visible
-          required: true,
-          // (optional) alignment
+          name: 'code',
+          label: 'Код',
+          field: 'code',
           align: 'left',
-          // (optional) tell QTable you want this column sortable
           sortable: true,
-          // (optional) compare function if you have
-          // some custom data or want a specific way to compare two rows
-          sort: (a, b) => parseInt(a, 10) - parseInt(b, 10),
-          format: val => `${val}%`,
-          // v0.17.9+; if using scoped slots, apply this yourself instead
+          edit: true,
+          style: 'width: 40px',
+        },
+        {
+          name: 'show',
+          label: 'Видимость',
+          field: 'show',
+          align: 'left',
+          sortable: true,
+          edit: true,
+          isBool: true,
+        },
+        {
+          name: 'name',
+          label: 'Название',
+          field: 'name',
+          align: 'left',
+          sortable: true,
+          edit: true,
           style: 'width: 500px',
-          classes: 'my-special-class',
         },
         {
           name: 'price',
           label: 'Цена',
           field: 'price',
           sortable: true,
+          edit: true,
           align: 'left',
         },
-      ],
-      data: [
-        { name: 'test1', id: 1, price: 0.1 },
-        { name: 'test2', id: 2, price: 0.1 },
+        {
+          name: 'edit',
+          label: '',
+          field: 'edit',
+          isAction: true,
+          icon: 'edit',
+          confirm: false,
+          action: item => this.$router.push(`/admin/product/${item.product_id}`),
+        },
+        {
+          name: 'delete',
+          label: '',
+          field: 'delete',
+          isAction: true,
+          icon: 'close',
+          confirm: true,
+          confirmText(item) {
+            return `Вы уверены что хотите удалить "${item.name}"?`;
+          },
+          action: item => this.$store.dispatch('products/removeProduct', item),
+        },
       ],
     };
+  },
+  methods: {
+    deleteProduct(item) {
+      const index = this.data.indexOf(item);
+      if (index > -1) {
+        this.data = this.data.splice(index, 1);
+      }
+    },
+    rowAction(action, item) {
+      action(item);
+    },
+    rowEdit(id, field, value) {
+      this.$store.dispatch('products/editProductField', { id, field, value });
+    },
   },
 };
 </script>
