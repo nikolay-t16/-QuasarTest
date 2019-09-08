@@ -1,7 +1,6 @@
 <template>
-  <q-page class="flex flex-center">
-    <img alt="Quasar logo" src="~assets/quasar-logo-full.svg">
-  </q-page>
+  <div class="index" id="main">
+  </div>
 </template>
 
 <style>
