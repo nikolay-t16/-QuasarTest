@@ -11,41 +11,41 @@
  *   "src-ssr/extension.js"
  */
 
-const
-  express = require('express'),
-  compression = require('compression')
+const express = require('express');
+const compression = require('compression');
 
-const
-  ssr = require('../ssr'),
-  extension = require('./extension'),
-  app = express(),
-  port = process.env.PORT || 3000
+const ssr = require('../ssr');
+const extension = require('./extension');
+
+const app = express();
+const port = process.env.PORT || 3000;
 
 const serve = (path, cache) => express.static(ssr.resolveWWW(path), {
-  maxAge: cache ? 1000 * 60 * 60 * 24 * 30 : 0
-})
+  maxAge: cache ? 1000 * 60 * 60 * 24 * 30 : 0,
+});
 
 // gzip
-app.use(compression({ threshold: 0 }))
+app.use(compression({ threshold: 0 }));
 
 // serve this with no cache, if built with PWA:
 if (ssr.settings.pwa) {
-  app.use('/service-worker.js', serve('service-worker.js'))
+  app.use('/service-worker.js', serve('service-worker.js'));
 }
 
 // serve "www" folder
-app.use('/', serve('.', true))
+app.use('/', serve('.', true));
 
 // we extend the custom common dev & prod parts here
-extension.extendApp({ app })
+extension.extendApp({ app });
 
 // this should be last get(), rendering with SSR
 app.get('*', (req, res) => {
-  res.setHeader('Content-Type', 'text/html')
+  res.setHeader('Content-Type', 'text/html');
 
   // SECURITY HEADERS
   // read more about headers here: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers
-  // the following headers help protect your site from common XSS attacks in browsers that respect headers
+  // the following headers help protect your site from common
+  // XSS attacks in browsers that respect headers
   // you will probably want to use .env variables to drop in appropriate URLs below,
   // and potentially look here for inspiration:
   // https://ponyfoo.com/articles/content-security-policy-in-express-apps
@@ -60,7 +60,8 @@ app.get('*', (req, res) => {
   // res.setHeader('X-Content-Type-Options', 'nosniff')
 
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin
-  // res.setHeader('Access-Control-Allow-Origin', '*') // one of '*', '<origin>' where origin is one SINGLE origin
+  // res.setHeader('Access-Control-Allow-Origin', '*')
+  // one of '*', '<origin>' where origin is one SINGLE origin
 
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-DNS-Prefetch-Control
   // res.setHeader('X-DNS-Prefetch-Control', 'off') // may be slower, but stops some leaks
@@ -76,27 +77,24 @@ app.get('*', (req, res) => {
   ssr.renderToString({ req, res }, (err, html) => {
     if (err) {
       if (err.url) {
-        res.redirect(err.url)
-      }
-      else if (err.code === 404) {
-        res.status(404).send('404 | Page Not Found')
-      }
-      else {
+        res.redirect(err.url);
+      } else if (err.code === 404) {
+        res.status(404).send('404 | Page Not Found');
+      } else {
         // Render Error Page or Redirect
-        res.status(500).send('500 | Internal Server Error')
+        res.status(500).send('500 | Internal Server Error');
         if (ssr.settings.debug) {
-          console.error(`500 on ${req.url}`)
-          console.error(err)
-          console.error(err.stack)
+          console.error(`500 on ${req.url}`);
+          console.error(err);
+          console.error(err.stack);
         }
       }
+    } else {
+      res.send(html);
     }
-    else {
-      res.send(html)
-    }
-  })
-})
+  });
+});
 
 app.listen(port, () => {
-  console.log(`Server listening at port ${port}`)
-})
+  console.log(`Server listening at port ${port}`);
+});
