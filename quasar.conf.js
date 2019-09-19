@@ -34,6 +34,10 @@ module.exports = function (ctx) {
 
       components: [
         'QBtn',
+        'QAvatar',
+        'QDialog',
+        'QLayout',
+        'QHeader',
         'QDrawer',
         'QHeader',
         'QIcon',
@@ -44,6 +48,7 @@ module.exports = function (ctx) {
         'QList',
         'QPageContainer',
         'QPage',
+        'QPopupEdit',
         'QTable',
         'QTd',
         'QTh',
@@ -51,9 +56,19 @@ module.exports = function (ctx) {
         'QToolbar',
         'QToolbarTitle',
         'QTree',
+        'QToggle',
+        'QIcon',
+        'QInput',
+        'QCard',
+        'QCardSection',
+        'QCardActions',
+        'QCarousel',
+        'QCarouselControl',
+        'QCarouselSlide',
       ],
 
       directives: [
+        'ClosePopup',
         'Ripple',
       ],
 

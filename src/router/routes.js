@@ -3,7 +3,7 @@ import admin from './routesAdmin';
 const routes = [
   {
     path: '/',
-    component: () => import('layouts/MyLayout.vue'),
+    component: () => import('layouts/Site.vue'),
     children: [
       { path: '', component: () => import('pages/Index.vue') },
     ],

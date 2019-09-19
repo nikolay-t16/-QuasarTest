@@ -8,6 +8,7 @@
   "private": true,
   "scripts": {
     "dev": "quasar dev",
+    "ssr-dev": "nodemon ./src-ssr/api.js",
     "build": "quasar build",
     "lint": "eslint --ext .js,.vue src",
     "test": "echo \"No test specified\" && exit 0"
@@ -15,7 +16,14 @@
   "dependencies": {
     "@quasar/extras": "^1.0.0",
     "axios": "^0.18.1",
+    "graphql": "^14.5.6",
+    "graphql-server-koa": "^1.4.1",
+    "koa": "^2.8.1",
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "^7.4.0",
+    "pg": "^7.12.1",
     "quasar": "^1.0.0",
+    "typeorm": "^0.2.19",
     "vue-i18n": "^8.0.0"
   },
   "devDependencies": {
