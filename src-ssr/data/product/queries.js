@@ -3,7 +3,6 @@ const {
   GraphQLList,
   GraphQLNonNull,
 } = require('graphql');
-const { getConnection } = require('typeorm');
 
 // импортируем данные из models.js
 const { Product, ProductType } = require('./models');
@@ -28,9 +27,6 @@ module.exports.Products = {
   type: new GraphQLList(ProductType),
   args: {},
   resolve(root, params, options) {
-    const connection = getConnection();
-    const postRepository = connection.getRepository(Product);
-    const
-    return postRepository.find();
+    return Product.find();
   },
 };

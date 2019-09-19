@@ -79,12 +79,16 @@ export default {
   props: ['data', 'columns', 'fieldId'],
   data() {
     return {
-      items: this.data,
       confirm: false,
       confirmText: 'Вы уверены что хотите удалить?',
       onConfirm: null,
       selected: null,
     };
+  },
+  computed: {
+    items() {
+      return this.data;
+    },
   },
   methods: {
     confirmAction(text, item, action) {

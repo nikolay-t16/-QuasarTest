@@ -3,6 +3,8 @@ const {
   GraphQLInputObjectType,
   GraphQLNonNull,
   GraphQLString,
+  GraphQLFloat,
+  GraphQLBoolean,
   GraphQLID,
 } = require('graphql');
 
@@ -11,7 +13,7 @@ const { BaseEntity } = require('typeorm');
 class Product extends BaseEntity {
   constructor(id, name) {
     super();
-    this.productId = id;
+    this.product_id = id;
     this.name = name;
   }
 }
@@ -22,10 +24,19 @@ module.exports.Product = Product;
 module.exports.ProductType = new GraphQLObjectType({
   name: 'Product',
   fields: {
-    productId: {
+    product_id: {
       type: new GraphQLNonNull(GraphQLID),
     },
     name: {
+      type: GraphQLString,
+    },
+    price: {
+      type: GraphQLFloat,
+    },
+    show: {
+      type: GraphQLBoolean,
+    },
+    code: {
       type: GraphQLString,
     },
   },

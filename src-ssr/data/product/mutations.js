@@ -1,9 +1,46 @@
 const {
   GraphQLNonNull,
   GraphQLBoolean,
+  GraphQLString,
+  GraphQLID,
 } = require('graphql');
-const { ProductModel, ProductType, ProductInput } = require('./models');
+const { getConnection } = require('typeorm');
+const { Product, ProductType, ProductInput } = require('./models');
 
+
+const ProductEditField = {
+  description: 'Edit product field',
+  type: GraphQLBoolean,
+  args: {
+    id: {
+      name: 'id',
+      type: new GraphQLNonNull(GraphQLID),
+    },
+    field: {
+      name: 'field',
+      type: GraphQLString,
+    },
+    value: {
+      name: 'value',
+      type: GraphQLString,
+    },
+  },
+  async resolve(root, params, options) {
+    try {
+      const res = await Product
+        .update(
+          params.id,
+          { [params.field]: params.value, take: '' },
+        );
+      console.log(res);
+    } catch (e) {
+      console.log(e);
+      throw new Error('Error adding new Product');
+      return false;
+    }
+    return true;
+  },
+};
 const ProductCreate = {
   description: 'Create new Product',
   type: GraphQLBoolean,
@@ -23,5 +60,5 @@ const ProductCreate = {
   },
 };
 module.exports = {
-  ProductCreate,
+  ProductCreate, ProductEditField,
 };
