@@ -27,16 +27,13 @@ const ProductEditField = {
   },
   async resolve(root, params, options) {
     try {
-      const res = await Product
+      await Product
         .update(
           params.id,
-          { [params.field]: params.value, take: '' },
+          { [params.field]: params.value },
         );
-      console.log(res);
     } catch (e) {
-      console.log(e);
-      throw new Error('Error adding new Product');
-      return false;
+      throw new Error('Error edding Product');
     }
     return true;
   },
@@ -51,7 +48,7 @@ const ProductCreate = {
     },
   },
   async resolve(root, params, options) {
-    const product = new ProductModel(params.data);
+    const product = new Product(params.data);
     const newProduct = await product.save();
     if (!newProduct) {
       throw new Error('Error adding new Product');

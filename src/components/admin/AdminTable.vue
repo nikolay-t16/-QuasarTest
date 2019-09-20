@@ -37,7 +37,7 @@
                 {{props.row[item.name] ? 'да':'Нет'}}
               </div>
               <div v-else>
-                {{ props.row[item.name] }}
+                {{ props.row[item.field] }}
                 <q-popup-edit v-if="item.edit" v-model="props.row[item.name]">
                   <q-input
                     :value="props.row[item.name]"
