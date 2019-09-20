@@ -38,6 +38,25 @@ const ProductEditField = {
     return true;
   },
 };
+const ProductDelete = {
+  description: 'Delete product',
+  type: GraphQLBoolean,
+  args: {
+    id: {
+      name: 'id',
+      type: new GraphQLNonNull(GraphQLID),
+    },
+  },
+  async resolve(root, params, options) {
+    try {
+      await Product
+        .delete(params.id);
+    } catch (e) {
+      throw new Error('Error deleting Product');
+    }
+    return true;
+  },
+};
 const ProductCreate = {
   description: 'Create new Product',
   type: GraphQLBoolean,
@@ -57,5 +76,7 @@ const ProductCreate = {
   },
 };
 module.exports = {
-  ProductCreate, ProductEditField,
+  ProductCreate,
+  ProductEditField,
+  ProductDelete,
 };
