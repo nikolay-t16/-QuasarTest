@@ -23,6 +23,11 @@ const route = {
       component: () => import('pages/admin/Products.vue'),
     },
     {
+      path: '/admin/product/:id',
+      component: () => import('pages/admin/Product.vue'),
+      props: true,
+    },
+    {
       path: '/admin/pages/',
       component: () => import('pages/admin/Index.vue'),
     },

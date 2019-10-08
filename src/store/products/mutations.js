@@ -2,6 +2,10 @@ export function setAllProducts(state, payload) {
   state.allProducts = payload;
 }
 
+export function setProduct(state, payload) {
+  state.product = payload;
+}
+
 export function removeProduct(state, payload) {
   const index = state.allProducts.indexOf(payload);
   if (index > -1) {

@@ -2,11 +2,51 @@ const {
   GraphQLNonNull,
   GraphQLBoolean,
   GraphQLString,
+  GraphQLFloat,
   GraphQLID,
 } = require('graphql');
 const { getConnection } = require('typeorm');
 const { Product, ProductType, ProductInput } = require('./models');
 
+
+const ProductEdit = {
+  description: 'Edit product',
+  type: GraphQLBoolean,
+  args: {
+    product_id: {
+      name: 'product_id',
+      type: new GraphQLNonNull(GraphQLID),
+    },
+    name: {
+      name: 'name',
+      type: GraphQLString,
+    },
+    code: {
+      name: 'code',
+      type: GraphQLString,
+    },
+    show: {
+      name: 'code',
+      type: GraphQLBoolean,
+    },
+    price: {
+      name: 'code',
+      type: GraphQLFloat,
+    },
+  },
+  async resolve(root, params, options) {
+    try {
+      await Product
+        .update(
+          params.product_id,
+          params,
+        );
+    } catch (e) {
+      throw new Error('Error edding Product');
+    }
+    return true;
+  },
+};
 
 const ProductEditField = {
   description: 'Edit product field',
@@ -77,6 +117,7 @@ const ProductCreate = {
 };
 module.exports = {
   ProductCreate,
+  ProductEdit,
   ProductEditField,
   ProductDelete,
 };

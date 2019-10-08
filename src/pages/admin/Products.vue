@@ -39,7 +39,7 @@ export default {
         },
         {
           name: 'show',
-          label: 'Видимость',
+          label: 'Активность',
           field: 'show',
           align: 'left',
           sortable: true,

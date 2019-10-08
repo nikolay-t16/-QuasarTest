@@ -20,6 +20,28 @@ export async function getAllProducts(context) {
     .catch(err => console.log(err));
 }
 
+export async function getProduct(context, options) {
+  axios
+    .post(
+      'http://localhost:3001/graphql',
+      {
+        query: `{
+          Product(id:${options.product_id}){ 
+            product_id
+            name
+            price
+            show
+            code
+          } 
+        }`,
+      },
+    )
+    .then((res) => {
+      context.commit('setProduct', res.data.data.Product);
+    })
+    .catch(err => console.log(err));
+}
+
 export async function removeProduct(context, options) {
   axios
     .post(
@@ -41,5 +63,30 @@ export async function editProductField(context, options) {
       },
     )
     .then(() => context.commit('editProduct', options))
+    .catch(err => console.log(err));
+}
+
+export async function editProduct(context, options) {
+  axios
+    .post(
+      'http://localhost:3001/graphql',
+      {
+        query: `mutation { 
+            ProductEdit (
+              product_id:${options.product_id},
+              name: "${options.name}",
+              price: ${options.price}
+              show: ${options.show}
+              code: "${options.code}"
+            )
+          }`,
+      },
+    )
+    .then(
+      () => {
+        context.commit('editProduct', options);
+        context.dispatch('getProduct', { product_id: options.product_id });
+      },
+    )
     .catch(err => console.log(err));
 }
