@@ -27,6 +27,10 @@ module.exports.Products = {
   type: new GraphQLList(ProductType),
   args: {},
   resolve(root, params, options) {
-    return Product.find();
+    return Product.find({
+      order: {
+        [Product.FIELD_ID]: 'ASC',
+      },
+    });
   },
 };

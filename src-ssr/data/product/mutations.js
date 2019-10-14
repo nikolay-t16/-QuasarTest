@@ -8,38 +8,40 @@ const {
 const { getConnection } = require('typeorm');
 const { Product, ProductType, ProductInput } = require('./models');
 
+const ProductAdd = {
+  description: 'Create new Product',
+  type: ProductType,
+  args: {
+    data: {
+      name: 'data',
+      type: new GraphQLNonNull(ProductInput),
+    },
+  },
+  async resolve(root, params, options) {
+    const product = new Product(params.data);
+    const newProduct = await product.save();
+    if (!newProduct) {
+      throw new Error('Error adding new Product');
+    }
+    return newProduct;
+  },
+};
 
 const ProductEdit = {
   description: 'Edit product',
   type: GraphQLBoolean,
   args: {
-    product_id: {
-      name: 'product_id',
-      type: new GraphQLNonNull(GraphQLID),
-    },
-    name: {
-      name: 'name',
-      type: GraphQLString,
-    },
-    code: {
-      name: 'code',
-      type: GraphQLString,
-    },
-    show: {
-      name: 'code',
-      type: GraphQLBoolean,
-    },
-    price: {
-      name: 'code',
-      type: GraphQLFloat,
+    data: {
+      name: 'data',
+      type: new GraphQLNonNull(ProductInput),
     },
   },
   async resolve(root, params, options) {
     try {
       await Product
         .update(
-          params.product_id,
-          params,
+          params.data.product_id,
+          params.data,
         );
     } catch (e) {
       throw new Error('Error edding Product');
@@ -97,26 +99,9 @@ const ProductDelete = {
     return true;
   },
 };
-const ProductCreate = {
-  description: 'Create new Product',
-  type: GraphQLBoolean,
-  args: {
-    data: {
-      name: 'data',
-      type: new GraphQLNonNull(ProductInput),
-    },
-  },
-  async resolve(root, params, options) {
-    const product = new Product(params.data);
-    const newProduct = await product.save();
-    if (!newProduct) {
-      throw new Error('Error adding new Product');
-    }
-    return true;
-  },
-};
+
 module.exports = {
-  ProductCreate,
+  ProductAdd,
   ProductEdit,
   ProductEditField,
   ProductDelete,

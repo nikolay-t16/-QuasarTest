@@ -13,7 +13,7 @@ import { mapActions, mapGetters } from 'vuex';
 import ProductForm from '../../components/admin/ProductForm';
 
 export default {
-  name: 'Product',
+  name: 'EditProduct',
   components: {
     ProductForm,
   },
@@ -28,6 +28,7 @@ export default {
   methods: {
     ...mapActions('products', ['getProduct', 'editProduct']),
     onSubmit(product) {
+      product.price = +product.price;
       this.editProduct(product);
     },
   },

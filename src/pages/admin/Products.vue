@@ -1,23 +1,25 @@
 <template>
   <q-page class="flex justify-center">
     <AdminTable
-      v-bind:data="this.$store.state.products.allProducts"
+      v-bind:data="allProducts"
       v-bind:columns=columns
+      title="Товары"
       fieldId="product_id"
-      v-on:rowAction="rowAction"
-      v-on:rowEdit="rowEdit"
+      @rowAction="rowAction"
+      @rowEdit="rowEdit"
+      @addClick="onAddClick"
     ></AdminTable>
   </q-page>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 import AdminTable from '../../components/admin/AdminTable';
 
 export default {
   name: 'Products',
   components: { AdminTable },
   data() {
-    this.$store.dispatch('products/getAllProducts');
     return {
       columns: [
         {
@@ -87,7 +89,14 @@ export default {
       ],
     };
   },
+  created() {
+    this.getAllProducts();
+  },
+  computed: {
+    ...mapGetters('products', ['allProducts']),
+  },
   methods: {
+    ...mapActions('products', ['getAllProducts']),
     deleteProduct(item) {
       const index = this.data.indexOf(item);
       if (index > -1) {
@@ -100,10 +109,9 @@ export default {
     rowEdit(id, field, value) {
       this.$store.dispatch('products/editProductField', { id, field, value });
     },
+    onAddClick() {
+      this.$router.push('/admin/product/new');
+    },
   },
 };
 </script>
-
-<style scoped>
-
-</style>

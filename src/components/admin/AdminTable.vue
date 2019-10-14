@@ -12,6 +12,10 @@
         :columns="columns"
         row-key="id"
       >
+        <template v-slot:top="props">
+          <div class="col-2 q-table__title">{{ title }}</div>
+          <q-btn label="Добавить" type="button" @click="onAddClick" color="primary"/>
+        </template>
         <template v-slot:body="props">
           <q-tr :props="props">
             <q-td  v-for="item in columns" v-bind:key="item.name" :props="props">
@@ -76,7 +80,7 @@
 <script>
 export default {
   name: 'AdminTable',
-  props: ['data', 'columns', 'fieldId'],
+  props: ['data', 'columns', 'fieldId', 'title'],
   data() {
     return {
       confirm: false,
@@ -118,6 +122,9 @@ export default {
       if (index > -1) {
         this.data = this.data.splice(index, 1);
       }
+    },
+    onAddClick() {
+      this.$emit('addClick');
     },
     action() {},
 

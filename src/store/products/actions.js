@@ -67,19 +67,17 @@ export async function editProductField(context, options) {
 }
 
 export async function editProduct(context, options) {
-  axios
+  options.price = +options.price;
+  const res = axios
     .post(
       'http://localhost:3001/graphql',
       {
-        query: `mutation { 
-            ProductEdit (
-              product_id:${options.product_id},
-              name: "${options.name}",
-              price: ${options.price}
-              show: ${options.show}
-              code: "${options.code}"
-            )
+        query: `mutation ProductEdit($product: ProductInput!)  {
+            ProductEdit ( data: $product )
           }`,
+        variables: {
+          product: options,
+        },
       },
     )
     .then(
@@ -88,5 +86,36 @@ export async function editProduct(context, options) {
         context.dispatch('getProduct', { product_id: options.product_id });
       },
     )
-    .catch(err => console.log(err));
+    .catch((err) => {
+      console.log(err);
+      return {
+        result: false,
+        error: err,
+      };
+    });
+  return res;
+}
+
+export async function addProduct(context, options) {
+  options.price = +options.price;
+  if (!options.code) {
+    options.code = null;
+  }
+  const res = axios
+    .post(
+      'http://localhost:3001/graphql',
+      {
+        query: `mutation ProductAdd($product: ProductInput!)  {
+            ProductAdd ( data: $product ){ product_id}
+        }`,
+        variables: {
+          product: options,
+        },
+      },
+    )
+    .catch((err) => {
+      console.log(err);
+      return false;
+    });
+  return res;
 }
