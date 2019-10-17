@@ -42,6 +42,7 @@ module.exports = function (ctx) {
         'QCarouselControl',
         'QCarouselSlide',
         'QDrawer',
+        'QDialog',
         'QForm',
         'QHeader',
         'QIcon',
@@ -61,6 +62,7 @@ module.exports = function (ctx) {
         'QToolbar',
         'QToolbarTitle',
         'QTr',
+        'QTree',
       ],
 
       directives: [
