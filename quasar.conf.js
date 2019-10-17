@@ -8,6 +8,7 @@ module.exports = function (ctx) {
     boot: [
       'i18n',
       'axios',
+      'vuelidate',
     ],
 
     css: [
@@ -34,26 +35,36 @@ module.exports = function (ctx) {
 
       components: [
         'QBtn',
+        'QCard',
+        'QCardActions',
+        'QCardSection',
+        'QCarousel',
+        'QCarouselControl',
+        'QCarouselSlide',
         'QDrawer',
+        'QForm',
         'QHeader',
         'QIcon',
+        'QInput',
         'QItem',
-        'QItemSection',
         'QItemLabel',
+        'QItemSection',
         'QLayout',
         'QList',
-        'QPageContainer',
         'QPage',
+        'QPageContainer',
+        'QPopupEdit',
         'QTable',
         'QTd',
         'QTh',
-        'QTr',
+        'QToggle',
         'QToolbar',
         'QToolbarTitle',
-        'QTree',
+        'QTr',
       ],
 
       directives: [
+        'ClosePopup',
         'Ripple',
       ],
 
