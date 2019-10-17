@@ -1,45 +1,9 @@
 <template>
   <div class="header_wrap visible-lg visible-md title-v2 index">
     <header id="header">
-      <div
-        class="top-block-slide"
-        style="line-height: 18px; padding-top: 7px; padding-bottom: 7px; display: block;"
-        id="bx_651765591_7108">
-        <i class="fa fa-info-circle" aria-hidden="true"></i>
-        &nbsp;&nbsp;Бесплатная доставка по Москве от 1900 руб.
-        <a href="/delivery/">Подробнее &gt;&gt;&gt;</a>
-      </div>
       <div class="top-block top-block-v1">
         <div class="maxwidth-theme">
-          <div class="row">
-            <div class="col-md-6">
-              <ul class="menu topest">
-                <li>
-                  <a href="/about/">
-                                          <span>О компании</span>
-                                        </a>
-                </li>
-                <li>
-                  <a href="/otzyvy/">
-                                          <span>Отзывы клиентов</span>
-                                        </a>
-                </li>
-                <li>
-                  <a href="/bonus-program/">
-                                          <span>Клуб Конфаэль</span>
-                                        </a>
-                </li>
-                <li>
-                  <a href="/services/">
-                                          <span>Услуги</span>
-                                        </a>
-                </li>
-                <li class="more hidden">
-                  <span>...</span>
-                  <ul class="dropdown"></ul>
-                </li>
-              </ul>
-            </div>
+          <div class="row justify-end">
             <div class="top-block-item pull-right show-fixed top-ctrl">
               <div class="personal_wrap">
                 <div class="personal top login twosmallfont">
@@ -108,80 +72,16 @@
         <div class="logo_and_menu-row">
           <div class="logo-row">
             <div class="maxwidth-theme">
-              <div class="row">
+              <div class="row justify-between">
                 <div class="logo-block col-md-2 col-sm-3">
                   <div class="logo">
                     <a href="/">
                       <img
-                        src="
-                        /upload
-                        /ammina.optimizer
-                        /png-webp
-                        /q80
-                        /upload
-                        /CNext
-                        /d06
-                        /d06c49cdc12fc786e1d3793ae155af19.webp"
+                        src="/statics/img/logo.webp"
                         alt="Конфаэль интернет-магазин" title="Конфаэль интернет-магазин"></a></div>
                 </div>
-                <div class="inline-block pull-left">
-                  <div class="top-description">
-                    <div class="region_wrapper">
-                      <div class="city_title">Ваш город</div>
-                      <div class="js_city_chooser colored list" data-param-url="%2Findex.php"
-                           data-param-form_id="city_chooser">
-                        <span>Москва</span><span class="arrow"><i></i></span>
-                      </div>
-                      <div class="dropdown" style="display: none;">
-                        <div class="wrap">
-                          <div class="more_item ">
-                            <span data-region_id="6483" data-href="https://confaelshop.ru/">Москва</span>
-                          </div>
-                          <div class="more_item ">
-                            <span data-region_id="6487" data-href="https://spb.confaelshop.ru/">Санкт-Петербург</span>
-                          </div>
-                          <div class="more_item ">
-                            <span data-region_id="6491" data-href="https://kz.confaelshop.ru/">Алма-Ата</span>
-                          </div>
-                          <div class="more_item ">
-                            <span data-region_id="6496" data-href="https://astana.confaelshop.ru/">Астана</span>
-                          </div>
-                          <div class="more_item ">
-                            <span data-region_id="6490" data-href="https://vgg.confaelshop.ru/">Волгоград</span>
-                          </div>
-                          <div class="more_item ">
-                            <span data-region_id="6485" data-href="https://ekb.confaelshop.ru/">Екатеринбург</span>
-                          </div>
-                          <div class="more_item ">
-                            <span data-region_id="6486" data-href="https://kzn.confaelshop.ru/">Казань</span>
-                          </div>
-                          <div class="more_item ">
-                            <span data-region_id="6492" data-href="https://mkh.confaelshop.ru/">Махачкала</span>
-                          </div>
-                          <div class="more_item ">
-                            <span data-region_id="6488" data-href="https://nn.confaelshop.ru/">Нижний Новгород</span>
-                          </div>
-                          <div class="more_item ">
-                            <span data-region_id="6484" data-href="https://nsk.confaelshop.ru/">Новосибирск</span>
-                          </div>
-                          <div class="more_item ">
-                            <span data-region_id="6493" data-href="https://obn.confaelshop.ru/">Обнинск</span>
-                          </div>
-                          <div class="more_item ">
-                            <span data-region_id="6494" data-href="https://psk.confaelshop.ru/">Псков</span>
-                          </div>
-                          <div class="more_item ">
-                            <span data-region_id="6489" data-href="https://rnd.confaelshop.ru/">Ростов-на-Дону</span>
-                          </div>
-                          <div class="more_item ">
-                            <span data-region_id="6495" data-href="https://sarov.confaelshop.ru/">Саров</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
+                <div class="row">
+                  <div
                   class="pull-left search_wrap wide_search"
                   style="opacity: 1; visibility: visible;">
                   <div class="search-block inner-table-block" style="width: 804px;">
@@ -196,8 +96,8 @@
                               placeholder="Поиск" size="20" maxlength="50" autocomplete="off">
                           </div>
                           <div class="search-button-div">
-                            <button class="btn btn-search" type="submit" name="s" value="Поиск"><i
-                                    class="svg svg-search svg-black"></i></button>
+                            <button class="btn btn-search" type="submit" name="s" value="Поиск">
+                              <q-icon name="search" /></button>
                             <span
                               class="close-block inline-search-hide">
                               <span class="svg svg-close close-icons"></span>
@@ -289,6 +189,7 @@
                   </div>
 
                 </div>
+                </div>
               </div>
             </div>
           </div>
@@ -319,6 +220,10 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
+  .btn-search .material-icons {
+    font-size: 24px;
+    color: black;
+  }
 
 </style>
