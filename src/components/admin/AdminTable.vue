@@ -12,6 +12,10 @@
         :columns="columns"
         row-key="id"
       >
+        <template v-slot:top="props">
+          <div class="col-2 q-table__title">{{ title }}</div>
+          <q-btn label="Добавить" type="button" @click="onAddClick" color="primary"/>
+        </template>
         <template v-slot:body="props">
           <q-tr :props="props">
             <q-td  v-for="item in columns" v-bind:key="item.name" :props="props">
@@ -37,7 +41,7 @@
                 {{props.row[item.name] ? 'да':'Нет'}}
               </div>
               <div v-else>
-                {{ props.row[item.name] }}
+                {{ props.row[item.field] }}
                 <q-popup-edit v-if="item.edit" v-model="props.row[item.name]">
                   <q-input
                     :value="props.row[item.name]"
@@ -76,15 +80,19 @@
 <script>
 export default {
   name: 'AdminTable',
-  props: ['data', 'columns', 'fieldId'],
+  props: ['data', 'columns', 'fieldId', 'title'],
   data() {
     return {
-      items: this.data,
       confirm: false,
       confirmText: 'Вы уверены что хотите удалить?',
       onConfirm: null,
       selected: null,
     };
+  },
+  computed: {
+    items() {
+      return this.data;
+    },
   },
   methods: {
     confirmAction(text, item, action) {
@@ -114,6 +122,9 @@ export default {
       if (index > -1) {
         this.data = this.data.splice(index, 1);
       }
+    },
+    onAddClick() {
+      this.$emit('addClick');
     },
     action() {},
 

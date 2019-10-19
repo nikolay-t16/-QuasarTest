@@ -1,11 +1,11 @@
 require('reflect-metadata');
 
 const { createConnection } = require('typeorm');
-
 const Koa = require('koa');
 const koaBody = require('koa-bodyparser');
 const { graphqlKoa, graphiqlKoa } = require('graphql-server-koa');
 const KoaRouter = require('koa-router');
+const cors = require('koa2-cors');
 const schema = require('./data/schema');
 const productEntity = require('./data/product/entity');
 
@@ -24,7 +24,7 @@ createConnection({
   const PORT = 3001;
 
   app.use(koaBody());
-
+  app.use(cors());
   router.post('/graphql', graphqlKoa({ schema }));
   router.get('/graphql', graphqlKoa({ schema }));
   // инструмент для тестирования запросов localhost:3000/graphiql

@@ -5,13 +5,22 @@ module.exports = new EntitySchema({
   name: 'Product',
   target: Product,
   columns: {
-    productId: {
+    product_id: {
       primary: true,
       type: 'int',
       generated: true,
     },
     name: {
       type: 'varchar',
+    },
+    code: {
+      type: 'varchar',
+    },
+    price: {
+      type: 'float',
+    },
+    show: {
+      type: 'boolean',
     },
   },
 });
