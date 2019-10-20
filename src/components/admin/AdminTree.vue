@@ -14,7 +14,7 @@
       <template v-slot:header-product="prop">
         <div class="row items-center">
           <q-icon name="local_atm" size="28px"/>
-          {{ prop.node.label }}
+          {{ prop.node }}
           <q-icon name="edit" size="20px"/>
           <q-icon name="close" size="20px"/>
         </div>
@@ -24,9 +24,9 @@
         <div class="row items-center">
           <q-icon name="list" size="28px"/>
           {{ prop.node.label }}
-          <q-icon name="add" size="20px"/>
-          <q-icon name="edit" size="20px"/>
-          <q-icon name="close" size="20px"/>
+          <q-icon name="add" @click="onAddRubricClick(prop.node.data)" size="20px"/>
+          <q-icon name="edit" @click="onEditRubricClick(prop.node.data)" size="20px"/>
+          <q-icon name="close" @click="onRemoveRubricClick(prop.node.data)" size="20px"/>
         </div>
       </template>
 
@@ -46,6 +46,15 @@ export default {
     return {};
   },
   methods: {
+    onAddRubricClick(item) {
+      this.$emit('addRubricClick', item.rubric_id);
+    },
+    onEditRubricClick(item) {
+      this.$emit('editRubricClick', item.rubric_id);
+    },
+    onRemoveRubricClick(item) {
+      this.$emit('removeRubricClick', item);
+    },
   },
 };
 </script>

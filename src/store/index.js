@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import products from './products';
+import rubric from './rubric';
 
 // import example from './module-example'
 
@@ -15,6 +16,7 @@ export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
       products,
+      rubric,
     },
 
     // enable strict mode (adds overhead!)

@@ -1,10 +1,17 @@
 <template>
   <q-page class="flex">
-    <AdminTree v-bind:simple=simple></AdminTree>
+    <AdminTree
+      v-bind:simple=rubricTree
+      @addRubricClick="onAddRubricClick"
+      @editRubricClick="onEditRubricClick"
+      @removeRubricClick="onRemoveRubricClick"
+    >
+    </AdminTree>
   </q-page>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 import AdminTree from '../../components/admin/AdminTree';
 
 export default {
@@ -12,47 +19,84 @@ export default {
   components: { AdminTree },
   data() {
     return {
-      simple: [
+      simple: [],
+    };
+  },
+  computed: {
+    ...mapGetters('rubric', ['allRubrics']),
+    rubricTree() {
+      if (this.allRubrics.length !== 0) {
+        const node = this.createTreeNode({
+          name: 'Каталог',
+        });
+        return [
+          node,
+        ];
+      }
+      return [
         {
           label: 'Каталог',
           header: 'root',
-          children: [
-            {
-              label: 'Good food (with icon)',
-              header: 'product',
-              children: [
-                { label: 'Quality ingredients' },
-                { label: 'Good recipe' },
-              ],
-            },
-            {
-              label: 'Good service (disabled node with icon)',
-              header: 'rubric',
-              children: [
-                { label: 'Prompt attention' },
-                { label: 'Professional waiter' },
-              ],
-            },
-            {
-              label: 'Pleasant surroundings (with icon)',
-              icon: 'photo',
-              children: [
-                {
-                  label: 'Happy atmosphere (with image)',
-                  img: 'https://cdn.quasar.dev/img/logo_calendar_128px.png',
-                },
-                { label: 'Good table presentation' },
-                { label: 'Pleasing decor' },
-              ],
-            },
-          ],
         },
-      ],
-    };
+      ];
+    },
+  },
+  async created() {
+    await this.getAllRubrics();
+  },
+  methods: {
+    ...mapActions('rubric', ['getAllRubrics', 'removeRubric']),
+    deleteRubric(item) {
+      const index = this.data.indexOf(item);
+      if (index > -1) {
+        this.data = this.data.splice(index, 1);
+      }
+    },
+    createTreeNode(data) {
+      const nodeId = this.getNodeId(data);
+      return {
+        data,
+        label: data.name,
+        header: this.getNodeType(data),
+        children: this.getNodeChildren(nodeId),
+      };
+    },
+    getNodeType(data) {
+      if (data.rubric_id) {
+        return 'rubric';
+      }
+      if (data.rubric_id) {
+        return 'rubric';
+      }
+      return 'root';
+    },
+    getNodeId(data) {
+      if (data.rubric_id) {
+        return data.rubric_id;
+      }
+      if (data.rubric_id) {
+        return data.rubric_id;
+      }
+      return 0;
+    },
+    getNodeChildren(id) {
+      const res = [];
+      this.allRubrics.forEach((el) => {
+        if (+el.parent_id === +id) {
+          res.push(this.createTreeNode(el));
+        }
+      });
+      return res;
+    },
+    onAddRubricClick() {
+      this.$router.push('/admin/rubric/new');
+    },
+    onEditRubricClick(id) {
+      this.$router.push(`/admin/rubric/${id}`);
+    },
+    onRemoveRubricClick(rubric) {
+      this.removeRubric(rubric);
+    },
   },
 };
 </script>
-
-<style scoped>
-
-</style>

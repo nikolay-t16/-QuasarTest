@@ -89,8 +89,8 @@ export default {
       ],
     };
   },
-  created() {
-    this.getAllProducts();
+  async created() {
+    await this.getAllProducts();
   },
   computed: {
     ...mapGetters('products', ['allProducts']),

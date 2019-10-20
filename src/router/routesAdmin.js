@@ -19,6 +19,16 @@ const route = {
       component: () => import('pages/admin/Catalog.vue'),
     },
     {
+      path: '/admin/rubric/new/',
+      component: () => import('pages/admin/AddRubric.vue'),
+      props: true,
+    },
+    {
+      path: '/admin/rubric/:id',
+      component: () => import('pages/admin/EditRubric.vue'),
+      props: true,
+    },
+    {
       path: '/admin/products/',
       component: () => import('pages/admin/Products.vue'),
     },

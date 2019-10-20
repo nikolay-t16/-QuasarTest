@@ -8,6 +8,7 @@ const KoaRouter = require('koa-router');
 const cors = require('koa2-cors');
 const schema = require('./data/schema');
 const productEntity = require('./data/product/entity');
+const rubricEntity = require('./data/rubric/entity');
 
 createConnection({
   type: 'postgres',
@@ -17,6 +18,7 @@ createConnection({
   database: 'shop',
   entities: [
     productEntity,
+    rubricEntity,
   ],
 }).then(() => {
   const app = new Koa();
