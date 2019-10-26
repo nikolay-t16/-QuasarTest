@@ -47,10 +47,10 @@ export default {
   },
   methods: {
     onAddRubricClick(item) {
-      this.$emit('addRubricClick', item.rubric_id);
+      this.$emit('addRubricClick', item.id);
     },
     onEditRubricClick(item) {
-      this.$emit('editRubricClick', item.rubric_id);
+      this.$emit('editRubricClick', item.id);
     },
     onRemoveRubricClick(item) {
       this.$emit('removeRubricClick', item);

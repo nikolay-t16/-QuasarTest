@@ -46,7 +46,7 @@
 import { mapGetters, mapActions } from 'vuex';
 
 const createDefaultRubric = () => ({
-  rubric_id: 0,
+  id: 0,
   name: '',
   sort: 0,
   parent_id: 0,
@@ -101,12 +101,12 @@ export default {
       let res = [];
       this.allRubrics.forEach((el) => {
         if (+el.parent_id === +id) {
-          const item = { label: pref + el.name, value: el.rubric_id };
-          if (+el.rubric_id === +this.rubric.rubric_id) {
+          const item = { label: pref + el.name, value: el.id };
+          if (+el.id === +this.rubric.id) {
             this.select = item;
           }
           res.push(item);
-          res = res.concat(this.getSubRubrics(el.rubric_id, `${pref}--`));
+          res = res.concat(this.getSubRubrics(el.id, `${pref}--`));
         }
       });
       return res;

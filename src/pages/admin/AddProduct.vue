@@ -24,8 +24,8 @@ export default {
     ...mapActions('products', ['addProduct']),
     async onSubmit(product) {
       const res = await this.addProduct(product);
-      if (res.data.data.ProductAdd.product_id) {
-        this.$router.push(`/admin/product/${res.data.data.ProductAdd.product_id}`);
+      if (res.data.data.ProductAdd.id) {
+        this.$router.push(`/admin/product/${res.data.data.ProductAdd.id}`);
       }
     },
   },

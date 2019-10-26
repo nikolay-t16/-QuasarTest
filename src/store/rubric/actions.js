@@ -4,7 +4,7 @@ export async function getAllRubrics(context) {
   return axios.post('http://localhost:3001/graphql', {
     query: `{
         Rubrics{
-          rubric_id
+          id
           parent_id
           name
           show
@@ -26,8 +26,8 @@ export async function getRubric(context, options) {
       'http://localhost:3001/graphql',
       {
         query: `{
-          Rubric(id:${options.rubric_id}){ 
-            rubric_id
+          Rubric(id:${options.id}){ 
+            id
             parent_id
             name
             show
@@ -47,7 +47,7 @@ export async function removeRubric(context, options) {
     .post(
       'http://localhost:3001/graphql',
       {
-        query: `mutation { RubricDelete (id:${options.rubric_id}) }`,
+        query: `mutation { RubricDelete (id:${options.id}) }`,
       },
     )
     .then(() => context.commit('removeRubric', options))
@@ -82,7 +82,7 @@ export async function editRubric(context, options) {
     .then(
       () => {
         context.commit('editRubric', options);
-        context.dispatch('getRubric', { rubric_id: options.rubric_id });
+        context.dispatch('getRubric', { id: options.id });
       },
     )
     .catch((err) => {
@@ -102,7 +102,7 @@ export async function addRubric(context, options) {
       'http://localhost:3001/graphql',
       {
         query: `mutation RubricAdd($rubric: RubricInput!)  {
-            RubricAdd ( data: $rubric ){ rubric_id}
+            RubricAdd ( data: $rubric ){ id}
         }`,
         variables: {
           rubric: options,

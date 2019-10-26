@@ -19,7 +19,7 @@ export default {
   },
   props: ['id'],
   data() {
-    this.getProduct({ product_id: this.id });
+    this.getProduct({ id: this.id });
     return { };
   },
   computed: {

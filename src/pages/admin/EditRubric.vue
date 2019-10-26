@@ -19,7 +19,7 @@ export default {
   },
   props: ['id'],
   data() {
-    this.getRubric({ rubric_id: this.id });
+    this.getRubric({ id: this.id });
     return { };
   },
   computed: {

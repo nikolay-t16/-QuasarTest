@@ -6,9 +6,11 @@ const {
   GraphQLInt,
   GraphQLBoolean,
   GraphQLID,
+  GraphQLList,
 } = require('graphql');
 
 const { BaseEntity } = require('typeorm');
+const { ProductType } = require('../product/models');
 // схема коллекции
 class Rubric extends BaseEntity {
   constructor(params) {
@@ -26,7 +28,7 @@ class Rubric extends BaseEntity {
   }
 }
 
-Rubric.FIELD_ID = 'rubric_id';
+Rubric.FIELD_ID = 'id';
 Rubric.FIELD_NAME = 'name';
 Rubric.PARENT_ID = 'parent_id';
 Rubric.FIELD_SHOW = 'show';
@@ -39,7 +41,7 @@ module.exports.Rubric = Rubric;
 module.exports.RubricType = new GraphQLObjectType({
   name: 'Rubric',
   fields: {
-    rubric_id: {
+    id: {
       type: new GraphQLNonNull(GraphQLID),
     },
     name: {
@@ -54,13 +56,16 @@ module.exports.RubricType = new GraphQLObjectType({
     sort: {
       type: GraphQLInt,
     },
+    products: {
+      type: new GraphQLList(ProductType),
+    },
   },
 });
 // тип для mutations
 module.exports.RubricInput = new GraphQLInputObjectType({
   name: 'RubricInput',
   fields: {
-    rubric_id: {
+    id: {
       type: new GraphQLNonNull(GraphQLID),
     },
     name: {

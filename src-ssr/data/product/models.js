@@ -26,7 +26,7 @@ class Product extends BaseEntity {
   }
 }
 
-Product.FIELD_ID = 'product_id';
+Product.FIELD_ID = 'id';
 Product.FIELD_NAME = 'name';
 Product.FIELD_PRICE = 'price';
 Product.FIELD_SHOW = 'show';
@@ -39,7 +39,7 @@ module.exports.Product = Product;
 module.exports.ProductType = new GraphQLObjectType({
   name: 'Product',
   fields: {
-    product_id: {
+    id: {
       type: new GraphQLNonNull(GraphQLID),
     },
     name: {
@@ -60,7 +60,7 @@ module.exports.ProductType = new GraphQLObjectType({
 module.exports.ProductInput = new GraphQLInputObjectType({
   name: 'ProductInput',
   fields: {
-    product_id: {
+    id: {
       type: new GraphQLNonNull(GraphQLID),
     },
     name: {

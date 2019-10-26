@@ -40,7 +40,7 @@ const RubricEdit = {
     try {
       await Rubric
         .update(
-          params.data.rubric_id,
+          params.data.id,
           params.data,
         );
     } catch (e) {

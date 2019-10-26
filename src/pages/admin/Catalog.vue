@@ -62,20 +62,20 @@ export default {
       };
     },
     getNodeType(data) {
-      if (data.rubric_id) {
+      if (data.id) {
         return 'rubric';
       }
-      if (data.rubric_id) {
+      if (data.id) {
         return 'rubric';
       }
       return 'root';
     },
     getNodeId(data) {
-      if (data.rubric_id) {
-        return data.rubric_id;
+      if (data.id) {
+        return data.id;
       }
-      if (data.rubric_id) {
-        return data.rubric_id;
+      if (data.id) {
+        return data.id;
       }
       return 0;
     },

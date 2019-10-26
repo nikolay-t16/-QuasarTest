@@ -4,7 +4,7 @@
       v-bind:data="allProducts"
       v-bind:columns=columns
       title="Товары"
-      fieldId="product_id"
+      fieldId="id"
       @rowAction="rowAction"
       @rowEdit="rowEdit"
       @addClick="onAddClick"
@@ -25,7 +25,7 @@ export default {
         {
           name: 'id',
           label: 'Id',
-          field: 'product_id',
+          field: 'id',
           align: 'left',
           sortable: true,
           style: 'width: 40px',
@@ -72,7 +72,7 @@ export default {
           isAction: true,
           icon: 'edit',
           confirm: false,
-          action: item => this.$router.push(`/admin/product/${item.product_id}`),
+          action: item => this.$router.push(`/admin/product/${item.id}`),
         },
         {
           name: 'delete',

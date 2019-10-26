@@ -18,8 +18,8 @@ module.exports.Rubric = {
     },
   },
   // метод, в котором формируется запрос и возвращаются данные (root, params, options)
-  resolve(root, params, options) {
-    return Rubric.findOne(params.id); // возвращаем JSON
+  async resolve(root, params, options) {
+    return Rubric.findOne(params.id, { relations: ['products'] });
   },
 };
 module.exports.Rubrics = {
@@ -27,6 +27,7 @@ module.exports.Rubrics = {
   args: {},
   resolve(root, params, options) {
     return Rubric.find({
+      relations: ['products'],
       order: {
         [Rubric.FIELD_ID]: 'ASC',
       },

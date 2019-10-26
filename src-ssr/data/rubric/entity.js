@@ -1,11 +1,11 @@
-const { EntitySchema } = require('typeorm'); // import {EntitySchema} from "typeorm";
-const { Rubric } = require('./models'); // import {Post} from "../model/Post";
+const { EntitySchema } = require('typeorm'); // import {EntitySchema} from 'typeorm';
+const { Rubric } = require('./models'); // import {Post} from '../model/Post';
 
 module.exports = new EntitySchema({
   name: 'Rubric',
   target: Rubric,
   columns: {
-    rubric_id: {
+    id: {
       primary: true,
       type: 'int',
       generated: true,
@@ -21,6 +21,14 @@ module.exports = new EntitySchema({
     },
     show: {
       type: 'boolean',
+    },
+  },
+  relations: {
+    products: {
+      target: 'Product',
+      type: 'many-to-many',
+      joinTable: true,
+      cascade: true,
     },
   },
 });

@@ -44,7 +44,7 @@
 
 <script>
 const createDefaultProduct = () => ({
-  product_id: 0,
+  id: 0,
   name: '',
   code: '',
   price: 0,

@@ -4,7 +4,7 @@ export async function getAllProducts(context) {
   axios.post('http://localhost:3001/graphql', {
     query: `{
         Products{
-          product_id
+          id
           name
           price
           show
@@ -26,8 +26,8 @@ export async function getProduct(context, options) {
       'http://localhost:3001/graphql',
       {
         query: `{
-          Product(id:${options.product_id}){ 
-            product_id
+          Product(id:${options.id}){ 
+            id
             name
             price
             show
@@ -47,7 +47,7 @@ export async function removeProduct(context, options) {
     .post(
       'http://localhost:3001/graphql',
       {
-        query: `mutation { ProductDelete (id:${options.product_id}) }`,
+        query: `mutation { ProductDelete (id:${options.id}) }`,
       },
     )
     .then(() => context.commit('removeProduct', options))
@@ -83,7 +83,7 @@ export async function editProduct(context, options) {
     .then(
       () => {
         context.commit('editProduct', options);
-        context.dispatch('getProduct', { product_id: options.product_id });
+        context.dispatch('getProduct', { id: options.id });
       },
     )
     .catch((err) => {
@@ -106,7 +106,7 @@ export async function addProduct(context, options) {
       'http://localhost:3001/graphql',
       {
         query: `mutation ProductAdd($product: ProductInput!)  {
-            ProductAdd ( data: $product ){ product_id}
+            ProductAdd ( data: $product ){ id}
         }`,
         variables: {
           product: options,

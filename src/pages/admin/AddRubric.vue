@@ -16,7 +16,7 @@ export default {
   components: {
     RubricForm,
   },
-  props: ['rubric_id'],
+  props: ['id'],
   data() {
     return {};
   },
@@ -24,8 +24,8 @@ export default {
     ...mapActions('rubric', ['addRubric']),
     async onSubmit(rubric) {
       const res = await this.addRubric(rubric);
-      if (res.data.data.RubricAdd.rubric_id) {
-        this.$router.push(`/admin/rubric/${res.data.data.RubricAdd.rubric_id}`);
+      if (res.data.data.RubricAdd.id) {
+        this.$router.push(`/admin/rubric/${res.data.data.RubricAdd.id}`);
       }
     },
   },

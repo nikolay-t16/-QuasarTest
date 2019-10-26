@@ -40,7 +40,7 @@ const ProductEdit = {
     try {
       await Product
         .update(
-          params.data.product_id,
+          params.data.id,
           params.data,
         );
     } catch (e) {

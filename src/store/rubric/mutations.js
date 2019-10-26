@@ -15,7 +15,7 @@ export function removeRubric(state, payload) {
 
 export function editRubric(state, payload) {
   for (let i = 0; i < state.allRubrics.length; i += 1) {
-    if (state.allRubrics[i].rubric_id === payload.id) {
+    if (state.allRubrics[i].id === payload.id) {
       state.allRubrics[i][payload.field] = payload.value;
       return;
     }
