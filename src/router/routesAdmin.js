@@ -29,7 +29,7 @@ const route = {
       props: true,
     },
     {
-      path: '/admin/products/',
+      path: '/admin/product/',
       component: () => import('pages/admin/Products.vue'),
     },
     {

@@ -84,7 +84,7 @@ export default {
           confirmText(item) {
             return `Вы уверены что хотите удалить "${item.name}"?`;
           },
-          action: item => this.$store.dispatch('products/removeProduct', item),
+          action: item => this.$store.dispatch('product/removeProduct', item),
         },
       ],
     };
@@ -93,10 +93,10 @@ export default {
     await this.getAllProducts();
   },
   computed: {
-    ...mapGetters('products', ['allProducts']),
+    ...mapGetters('product', ['allProducts']),
   },
   methods: {
-    ...mapActions('products', ['getAllProducts']),
+    ...mapActions('product', ['getAllProducts']),
     deleteProduct(item) {
       const index = this.data.indexOf(item);
       if (index > -1) {
@@ -107,7 +107,7 @@ export default {
       action(item);
     },
     rowEdit(id, field, value) {
-      this.$store.dispatch('products/editProductField', { id, field, value });
+      this.$store.dispatch('product/editProductField', { id, field, value });
     },
     onAddClick() {
       this.$router.push('/admin/product/new');

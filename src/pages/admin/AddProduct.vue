@@ -21,7 +21,7 @@ export default {
     return {};
   },
   methods: {
-    ...mapActions('products', ['addProduct']),
+    ...mapActions('product', ['addProduct']),
     async onSubmit(product) {
       const res = await this.addProduct(product);
       if (res.data.data.ProductAdd.id) {

@@ -13,20 +13,70 @@
 
       <template v-slot:header-product="prop">
         <div class="row items-center">
-          <q-icon name="local_atm" size="28px"/>
-          {{ prop.node }}
-          <q-icon name="edit" size="20px"/>
-          <q-icon name="close" size="20px"/>
+          <q-icon
+            class="q-tree__icon q-mr-sm"
+            name="local_atm"
+            title="Товар"
+          />
+          <div
+            :class="
+            prop.node.data.show ?
+            '' :
+            'admin-tree_disable'
+            "
+          >
+            {{ prop.node.label }}
+          </div>
+          <q-icon
+            class="admin-tree_clicble"
+            name="edit"
+            size="md"
+            @click="onEditProductClick(prop.node.data)"
+            title="Редактировать"
+          />
+          <q-icon
+            class="admin-tree_clicble"
+            name="close"
+            size="md"
+            @click="onRemoveProductcClick(prop.node.data)"
+            title="Удалить"
+          />
         </div>
       </template>
 
       <template v-slot:header-rubric="prop">
         <div class="row items-center">
-          <q-icon name="list" size="28px"/>
-          {{ prop.node.label }}
-          <q-icon name="add" @click="onAddRubricClick(prop.node.data)" size="20px"/>
-          <q-icon name="edit" @click="onEditRubricClick(prop.node.data)" size="20px"/>
-          <q-icon name="close" @click="onRemoveRubricClick(prop.node.data)" size="20px"/>
+          <q-icon class="q-tree__icon q-mr-sm" name="list" size="lg" title="Рубрика"/>
+          <div
+            :class="
+            prop.node.data.show ?
+            '' :
+            'admin-tree_disable'
+            "
+          >
+            {{ prop.node.label }}
+          </div>
+          <q-icon
+            class="admin-tree_clicble"
+            name="add"
+            @click="onAddRubricClick(prop.node.data)"
+            size="md"
+            title="Добавить рубрику"/>
+          <q-icon
+            class="admin-tree_clicble"
+            name="edit"
+            @click="onEditRubricClick(prop.node.data)"
+            size="md"
+            title="Редактировать"
+          />
+          <q-icon
+            class="admin-tree__clicble"
+            name="close"
+            @click="onRemoveRubricClick(prop.node.data)"
+            size="md"
+            title="Удалить"
+            cli
+          />
         </div>
       </template>
 
@@ -55,6 +105,21 @@ export default {
     onRemoveRubricClick(item) {
       this.$emit('removeRubricClick', item);
     },
+    onEditProductClick(item) {
+      this.$emit('editProductClick', item.id);
+    },
+    onRemoveProductcClick(item) {
+      this.$emit('removeProductcClick', item);
+    },
   },
 };
 </script>
+
+<style>
+  .admin-tree_clicble {
+    cursor: pointer;
+  }
+  .admin-tree_disable {
+    opacity: 0.5;
+  }
+</style>

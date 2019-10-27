@@ -82,7 +82,7 @@ export default {
           label: 'Товары',
           labelCaption: null,
           icon: 'all_inbox',
-          url: '/admin/products/',
+          url: '/admin/product/',
         },
         {
           label: 'Страницы',

@@ -23,10 +23,10 @@ export default {
     return { };
   },
   computed: {
-    ...mapGetters('products', ['product']),
+    ...mapGetters('product', ['product']),
   },
   methods: {
-    ...mapActions('products', ['getProduct', 'editProduct']),
+    ...mapActions('product', ['getProduct', 'editProduct']),
     onSubmit(product) {
       product.price = +product.price;
       this.editProduct(product);

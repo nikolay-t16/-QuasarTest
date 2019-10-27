@@ -5,6 +5,8 @@
       @addRubricClick="onAddRubricClick"
       @editRubricClick="onEditRubricClick"
       @removeRubricClick="onRemoveRubricClick"
+      @editProductClick="onEditProductClick"
+      @removeProductcClick="onRemoveProductcClick"
     >
     </AdminTree>
   </q-page>
@@ -13,6 +15,10 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import AdminTree from '../../components/admin/AdminTree';
+
+const TYPE_ROOT = 'root';
+const TYPE_RUBRIC = 'rubric';
+const TYPE_PRODUCT = 'product';
 
 export default {
   name: 'Catalog',
@@ -24,68 +30,62 @@ export default {
   },
   computed: {
     ...mapGetters('rubric', ['allRubrics']),
+    ...mapGetters('product', ['allProducts']),
     rubricTree() {
-      if (this.allRubrics.length !== 0) {
-        const node = this.createTreeNode({
-          name: 'Каталог',
-        });
-        return [
-          node,
-        ];
-      }
+      const node = this.createTreeNode({
+        name: 'Каталог',
+        id: 0,
+      },
+      TYPE_ROOT);
       return [
-        {
-          label: 'Каталог',
-          header: 'root',
-        },
+        node,
       ];
     },
   },
   async created() {
-    await this.getAllRubrics();
+    await this.getCatalog();
   },
   methods: {
-    ...mapActions('rubric', ['getAllRubrics', 'removeRubric']),
+    ...mapActions('rubric', ['removeRubric']),
+    ...mapActions('product', ['removeProduct']),
+    ...mapActions('catalog', ['getCatalog']),
     deleteRubric(item) {
       const index = this.data.indexOf(item);
       if (index > -1) {
         this.data = this.data.splice(index, 1);
       }
     },
-    createTreeNode(data) {
-      const nodeId = this.getNodeId(data);
+    createTreeNode(data, type) {
+      let icon = '';
+      if (type === TYPE_PRODUCT) { icon = 'local_atm'; }
+      if (type === TYPE_RUBRIC) { icon = 'list'; }
       return {
         data,
+        icon,
         label: data.name,
-        header: this.getNodeType(data),
-        children: this.getNodeChildren(nodeId),
+        header: type,
+        children: type !== TYPE_PRODUCT ? this.getNodeChildren(data) : [],
       };
     },
-    getNodeType(data) {
-      if (data.id) {
-        return 'rubric';
-      }
-      if (data.id) {
-        return 'rubric';
-      }
-      return 'root';
-    },
-    getNodeId(data) {
-      if (data.id) {
-        return data.id;
-      }
-      if (data.id) {
-        return data.id;
-      }
-      return 0;
-    },
-    getNodeChildren(id) {
+    getNodeChildren(data) {
       const res = [];
       this.allRubrics.forEach((el) => {
-        if (+el.parent_id === +id) {
-          res.push(this.createTreeNode(el));
+        if (+el.parent_id === +data.id) {
+          res.push(this.createTreeNode(el, TYPE_RUBRIC));
         }
       });
+
+      if (data.products) {
+        const productsId = [];
+        data.products.forEach((el) => {
+          productsId.push(+el.id);
+        });
+        this.allProducts.forEach((el) => {
+          if (productsId.indexOf(+el.id) >= 0) {
+            res.push(this.createTreeNode(el, TYPE_PRODUCT));
+          }
+        });
+      }
       return res;
     },
     onAddRubricClick() {
@@ -96,6 +96,12 @@ export default {
     },
     onRemoveRubricClick(rubric) {
       this.removeRubric(rubric);
+    },
+    onEditProductClick(id) {
+      this.$router.push(`/admin/product/${id}`);
+    },
+    onRemoveProductcClick(rubric) {
+      this.removeProduct(rubric);
     },
   },
 };

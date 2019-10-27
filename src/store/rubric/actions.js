@@ -9,6 +9,9 @@ export async function getAllRubrics(context) {
           name
           show
           sort
+          products {
+            id
+          }
         }
       }`,
   })
