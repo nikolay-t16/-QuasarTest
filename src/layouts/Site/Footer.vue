@@ -189,8 +189,6 @@
                     <div class="social_wrapper">
                       <div class="social">
                         <div class="social-icons">
-
-                          <noindex>
                             <ul>
                               <li class="vk">
                                 <a href="https://vk.com/confaelshop" target="_blank" rel="nofollow" title="Вконтакте">
@@ -216,7 +214,6 @@
                                   YouTube </a>
                               </li>
                             </ul>
-                          </noindex>
                         </div>
                       </div>
                     </div>
@@ -239,7 +236,3 @@ export default {
   name: 'Footer',
 };
 </script>
-
-<style scoped>
-
-</style>

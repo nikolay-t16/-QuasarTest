@@ -16,30 +16,30 @@ const route = {
     },
     {
       path: '/admin/catalog/',
-      component: () => import('pages/admin/Catalog.vue'),
+      component: () => import('pages/admin/catalog/Catalog.vue'),
     },
     {
       path: '/admin/rubric/new/',
-      component: () => import('pages/admin/AddRubric.vue'),
+      component: () => import('pages/admin/catalog/AddRubric.vue'),
       props: true,
     },
     {
       path: '/admin/rubric/:id',
-      component: () => import('pages/admin/EditRubric.vue'),
+      component: () => import('pages/admin/catalog/EditRubric.vue'),
       props: true,
     },
     {
       path: '/admin/product/',
-      component: () => import('pages/admin/Products.vue'),
+      component: () => import('pages/admin/product/Products.vue'),
     },
     {
       path: '/admin/product/new',
-      component: () => import('pages/admin/AddProduct.vue'),
+      component: () => import('pages/admin/product/AddProduct.vue'),
       props: true,
     },
     {
       path: '/admin/product/:id',
-      component: () => import('pages/admin/EditProduct.vue'),
+      component: () => import('pages/admin/product/EditProduct.vue'),
       props: true,
     },
     {

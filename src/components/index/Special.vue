@@ -2,17 +2,17 @@
   <div class="rr-content maxwidth-theme">
     <div class="tab-title">
       <div class="category-title">
-        <buttons
+        <button
            class="rr-tabLink rrPopularPersonal active"
            id="rrDefaultTab">
           <span>Специально для Вас</span>
-        </buttons>
-        <buttons class="rr-tabLink rrLatest">
+        </button>
+        <button class="rr-tabLink rrLatest">
           <span>Новинки</span>
-        </buttons>
-        <buttons class="rr-tabLink rrSaleByPopular">
+        </button>
+        <button class="rr-tabLink rrSaleByPopular">
           <span>Хиты продаж со скидками</span>
-        </buttons>
+        </button>
       </div>
       <div id="rrPopularPersonal" class="rr-tabContent active">
       <q-carousel

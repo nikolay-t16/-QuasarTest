@@ -10,7 +10,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import RubricForm from '../../components/admin/RubricForm';
+import RubricForm from '../../../components/admin/RubricForm';
 
 export default {
   name: 'EditRubric',

@@ -29,6 +29,7 @@
 
 <script>
 import { openURL } from 'quasar';
+import { mapGetters, mapActions } from 'vuex';
 import Header from './Site/Header';
 import Footer from './Site/Footer';
 
@@ -40,11 +41,19 @@ export default {
       leftDrawerOpen: this.$q.platform.is.desktop,
     };
   },
+  created() {
+    this.getCatalog();
+  },
   methods: {
+    ...mapActions('catalog', ['getCatalog']),
     openURL,
+  },
+  computed: {
+    ...mapGetters('rubric', ['allRubrics']),
+    ...mapGetters('product', ['allProducts']),
   },
 };
 </script>
 
-<style>
-</style>
+
+<style src="../statics/css/style.css"/>

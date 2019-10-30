@@ -14,7 +14,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import AdminTable from '../../components/admin/AdminTable';
+import AdminTable from '../../../components/admin/AdminTable';
 
 export default {
   name: 'Products',

@@ -10,7 +10,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import ProductForm from '../../components/admin/ProductForm';
+import ProductForm from '../../../components/admin/ProductForm';
 
 export default {
   name: 'EditProduct',

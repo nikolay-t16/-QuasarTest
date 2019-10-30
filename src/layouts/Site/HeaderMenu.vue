@@ -2,153 +2,203 @@
   <div class="menu-only">
     <nav class="mega-menu sliced ovisible initied">
       <div class="table-menu index__table-menu">
-        <table>
-          <tbody>
-          <tr>
-            <td
-              class="menu-item dropdown catalog wide_menu"
-              style="visibility: visible;">
-              <div class="wrap">
-                <a class="dropdown-toggle" href="/catalog/">
-                  <div>
-                    Каталог
-                    <div class="line-wrapper">
-                      <span class="line"></span></div>
-                  </div>
-                </a>
-                <div class="index-menu__layout">
-                  <div class="index-menu__layout-wrap">
-                    <div class="index-menu__column">
-                      <ul class="first-level__list">
-                        <li class="dropdown-submenu  has_img">
-                          <a data-id="0" href="" title="Кому">
-                            <span class="name">Кому</span>
-                            <span class="arrow"><i></i></span>
-                          </a>
-                        </li>
-                        <li class="dropdown-submenu  has_img">
-                          <a data-id="0" href="" title="Кому">
-                            <span class="name">Кому</span>
-                            <span class="arrow"><i></i></span>
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="index-menu__column">
-                      <ul class="first-level__list">
-                        <li class="dropdown-submenu  has_img">
-                          <a data-id="0" href="" title="Кому">
-                            <span class="name">Кому</span>
-                            <span class="arrow"><i></i></span>
-                          </a>
-                        </li>
-                        <li class="dropdown-submenu  has_img">
-                          <a data-id="0" href="" title="Кому">
-                            <span class="name">Кому</span>
-                            <span class="arrow"><i></i></span>
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
+        <div class="menu-item dropdown catalog wide_menu">
+          <div class="wrap">
+            <a @mouseover="onSelectMenu" class="dropdown-toggle" href="/catalog/">
+              <div>
+                Каталог
+                <div class="line-wrapper">
+                  <span class="line"></span></div>
+              </div>
+              <q-icon name="expand_more" size="md"/>
+            </a>
+            <div class="index-menu__layout">
+              <div class="index-menu__layout-wrap">
+                <div class="index-menu__column"
+                     v-if="rubricTree && rubricTree[0].children.length > 0"
+                >
+                  <ul class="first-level__list">
+                    <li
+                            v-for="(item, index) in rubricTree[0].children"
+                            v-bind:key="item.id"
+                            value=""
+                            class="dropdown-submenu has_img"
+                    >
+                      <a
+                              @mouseover="onSelectMenuItem(item, 0)"
+                              :data-id="index"
+                              href=""
+                      >
+                        <span class="name">{{item.label}}</span>
+                        <q-icon
+                                class="header-menu__icon-more"
+                                name="keyboard_arrow_right"
+                                size="xs"
+                        />
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="index-menu__column"
+                     v-if="subMenu1.length > 0"
+                >
+                  <ul class="second-level__list">
+                    <li class="menu-item ">
+                      <a
+                              href="javascript:;"
+                      >
+                        <span class="name">Смотреть весь раздел</span>
+                      </a>
+                    </li>
+                    <li
+                            v-for="(item, index) in subMenu1"
+                            v-bind:key="item.id"
+                            class="dropdown-submenu has_img"
+                    >
+                      <a
+                              :data-id="index"
+                              href=""
+                              @mouseover="onSelectMenuItem(item, 1)"
+                      >
+                        <span class="name">{{item.label}}</span>
+                        <q-icon
+                                class="header-menu__icon-more"
+                                name="keyboard_arrow_right"
+                                size="xs"
+                        />
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="index-menu__column"
+                     v-if="subMenu2.length > 0"
+                >
+                  <ul class="second-level__list">
+                    <li class="menu-item ">
+                      <a
+                              href="javascript:;"
+                      >
+                        <span class="name">Смотреть весь раздел</span>
+                      </a>
+                    </li>
+                    <li
+                            v-for="(item, index) in subMenu2"
+                            v-bind:key="item.id"
+                            class="dropdown-submenu has_img"
+                    >
+                      <a
+                              :data-id="index"
+                              href=""
+                      >
+                        <span class="name">{{item.label}}</span>
+                        <q-icon
+                                class="header-menu__icon-more"
+                                name="keyboard_arrow_right"
+                                size="xs"
+                        />
+                      </a>
+                    </li>
+                  </ul>
                 </div>
               </div>
-            </td>
-            <td class="menu-item" style="visibility: visible;">
-              <div class="wrap">
-                <a class="" href="/individual/">
-                  <div>
-                    Индивидуальные подарки
-                    <div class="line-wrapper">
-                      <span class="line"></span>
-                    </div>
-                  </div>
-                </a>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="wrap">
+            <a class="" href="/individual/">
+              <div>
+                Доставка и оплата
+                <div class="line-wrapper">
+                  <span class="line"></span></div>
               </div>
-            </td>
-            <td class="menu-item" style="visibility: visible;"></td>
-            <td class="menu-item" style="visibility: visible;"></td>
-            <td class="menu-item" style="visibility: visible;"></td>
-            <td class="menu-item" style="visibility: visible;">
-              <div class="wrap">
-                <a class="" href="/individual/">
-                  <div>
-                    Индивидуальные подарки
-                    <div class="line-wrapper">
-                      <span class="line"></span></div>
-                  </div>
-                </a>
+            </a>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="wrap">
+            <a class="" href="/individual/">
+              <div>
+                Контакты
+                <div class="line-wrapper">
+                  <span class="line"></span></div>
               </div>
-            </td>
-            <td class="menu-item" style="visibility: visible;">
-              <div class="wrap">
-                <a class="" href="/gift-cards/">
-                  <div>
-                    Подарочные карты
-                    <div class="line-wrapper">
-                      <span class="line"></span></div>
-                  </div>
-                </a>
-              </div>
-            </td>
-            <td class="menu-item" style="visibility: visible;">
-              <div class="wrap">
-                <a class="" href="/sale/">
-                  <div>
-                    Акции
-                    <div class="line-wrapper">
-                      <span class="line"></span></div>
-                  </div>
-                </a>
-              </div>
-            </td>
-            <td class="menu-item" style="visibility: visible;">
-              <div class="wrap">
-                <a class="" href="/blog/">
-                  <div>
-                    Блог
-                    <div class="line-wrapper">
-                      <span class="line"></span></div>
-                  </div>
-                </a>
-              </div>
-            </td>
-            <td class="menu-item" style="visibility: visible;">
-              <div class="wrap">
-                <a class="" href="/delivery/">
-                  <div>
-                    Доставка и оплата
-                    <div class="line-wrapper">
-                      <span class="line"></span></div>
-                  </div>
-                </a>
-              </div>
-            </td>
-            <td class="menu-item" style="visibility: visible;">
-              <div class="wrap">
-                <a class="" href="/boutiques/">
-                  <div>
-                    Адреса бутиков
-                    <div class="line-wrapper">
-                      <span class="line"></span></div>
-                  </div>
-                </a>
-              </div>
-            </td>
-          </tr>
-          </tbody>
-        </table>
+            </a>
+          </div>
+        </div>
       </div>
     </nav>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import { createTree } from '../../helpers/Catalog';
+
 export default {
   name: 'HeaderMenu',
+  data() {
+    return {
+      selectItem1: null,
+      selectItem2: null,
+      subMenu1: [],
+      subMenu2: [],
+      menuItems: [
+        { label: 'Доставка и оплата', url: '' },
+        { label: 'Контакты', url: '' },
+      ],
+    };
+  },
+  computed: {
+    ...mapGetters('rubric', ['allRubrics']),
+    rubricTree() {
+      return createTree(this.allRubrics);
+    },
+  },
+  methods: {
+    onSelectMenu() {
+      this.subMenu1 = [];
+      this.subMenu2 = [];
+    },
+    onSelectMenuItem(item, level) {
+      if (level === 0) {
+        this.selectItem1 = item;
+        this.subMenu1 = item.children;
+        this.subMenu2 = [];
+      } else {
+        this.selectItem2 = item;
+        this.subMenu2 = item.children;
+      }
+    },
+    showSubMenu(level) {
+      return this.subMenu[level] && this.subMenu[level].length > 0;
+    },
+  },
 };
 </script>
 
-<style scoped>
-
+<style>
+  .dropdown-toggle .q-icon {
+    float: right;
+    margin-top: 1px;
+    position: relative;
+    left: 28px;
+  }
+  .index-menu__column  .q-icon{
+    right: 13px;
+    position: absolute;
+    top: 16px;
+  }
+  .index__table-menu {
+    display: flex;
+  }
+  .index-menu__column ul li{
+    padding-left: 0px;
+  }
+  .catalog.wide_menu {
+    margin-right: -1px;
+  }
+  .menu-row.middle-block:not(.bglight) .mega-menu .catalog.wide_menu .wrap>a {
+    border-left: 1px solid rgba(255,255,255,.15);
+  }
 </style>
