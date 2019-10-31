@@ -132,8 +132,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import { createTree } from '../../helpers/Catalog';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   name: 'HeaderMenu',
@@ -150,10 +149,8 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('rubric', ['allRubrics']),
-    rubricTree() {
-      return createTree(this.allRubrics);
-    },
+    ...mapState('catalog', ['TYPE_RUBRIC']),
+    ...mapGetters('catalog', ['rubricTree']),
   },
   methods: {
     onSelectMenu() {

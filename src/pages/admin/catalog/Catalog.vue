@@ -1,7 +1,7 @@
 <template>
   <q-page class="flex">
     <AdminTree
-      v-bind:simple=rubricTree
+      v-bind:simple=catalogTree
       @addRubricClick="onAddRubricClick"
       @editRubricClick="onEditRubricClick"
       @removeRubricClick="onRemoveRubricClick"
@@ -15,9 +15,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import AdminTree from '../../../components/admin/AdminTree';
-import { TYPE_ROOT, createTree } from '../../../helpers/Catalog';
 
-console.log(TYPE_ROOT);
 export default {
   name: 'Catalog',
   components: { AdminTree },
@@ -27,11 +25,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('rubric', ['allRubrics']),
-    ...mapGetters('product', ['allProducts']),
-    rubricTree() {
-      return createTree(this.allRubrics, this.allProducts);
-    },
+    ...mapGetters('catalog', ['catalogTree']),
   },
   async created() {
     await this.getCatalog();
