@@ -6,7 +6,11 @@
       </div>
       <div class="list items">
         <div class="row margin0 flexbox">
-          <IndexCatalogItem></IndexCatalogItem>
+          <IndexCatalogItem
+            v-for="(item, index) in rootRubrics"
+            v-bind:key="index"
+            :data="item"
+          />
           <IndexCatalogItem></IndexCatalogItem>
         </div>
       </div>
@@ -15,14 +19,15 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import IndexCatalogItem from './IndexCatalogItem';
+
 
 export default {
   name: 'Catalog',
   components: { IndexCatalogItem },
+  computed: {
+    ...mapGetters('catalog', ['rootRubrics']),
+  },
 };
 </script>
-
-<style scoped>
-
-</style>

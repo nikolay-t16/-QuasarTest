@@ -8,12 +8,12 @@
                   :src="'https://confaelshop.ru/upload/ammina.optimizer/jpg-webp/q80/'
                     + 'upload/resize_cache/iblock/98c/120_120_2/'
                     + '98ce17a7639202f3cf6f029f8d3537e4.webp'"
-                  alt="Подарки для взрослых" title="Подарки для взрослых">
+                  :alt="data.name" :title="data.name">
         </div>
       </a>
       <div class="name">
         <a href="/catalog/komu/shokolad-dlya-vzroslykh/" class="dark_link">
-          Подарки для взрослых
+          {{ data.label }}
         </a>
       </div>
     </div>
@@ -23,9 +23,6 @@
 <script>
 export default {
   name: 'IndexCatalogItem',
+  props: ['data'],
 };
 </script>
-
-<style scoped>
-
-</style>

@@ -52,3 +52,7 @@ export function getNodeChildren(node, rubrics, products, _createTreeNode = creat
 export const rubricTree = (state, getters, rootState, rootGetters) => createTree(rootGetters['rubric/allRubrics']);
 
 export const catalogTree = (state, getters, rootState, rootGetters) => createTree(rootGetters['rubric/allRubrics'], rootGetters['product/allProducts']);
+
+export function rootRubrics(state, getters) {
+  return getters.rubricTree[0].children;
+}

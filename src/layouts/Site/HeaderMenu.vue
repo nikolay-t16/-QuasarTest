@@ -62,6 +62,7 @@
                       >
                         <span class="name">{{item.label}}</span>
                         <q-icon
+                                v-if="item.children.length>0"
                                 class="header-menu__icon-more"
                                 name="keyboard_arrow_right"
                                 size="xs"
@@ -91,11 +92,6 @@
                               href=""
                       >
                         <span class="name">{{item.label}}</span>
-                        <q-icon
-                                class="header-menu__icon-more"
-                                name="keyboard_arrow_right"
-                                size="xs"
-                        />
                       </a>
                     </li>
                   </ul>
