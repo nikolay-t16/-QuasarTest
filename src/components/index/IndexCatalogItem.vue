@@ -8,7 +8,7 @@
                   :src="'https://confaelshop.ru/upload/ammina.optimizer/jpg-webp/q80/'
                     + 'upload/resize_cache/iblock/98c/120_120_2/'
                     + '98ce17a7639202f3cf6f029f8d3537e4.webp'"
-                  :alt="data.name" :title="data.name">
+                  :alt="data.label" :title="data.label">
         </div>
       </a>
       <div class="name">
@@ -23,6 +23,11 @@
 <script>
 export default {
   name: 'IndexCatalogItem',
-  props: ['data'],
+  props: {
+    data: {
+      type: Object,
+      default: () => {},
+    },
+  },
 };
 </script>

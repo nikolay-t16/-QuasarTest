@@ -1,6 +1,7 @@
 <template>
-  <div class="q-pa-md">
-    <q-carousel
+  <div class="top_slider_wrapp maxwidth-banner">
+    <div class="flexslider">
+      <q-carousel
             animated
             v-model="slide"
             arrows
@@ -8,6 +9,7 @@
             infinite
     >
       <q-carousel-slide
+              class="slides"
               :name="1"
               :img-src="
                 'https://confaelshop.ru/upload/ammina.optimizer/' +
@@ -44,10 +46,11 @@
           </table>
         </div>
       </q-carousel-slide>
-      <q-carousel-slide :name="2" img-src="https://cdn.quasar.dev/img/parallax1.jpg" />
-      <q-carousel-slide :name="3" img-src="https://cdn.quasar.dev/img/parallax2.jpg" />
-      <q-carousel-slide :name="4" img-src="https://cdn.quasar.dev/img/quasar.jpg" />
+      <q-carousel-slide class="slides" :name="2" img-src="https://cdn.quasar.dev/img/parallax1.jpg" />
+      <q-carousel-slide class="slides" :name="3" img-src="https://cdn.quasar.dev/img/parallax2.jpg" />
+      <q-carousel-slide class="slides" :name="4" img-src="https://cdn.quasar.dev/img/quasar.jpg" />
     </q-carousel>
+    </div>
   </div>
 </template>
 
@@ -61,3 +64,9 @@ export default {
   },
 };
 </script>
+
+<style>
+  .flexslider {
+    color: white;
+  }
+</style>

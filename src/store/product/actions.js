@@ -3,13 +3,7 @@ const axios = require('axios');
 export async function getAllProducts(context) {
   axios.post('http://localhost:3001/graphql', {
     query: `{
-        Products{
-          id
-          name
-          price
-          show
-          code
-        }
+        Products{ ${context.state.listFields.join(' ')} } 
       }`,
   })
     .then((res) => {
@@ -26,13 +20,7 @@ export async function getProduct(context, options) {
       'http://localhost:3001/graphql',
       {
         query: `{
-          Product(id:${options.id}){ 
-            id
-            name
-            price
-            show
-            code
-          } 
+          Product(id:${options.id}){ ${context.state.allFields.join(' ')} } 
         }`,
       },
     )

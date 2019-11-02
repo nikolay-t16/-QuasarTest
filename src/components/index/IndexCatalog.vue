@@ -11,7 +11,6 @@
             v-bind:key="index"
             :data="item"
           />
-          <IndexCatalogItem></IndexCatalogItem>
         </div>
       </div>
     </div>

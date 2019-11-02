@@ -13,13 +13,7 @@ export async function getCatalog(context) {
             id
           }
         }
-         Products{ 
-            id
-            name
-            price
-            show
-            code
-          } 
+         Products{ ${context.rootGetters['product/listFields'].join(' ')} } 
       }`,
   })
     .then((res) => {

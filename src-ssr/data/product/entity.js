@@ -22,5 +22,11 @@ module.exports = new EntitySchema({
     show: {
       type: 'boolean',
     },
+    isNew: {
+      type: 'boolean',
+    },
+    isHit: {
+      type: 'boolean',
+    },
   },
 });

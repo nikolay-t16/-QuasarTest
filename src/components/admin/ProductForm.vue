@@ -29,7 +29,11 @@
                 @change="onPriceChange"
                 label="Цена"
         />
-        <q-toggle v-model="product.show" label="Активен" />
+        <div class="d-flex column">
+          <q-toggle v-model="product.show" label="Активен" />
+          <q-toggle v-model="product.isNew" label="Новинка" />
+          <q-toggle v-model="product.isHit" label="Хит продаж" />
+        </div>
         <div v-if="data">
           <q-btn label="Сохранить" type="submit" color="primary"/>
           <q-btn label="Отменить" type="reset" color="primary" flat class="q-ml-sm" />
@@ -43,12 +47,15 @@
 </template>
 
 <script>
+
 const createDefaultProduct = () => ({
   id: 0,
   name: '',
   code: '',
   price: 0,
   show: false,
+  isHit: false,
+  isNew: false,
 });
 
 export default {

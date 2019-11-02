@@ -2,53 +2,56 @@
   <div class="rr-content maxwidth-theme">
     <div class="tab-title">
       <div class="category-title">
-        <button
-           class="rr-tabLink rrPopularPersonal active"
-           id="rrDefaultTab">
-          <span>Специально для Вас</span>
-        </button>
-        <button class="rr-tabLink rrLatest">
+        <div @click="selectTab(CATEGORY_NEW)" :class="getTabTittleClass(CATEGORY_NEW)">
           <span>Новинки</span>
-        </button>
-        <button class="rr-tabLink rrSaleByPopular">
+        </div>
+        <div @click="selectTab(CATEGORY_HIT)" :class="getTabTittleClass(CATEGORY_HIT)">
           <span>Хиты продаж со скидками</span>
-        </button>
+        </div>
       </div>
-      <div id="rrPopularPersonal" class="rr-tabContent active">
-      <q-carousel
-              animated
-              v-model="slide"
-              arrows
-              navigation
-              infinite
-      >
-        <q-carousel-slide :name="1">
-          <ProductListItem></ProductListItem>
-        </q-carousel-slide>
-
-
-      </q-carousel>
     </div>
-    </div>
-
+    <SpecialCategory :data="newProducts" v-if="activeCategory === CATEGORY_NEW"/>
+    <SpecialCategory :data="hitProducts" v-if="activeCategory === CATEGORY_HIT"/>
   </div>
 </template>
 
 <script>
-import ProductListItem from '../product/ProductListItem';
+import { mapGetters } from 'vuex';
+import SpecialCategory from './SpecialCategory';
 
+const CATEGORY_NEW = 'new';
+const CATEGORY_HIT = 'hit';
 export default {
   name: 'Special',
-  components: { ProductListItem },
+  components: { SpecialCategory },
   data() {
     return {
+      CATEGORY_NEW,
+      CATEGORY_HIT,
+      activeCategory: CATEGORY_NEW,
       slide: 1,
     };
+  },
+  methods: {
+    getTabTittleClass(type) {
+      return type === this.activeCategory ? 'rr-tabLink active' : 'rr-tabLink';
+    },
+    selectTab(type) {
+      this.activeCategory = type;
+    },
+  },
+  computed: {
+    ...mapGetters('product', ['newProducts', 'hitProducts']),
   },
 };
 </script>
 
 <style>
+  .category-title {
+    display: flex;
+    cursor: pointer;
+  }
+
   .rr-tabContent {
     height: 0;
     visibility: hidden;

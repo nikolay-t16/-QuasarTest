@@ -44,6 +44,7 @@ const ProductEdit = {
           params.data,
         );
     } catch (e) {
+      console.log(e);
       throw new Error('Error edding Product');
     }
     return true;
