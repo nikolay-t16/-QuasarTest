@@ -27,9 +27,11 @@ export default {
   },
   methods: {
     ...mapActions('product', ['getProduct', 'editProduct']),
-    onSubmit(product) {
+    onSubmit(product, saveAndExit) {
       product.price = +product.price;
-      this.editProduct(product);
+      if (this.editProduct(product) && saveAndExit) {
+        this.$router.go(-1);
+      }
     },
   },
 };

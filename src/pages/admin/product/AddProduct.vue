@@ -22,10 +22,14 @@ export default {
   },
   methods: {
     ...mapActions('product', ['addProduct']),
-    async onSubmit(product) {
+    async onSubmit(product, saveAndExit) {
       const res = await this.addProduct(product);
       if (res.data.data.ProductAdd.id) {
-        this.$router.push(`/admin/product/${res.data.data.ProductAdd.id}`);
+        if (saveAndExit) {
+          this.$router.go(-1);
+        } else {
+          this.$router.push(`/admin/product/${res.data.data.ProductAdd.id}`);
+        }
       }
     },
   },
