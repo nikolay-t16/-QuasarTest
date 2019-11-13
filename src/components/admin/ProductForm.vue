@@ -36,6 +36,13 @@
         </div>
         <div v-if="data">
           <q-btn label="Сохранить" type="submit" color="primary"/>
+          <q-btn
+            class="q-ml-sm"
+            label="Сохранить и выйти"
+            type="submit"
+            color="primary"
+            @click="onClickSaveAndExit"
+          />
           <q-btn label="Отменить" type="reset" color="primary" flat class="q-ml-sm" />
         </div>
         <div v-else>
@@ -63,6 +70,7 @@ export default {
   data() {
     return {
       product: createDefaultProduct(),
+      saveAndExit: false,
     };
   },
   computed: {
@@ -85,7 +93,8 @@ export default {
   methods: {
     onSubmit() {
       this.product.price = parseFloat(this.product.price).toFixed(2);
-      this.$emit('submit', this.product);
+      this.$emit('submit', this.product, this.saveAndExit);
+      this.saveAndExit = false;
     },
     onReset() {
       this.product = createDefaultProduct();
@@ -93,6 +102,9 @@ export default {
     },
     onPriceChange(e) {
       this.product.price = e.target.value ? parseFloat(e.target.value).toFixed(2) : 0;
+    },
+    onClickSaveAndExit() {
+      this.saveAndExit = true;
     },
   },
 
