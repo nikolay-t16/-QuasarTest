@@ -16,7 +16,6 @@ export default {
   components: {
     ProductForm,
   },
-  props: ['id'],
   data() {
     return {};
   },
@@ -24,8 +23,8 @@ export default {
     ...mapActions('product', ['addProduct']),
     async onSubmit(product) {
       const res = await this.addProduct(product);
-      if (res.data.data.ProductAdd.id) {
-        this.$router.push(`/admin/product/${res.data.data.ProductAdd.id}`);
+      if (res.data.data.ProductAdd.productId) {
+        this.$router.push(`/admin/product/${res.data.data.ProductAdd.productId}`);
       }
     },
   },

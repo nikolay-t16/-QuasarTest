@@ -1,6 +1,6 @@
 <template>
   <q-page class="flex">
-    <AdminTree
+    <admin-tree
       v-bind:simple=catalogTree
       @addRubricClick="onAddRubricClick"
       @editRubricClick="onEditRubricClick"
@@ -8,7 +8,7 @@
       @editProductClick="onEditProductClick"
       @removeProductcClick="onRemoveProductcClick"
     >
-    </AdminTree>
+    </admin-tree>
   </q-page>
 </template>
 

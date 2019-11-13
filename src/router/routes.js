@@ -8,6 +8,13 @@ const routes = [
       { path: '', component: () => import('pages/Index.vue') },
     ],
   },
+  {
+    path: '/catalog',
+    component: () => import('layouts/Site.vue'),
+    children: [
+      { path: '', component: () => import('pages/Catalog.vue') },
+    ],
+  },
   admin,
 ];
 

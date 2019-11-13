@@ -1,14 +1,14 @@
 <template>
   <q-page class="flex justify-center">
-    <AdminTable
+    <admin-table
       v-bind:data="allProducts"
       v-bind:columns=columns
       title="Товары"
-      fieldId="id"
+      fieldId="productId"
       @rowAction="rowAction"
       @rowEdit="rowEdit"
       @addClick="onAddClick"
-    ></AdminTable>
+    ></admin-table>
   </q-page>
 </template>
 
@@ -25,7 +25,7 @@ export default {
         {
           name: 'id',
           label: 'Id',
-          field: 'id',
+          field: 'productId',
           align: 'left',
           sortable: true,
           style: 'width: 40px',
@@ -90,7 +90,7 @@ export default {
           isAction: true,
           icon: 'edit',
           confirm: false,
-          action: item => this.$router.push(`/admin/product/${item.id}`),
+          action: item => this.$router.push(`/admin/product/${item.productId}`),
         },
         {
           name: 'delete',
@@ -114,7 +114,7 @@ export default {
     ...mapGetters('product', ['allProducts']),
   },
   methods: {
-    ...mapActions('product', ['getAllProducts']),
+    ...mapActions('product', ['getAllProducts', 'removeProduct', 'editProductField']),
     deleteProduct(item) {
       const index = this.data.indexOf(item);
       if (index > -1) {
@@ -125,7 +125,7 @@ export default {
       action(item);
     },
     rowEdit(id, field, value) {
-      this.$store.dispatch('product/editProductField', { id, field, value });
+      this.editProductField({ id, field, value });
     },
     onAddClick() {
       this.$router.push('/admin/product/new');

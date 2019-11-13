@@ -1,16 +1,14 @@
 const axios = require('axios');
 
 export async function getCatalog(context) {
+  console.log('getCatalog');
+  console.log(context.rootGetters);
   return axios.post('http://localhost:3001/graphql', {
     query: `{
         Rubrics{
-          id
-          parent_id
-          name
-          show
-          sort
+          ${context.rootGetters['rubric/listFields'].join(' ')}
           products {
-            id
+            productId
           }
         }
          Products{ ${context.rootGetters['product/listFields'].join(' ')} } 

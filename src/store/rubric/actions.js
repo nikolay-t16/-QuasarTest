@@ -4,13 +4,9 @@ export async function getAllRubrics(context) {
   return axios.post('http://localhost:3001/graphql', {
     query: `{
         Rubrics{
-          id
-          parent_id
-          name
-          show
-          sort
+          ${context.state.listFields.join(' ')}
           products {
-            id
+            productId
           }
         }
       }`,
@@ -30,11 +26,7 @@ export async function getRubric(context, options) {
       {
         query: `{
           Rubric(id:${options.id}){ 
-            id
-            parent_id
-            name
-            show
-            sort
+            ${context.state.allFields.join(' ')}
           } 
         }`,
       },
@@ -57,18 +49,6 @@ export async function removeRubric(context, options) {
     .catch(err => console.log(err));
 }
 
-export async function editRubricField(context, options) {
-  axios
-    .post(
-      'http://localhost:3001/graphql',
-      {
-        query: `mutation { RubricEditField (id:${options.id}, field: "${options.field}", value: "${options.value}") }`,
-      },
-    )
-    .then(() => context.commit('editRubric', options))
-    .catch(err => console.log(err));
-}
-
 export async function editRubric(context, options) {
   const res = axios
     .post(
@@ -85,16 +65,13 @@ export async function editRubric(context, options) {
     .then(
       () => {
         context.commit('editRubric', options);
-        context.dispatch('getRubric', { id: options.id });
+        context.dispatch('getRubric', { id: options.rubricId });
       },
     )
-    .catch((err) => {
-      console.log(err);
-      return {
-        result: false,
-        error: err,
-      };
-    });
+    .catch(err => ({
+      result: false,
+      error: err,
+    }));
   return res;
 }
 

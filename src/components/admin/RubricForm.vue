@@ -38,6 +38,8 @@
           <q-btn label="Добавить" type="submit" color="primary"/>
         </div>
       </q-form>
+      {{select}}
+      {{rubric}}
     </q-card-section>
   </q-card>
 </template>
@@ -46,10 +48,9 @@
 import { mapGetters, mapActions } from 'vuex';
 
 const createDefaultRubric = () => ({
-  id: 0,
   name: '',
   sort: 0,
-  parent_id: 0,
+  parentId: 0,
   show: false,
 });
 
@@ -58,7 +59,7 @@ export default {
   props: ['data'],
   data() {
     return {
-      select: null,
+      select: {},
       rubric: createDefaultRubric(),
     };
   },
@@ -66,13 +67,14 @@ export default {
     await this.getAllRubrics();
   },
   computed: {
-    ...mapGetters('rubric', ['allRubrics']),
+    ...mapGetters('rubric', ['allRubrics', '[allFields']),
+    ...mapGetters('catalog', ['rubricTree']),
     title() {
       if (this.data) return `Редактирование рубрики - ${this.rubric.name}`;
       return 'Добавить рубрику';
     },
     selectOptions() {
-      return this.getSubRubrics(0);
+      return this.getSubRubrics(this.rubricTree[0]);
     },
   },
   watch: {
@@ -90,23 +92,27 @@ export default {
     ...mapActions('rubric', ['getAllRubrics']),
     onSubmit() {
       this.rubric.sort = +this.rubric.sort;
-      this.rubric.parent_id = +this.select.value;
+      this.rubric.parentId = this.select.value ? +this.select.value : 0;
       this.$emit('submit', this.rubric);
     },
     onReset() {
       this.rubric = createDefaultRubric();
       Object.assign(this.rubric, this.data);
     },
-    getSubRubrics(id, pref = '') {
-      let res = [];
-      this.allRubrics.forEach((el) => {
-        if (+el.parent_id === +id) {
-          const item = { label: pref + el.name, value: el.id };
-          if (+el.id === +this.rubric.id) {
-            this.select = item;
-          }
-          res.push(item);
-          res = res.concat(this.getSubRubrics(el.id, `${pref}--`));
+    getSubRubrics(root, pref = '') {
+      const res = [];
+      root.children.forEach((el) => {
+        const selectItem = {
+          label: pref + el.label,
+          value: el.data[this.allFields.FIELD_ID],
+        };
+        if (+el.data[this.allFields.FIELD_ID] === +this.rubric[this.allFields.FIELD_PARENT_ID]) {
+          this.select = selectItem;
+        }
+        res.push(selectItem);
+        const children = this.getSubRubrics(el, `${pref}__`);
+        if (children.length > 0) {
+          res.push(...this.getSubRubrics(el, `${pref}__`));
         }
       });
       return res;

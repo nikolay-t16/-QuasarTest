@@ -19,8 +19,10 @@ export default {
   },
   props: ['id'],
   data() {
-    this.getRubric({ id: this.id });
     return { };
+  },
+  created() {
+    this.getRubric({ id: this.id });
   },
   computed: {
     ...mapGetters('rubric', ['rubric']),

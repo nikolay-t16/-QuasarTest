@@ -89,6 +89,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'AdminTree',
   props: ['simple'],
@@ -97,20 +99,24 @@ export default {
   },
   methods: {
     onAddRubricClick(item) {
-      this.$emit('addRubricClick', item.id);
+      this.$emit('addRubricClick', item[this.allRubricFields.FIELD_ID]);
     },
     onEditRubricClick(item) {
-      this.$emit('editRubricClick', item.id);
+      this.$emit('editRubricClick', item[this.allRubricFields.FIELD_ID]);
     },
     onRemoveRubricClick(item) {
       this.$emit('removeRubricClick', item);
     },
     onEditProductClick(item) {
-      this.$emit('editProductClick', item.id);
+      this.$emit('editProductClick', item[this.allProductFields.FIELD_ID]);
     },
     onRemoveProductcClick(item) {
       this.$emit('removeProductcClick', item);
     },
+  },
+  computed: {
+    ...mapGetters('rubric', { allRubricFields: 'allFields' }),
+    ...mapGetters('product', { allProductFields: 'allFields' }),
   },
 };
 </script>

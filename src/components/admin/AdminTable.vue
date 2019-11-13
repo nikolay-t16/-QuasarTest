@@ -10,7 +10,7 @@
         title="Товары"
         :data="items"
         :columns="columns"
-        row-key="id"
+        row-key="productId"
       >
         <template v-slot:top="props">
           <div class="col-2 q-table__title">{{ title }}</div>

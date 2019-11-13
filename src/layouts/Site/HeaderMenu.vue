@@ -19,23 +19,21 @@
                 >
                   <ul class="first-level__list">
                     <li
-                            v-for="(item, index) in rubricTree[0].children"
+                            v-for="(item) in rubricTree[0].children"
                             v-bind:key="item.id"
                             value=""
                             class="dropdown-submenu has_img"
+                            @mouseover="onSelectMenuItem(item, 0)"
                     >
-                      <a
-                              @mouseover="onSelectMenuItem(item, 0)"
-                              :data-id="index"
-                              href=""
-                      >
+                      <router-link to="/catalog/">
                         <span class="name">{{item.label}}</span>
                         <q-icon
-                                class="header-menu__icon-more"
-                                name="keyboard_arrow_right"
-                                size="xs"
+                          v-if="item.children.length>0"
+                          class="header-menu__icon-more"
+                          name="keyboard_arrow_right"
+                          size="xs"
                         />
-                      </a>
+                      </router-link>
                     </li>
                   </ul>
                 </div>
@@ -44,22 +42,17 @@
                 >
                   <ul class="second-level__list">
                     <li class="menu-item ">
-                      <a
-                              href="javascript:;"
-                      >
+                      <router-link to="/catalog/">
                         <span class="name">Смотреть весь раздел</span>
-                      </a>
+                      </router-link>
                     </li>
                     <li
-                            v-for="(item, index) in subMenu1"
+                            v-for="(item) in subMenu1"
                             v-bind:key="item.id"
+                            @mouseover="onSelectMenuItem(item, 1)"
                             class="dropdown-submenu has_img"
                     >
-                      <a
-                              :data-id="index"
-                              href=""
-                              @mouseover="onSelectMenuItem(item, 1)"
-                      >
+                      <router-link to="/catalog/">
                         <span class="name">{{item.label}}</span>
                         <q-icon
                                 v-if="item.children.length>0"
@@ -67,7 +60,7 @@
                                 name="keyboard_arrow_right"
                                 size="xs"
                         />
-                      </a>
+                      </router-link>
                     </li>
                   </ul>
                 </div>
@@ -76,23 +69,18 @@
                 >
                   <ul class="second-level__list">
                     <li class="menu-item ">
-                      <a
-                              href="javascript:;"
-                      >
+                      <router-link to="javascript:;">
                         <span class="name">Смотреть весь раздел</span>
-                      </a>
+                      </router-link>
                     </li>
                     <li
-                            v-for="(item, index) in subMenu2"
+                            v-for="(item) in subMenu2"
                             v-bind:key="item.id"
                             class="dropdown-submenu has_img"
                     >
-                      <a
-                              :data-id="index"
-                              href=""
-                      >
+                      <router-link to="">
                         <span class="name">{{item.label}}</span>
-                      </a>
+                      </router-link>
                     </li>
                   </ul>
                 </div>
@@ -102,24 +90,24 @@
         </div>
         <div class="menu-item">
           <div class="wrap">
-            <a class="" href="/individual/">
+            <router-link to="/individual/">
               <div>
                 Доставка и оплата
                 <div class="line-wrapper">
                   <span class="line"></span></div>
               </div>
-            </a>
+            </router-link>
           </div>
         </div>
         <div class="menu-item">
           <div class="wrap">
-            <a class="" href="/individual/">
+            <router-link to="/individual/">
               <div>
                 Контакты
                 <div class="line-wrapper">
                   <span class="line"></span></div>
               </div>
-            </a>
+            </router-link>
           </div>
         </div>
       </div>

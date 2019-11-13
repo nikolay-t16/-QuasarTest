@@ -23,8 +23,9 @@
     "koa-router": "^7.4.0",
     "koa2-cors": "^2.0.6",
     "pg": "^7.12.1",
+    "pg-hstore": "^2.3.3",
     "quasar": "^1.0.0",
-    "typeorm": "^0.2.19",
+    "sequelize": "^5.21.2",
     "vue-i18n": "^8.0.0",
     "vuelidate": "^0.7.4"
   },
@@ -35,7 +36,9 @@
     "eslint": "^5.10.0",
     "eslint-loader": "^2.1.1",
     "eslint-plugin-vue": "^5.0.0",
-    "quasar-app-extension-ide-helper": "^0.0.6"
+    "quasar-app-extension-ide-helper": "^0.0.6",
+    "sequelize-auto": "^0.4.29",
+    "sequelize-cli": "^5.5.1"
   },
   "engines": {
     "node": ">= 8.9.0",
