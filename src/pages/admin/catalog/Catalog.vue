@@ -1,14 +1,15 @@
 <template>
   <q-page class="flex">
-    <AdminTree
-      v-bind:simple=catalogTree
-      @addRubricClick="onAddRubricClick"
-      @editRubricClick="onEditRubricClick"
-      @removeRubricClick="onRemoveRubricClick"
-      @editProductClick="onEditProductClick"
-      @removeProductcClick="onRemoveProductcClick"
-    >
-    </AdminTree>
+    <div class="q-pa-md q-gutter-sm">
+      <admin-tree
+        v-bind:data=catalogTree
+        @addRubricClick="onAddRubricClick"
+        @editRubricClick="onEditRubricClick"
+        @removeRubricClick="onRemoveRubricClick"
+        @editProductClick="onEditProductClick"
+        @removeProductcClick="onRemoveProductcClick"
+      />
+    </div>
   </q-page>
 </template>
 

@@ -29,6 +29,13 @@
                 @change="onPriceChange"
                 label="Цена"
         />
+        <div class="flex">
+          <label class="product-form__q-tree-label">Рубрики: </label>
+            <AdminTree
+              v-bind:data=rubricTree
+              :show-checkbox="true"
+            />
+        </div>
         <div class="d-flex column">
           <q-toggle v-model="product.show" label="Активен" />
           <q-toggle v-model="product.isNew" label="Новинка" />
@@ -54,6 +61,8 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
+import AdminTree from './AdminTree';
 
 const createDefaultProduct = () => ({
   id: 0,
@@ -68,13 +77,18 @@ const createDefaultProduct = () => ({
 export default {
   name: 'ProductForm',
   props: ['data'],
+  components: { AdminTree },
   data() {
     return {
       product: createDefaultProduct(),
       saveAndExit: false,
     };
   },
+  created() {
+    this.getAllRubrics();
+  },
   computed: {
+    ...mapGetters('catalog', ['rubricTree', 'catalogTree']),
     title() {
       if (this.data) return `Редактирование товара - ${this.product.name}`;
       return 'Добавить товар';
@@ -92,6 +106,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions('rubric', ['getAllRubrics']),
     onSubmit() {
       this.product.price = parseFloat(this.product.price).toFixed(2);
       this.$emit('submit', this.product, this.saveAndExit);
@@ -115,5 +130,9 @@ export default {
 <style>
   .product-form__input {
     max-width: 400px;
+  }
+
+  .product-form__q-tree-label {
+    padding: 6px 0 0 13px;
   }
 </style>

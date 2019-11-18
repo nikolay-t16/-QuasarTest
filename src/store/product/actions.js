@@ -20,7 +20,12 @@ export async function getProduct(context, options) {
       'http://localhost:3001/graphql',
       {
         query: `{
-          Product(id:${options.id}){ ${context.state.allFields.join(' ')} } 
+          Product(id:${options.id}) { 
+            ${context.state.allFields.join(' ')} 
+            rubrics {
+              id
+            }
+          } 
         }`,
       },
     )
