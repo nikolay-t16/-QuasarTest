@@ -1,9 +1,10 @@
 const axios = require('axios');
 
 export async function getAllProducts(context) {
+  const productFields = Object.values(context.state.allFields).join(' ');
   axios.post('http://localhost:3001/graphql', {
     query: `{
-        Products{ ${context.state.listFields.join(' ')} } 
+        Products{ ${productFields}  }
       }`,
   })
     .then((res) => {
@@ -15,15 +16,17 @@ export async function getAllProducts(context) {
 }
 
 export async function getProduct(context, options) {
+  const productFields = Object.values(context.state.allFields).join(' ');
+  const rubricFieldId = context.rootGetters['rubric/allFields'].FIELD_ID;
   axios
     .post(
       'http://localhost:3001/graphql',
       {
         query: `{
           Product(id:${options.id}) { 
-            ${context.state.allFields.join(' ')} 
+            ${productFields} 
             rubrics {
-              id
+              ${rubricFieldId} 
             }
           } 
         }`,
@@ -40,7 +43,7 @@ export async function removeProduct(context, options) {
     .post(
       'http://localhost:3001/graphql',
       {
-        query: `mutation { ProductDelete (id:${options.id}) }`,
+        query: `mutation { ProductDelete (id:${options.productId}) }`,
       },
     )
     .then(() => context.commit('removeProduct', options))
@@ -76,7 +79,7 @@ export async function editProduct(context, options) {
     .then(
       () => {
         context.commit('editProduct', options);
-        context.dispatch('getProduct', { id: options.id });
+        context.dispatch('getProduct', { id: options.productId });
       },
     )
     .catch((err) => {
@@ -99,7 +102,7 @@ export async function addProduct(context, options) {
       'http://localhost:3001/graphql',
       {
         query: `mutation ProductAdd($product: ProductInput!)  {
-            ProductAdd ( data: $product ){ id}
+            ProductAdd ( data: $product ){ productId}
         }`,
         variables: {
           product: options,

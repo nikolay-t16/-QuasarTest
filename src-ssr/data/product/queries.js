@@ -5,7 +5,8 @@ const {
 } = require('graphql');
 
 // импортируем данные из models.js
-const { Product, ProductType } = require('./models');
+const { ProductType } = require('./types');
+const { Product, Rubric } = require('../../models');
 
 // создаем поле для получения одного пользователя
 module.exports.Product = {
@@ -19,17 +20,20 @@ module.exports.Product = {
   },
   // метод, в котором формируется запрос и возвращаются данные (root, params, options)
   resolve(root, params, options) {
-    return Product.findOne(params.id); // возвращаем JSON
+    return Product.findByPk(params.id); // возвращаем JSON
   },
 };
 module.exports.Products = {
   type: new GraphQLList(ProductType),
   args: {},
   resolve(root, params, options) {
-    return Product.find({
-      order: {
-        [Product.FIELD_ID]: 'ASC',
-      },
+    return Product.findAll({
+      order: [[Product.FIELD_ID, 'ASC']],
+      include: [{
+        model: Rubric,
+        as: 'rubrics',
+        required: false,
+      }],
     });
   },
 };

@@ -16,7 +16,6 @@ export default {
   components: {
     ProductForm,
   },
-  props: ['id'],
   data() {
     return {};
   },

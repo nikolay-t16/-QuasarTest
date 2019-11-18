@@ -26,11 +26,16 @@ export function createTreeNode(data, type, rubrics, products, _getNodeChildren =
     children: type !== TYPE_PRODUCT ? _getNodeChildren(data, rubrics, products) : [],
   };
 }
-
+function getNodeId(node) {
+  if (node.id) return node.id;
+  if (node.productId) return node.productId;
+  if (node.rubricId) return node.rubricId;
+  return 0;
+}
 export function getNodeChildren(node, rubrics, products, _createTreeNode = createTreeNode) {
   const res = [];
   rubrics.forEach((el) => {
-    if (+el.parent_id === +node.id) {
+    if (+el.parentId === +getNodeId(node)) {
       res.push(_createTreeNode(el, TYPE_RUBRIC, rubrics, products));
     }
   });
@@ -38,10 +43,10 @@ export function getNodeChildren(node, rubrics, products, _createTreeNode = creat
   if (node.products) {
     const productsId = [];
     node.products.forEach((el) => {
-      productsId.push(+el.id);
+      productsId.push(+el.productId);
     });
     products.forEach((el) => {
-      if (productsId.indexOf(+el.id) >= 0) {
+      if (productsId.indexOf(+el.productId) >= 0) {
         res.push(createTreeNode(el, TYPE_PRODUCT));
       }
     });

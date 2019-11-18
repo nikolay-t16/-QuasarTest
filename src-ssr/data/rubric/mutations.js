@@ -2,11 +2,10 @@ const {
   GraphQLNonNull,
   GraphQLBoolean,
   GraphQLString,
-  GraphQLFloat,
   GraphQLID,
 } = require('graphql');
-const { getConnection } = require('typeorm');
-const { Rubric, RubricType, RubricInput } = require('./models');
+const { RubricType, RubricInput } = require('./types');
+const { Rubric } = require('../../models');
 
 const RubricAdd = {
   description: 'Create new Rubric',
@@ -18,12 +17,10 @@ const RubricAdd = {
     },
   },
   async resolve(root, params, options) {
-    const rubric = new Rubric(params.data);
-    const newRubric = await rubric.save();
-    if (!newRubric) {
-      throw new Error('Error adding new Rubric');
-    }
-    return newRubric;
+    return Rubric.create(params.data).catch((e) => {
+      console.log(e);
+      throw new Error('Error createing Rubric');
+    });
   },
 };
 
@@ -37,50 +34,22 @@ const RubricEdit = {
     },
   },
   async resolve(root, params, options) {
-    try {
-      await Rubric
-        .update(
-          params.data.id,
-          params.data,
-        );
-    } catch (e) {
-      console.log(e);
-      throw new Error('Error edding Rubric');
-    }
-    return true;
+    return Rubric
+      .update(
+        params.data,
+        {
+          where: { [Rubric.FIELD_ID]: params.data[Rubric.FIELD_ID] },
+          limit: 1,
+        },
+      )
+      .then(() => true)
+      .catch((e) => {
+        console.log(e);
+        throw new Error('Error edding Rubric');
+      });
   },
 };
 
-const RubricEditField = {
-  description: 'Edit rubric field',
-  type: GraphQLBoolean,
-  args: {
-    id: {
-      name: 'id',
-      type: new GraphQLNonNull(GraphQLID),
-    },
-    field: {
-      name: 'field',
-      type: GraphQLString,
-    },
-    value: {
-      name: 'value',
-      type: GraphQLString,
-    },
-  },
-  async resolve(root, params, options) {
-    try {
-      await Rubric
-        .update(
-          params.id,
-          { [params.field]: params.value },
-        );
-    } catch (e) {
-      throw new Error('Error edding Rubric');
-    }
-    return true;
-  },
-};
 const RubricDelete = {
   description: 'Delete rubric',
   type: GraphQLBoolean,
@@ -91,19 +60,21 @@ const RubricDelete = {
     },
   },
   async resolve(root, params, options) {
-    try {
-      await Rubric
-        .delete(params.id);
-    } catch (e) {
-      throw new Error('Error deleting Rubric');
-    }
-    return true;
+    return Rubric
+      .destroy({
+        where: { [Rubric.FIELD_ID]: params[Rubric.FIELD_ID] },
+        limit: 1,
+      })
+      .then(() => true)
+      .catch((e) => {
+        console.log(e);
+        throw new Error('Error deleting Rubric');
+      });
   },
 };
 
 module.exports = {
   RubricAdd,
   RubricEdit,
-  RubricEditField,
   RubricDelete,
 };

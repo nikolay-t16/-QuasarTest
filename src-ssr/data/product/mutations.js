@@ -2,11 +2,11 @@ const {
   GraphQLNonNull,
   GraphQLBoolean,
   GraphQLString,
-  GraphQLFloat,
   GraphQLID,
 } = require('graphql');
-const { getConnection } = require('typeorm');
-const { Product, ProductType, ProductInput } = require('./models');
+
+const { ProductType, ProductInput } = require('./types');
+const { Product } = require('../../models');
 
 const ProductAdd = {
   description: 'Create new Product',
@@ -18,12 +18,10 @@ const ProductAdd = {
     },
   },
   async resolve(root, params, options) {
-    const product = new Product(params.data);
-    const newProduct = await product.save();
-    if (!newProduct) {
-      throw new Error('Error adding new Product');
-    }
-    return newProduct;
+    return Product.create(params.data).catch((e) => {
+      console.log(e);
+      throw new Error('Error createing Product');
+    });
   },
 };
 
@@ -37,17 +35,19 @@ const ProductEdit = {
     },
   },
   async resolve(root, params, options) {
-    try {
-      await Product
-        .update(
-          params.data.id,
-          params.data,
-        );
-    } catch (e) {
-      console.log(e);
-      throw new Error('Error edding Product');
-    }
-    return true;
+    return Product
+      .update(
+        params.data,
+        {
+          where: { productId: params.data.productId },
+          limit: 1,
+        },
+      )
+      .then(() => true)
+      .catch((e) => {
+        console.log(e);
+        throw new Error('Error edding Product');
+      });
   },
 };
 
@@ -69,16 +69,19 @@ const ProductEditField = {
     },
   },
   async resolve(root, params, options) {
-    try {
-      await Product
-        .update(
-          params.id,
-          { [params.field]: params.value },
-        );
-    } catch (e) {
-      throw new Error('Error edding Product');
-    }
-    return true;
+    return Product
+      .update(
+        { [params.field]: params.value },
+        {
+          where: { productId: params.id },
+          limit: 1,
+        },
+      )
+      .then(() => true)
+      .catch((e) => {
+        console.log(e);
+        throw new Error('Error editing product field');
+      });
   },
 };
 const ProductDelete = {
@@ -91,13 +94,16 @@ const ProductDelete = {
     },
   },
   async resolve(root, params, options) {
-    try {
-      await Product
-        .delete(params.id);
-    } catch (e) {
-      throw new Error('Error deleting Product');
-    }
-    return true;
+    return Product
+      .destroy({
+        where: { productId: params.id },
+        limit: 1,
+      })
+      .then(() => true)
+      .catch((e) => {
+        console.log(e);
+        throw new Error('Error deleting Product');
+      });
   },
 };
 
