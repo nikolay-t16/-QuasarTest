@@ -1,6 +1,6 @@
 <template>
   <div class="retailrocket-item" style="display: inline-block;">
-    <div class="rr_container catalog_item" data-url="https://confaelshop.ru/catalog/komu/podarki-dlya-muzhchin/1514/">
+    <div class="rr_container catalog_item">
       <div class="item-img-block">
         <div class="rr_stickers">
           <div v-if="data.isNew" class="rr_label rr_novinka">Новинка</div>
@@ -52,7 +52,7 @@
       </div>
       <div class="footer_button">
         <div class="rr-container-wrap">
-          <div class="counter_block" data-offers="N" data-item="1514">
+          <div class="counter_block">
             <span class="minus" id="bx_3966226736_1514_quant_down">-</span>
             <input
                type="text"
@@ -66,8 +66,6 @@
           </div>
           <div id="bx_3966226736_1514_basket_actions" class="button_block ">
             <span
-              data-value="545"
-              data-currency="RUB"
               class="
                 small
                 giftd_add_basket
@@ -77,18 +75,7 @@
                 js-giftd-product-add
                 js-giftd-block-1
                 js-giftd-product-main"
-              data-item="1514"
-              data-float_ratio=""
-              data-ratio="1"
-              data-bakset_div="bx_basket_div_2486"
-              data-props=""
-              data-part_props="Y"
-              data-add_props="Y"
-              data-empty_props="Y"
-              data-offers=""
-              data-iblockid="4"
-              data-quantity="1"
-              data-giftd-block-id-product="1">
+            >
               <i></i>
               <span>Заказать</span>
             </span>
@@ -96,14 +83,13 @@
               rel="nofollow"
               href="/basket/"
               class="small in-cart btn btn-default transition_bg"
-              data-item="1514"
               style="display:none;"
               tabindex="0">
               <i></i>
               <span>В корзине</span>
             </a>
           </div>
-          <div class="total_summ" data-id="1514" style="overflow: hidden; display: none;">
+          <div class="total_summ" style="overflow: hidden; display: none;">
             <div>Общая стоимость <span class="rr-summ"></span> <b>руб.</b></div>
           </div>
         </div>

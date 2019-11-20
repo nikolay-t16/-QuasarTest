@@ -16,11 +16,32 @@
         </section>
       </div>
     </div>
+    <div class="wrapper_inner ">
+      <div class="right_block wide_N">
+        <catalog-product-list
+          :products="allProducts"
+        />
+      </div>
+      <div class="left-block">
+        <catalog-left-menu/>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import CatalogLeftMenu from '../components/catalog/CatalogLeftMenu';
+import CatalogProductList from '../components/catalog/CatalogProductList';
+
 export default {
   name: 'Catalog',
+  components: {
+    CatalogProductList,
+    CatalogLeftMenu,
+  },
+  computed: {
+    ...mapGetters('product', ['allProducts']),
+  },
 };
 </script>
