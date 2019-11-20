@@ -2,13 +2,13 @@ const {
   GraphQLString,
   GraphQLFloat,
   GraphQLBoolean,
-  GraphQLID,
+  GraphQLInt,
 } = require('graphql');
 const { Product } = require('../../models');
 
 module.exports = {
   [Product.FIELD_ID]: {
-    type: GraphQLID,
+    type: GraphQLInt,
   },
   [Product.FIELD_NAME]: {
     type: GraphQLString,

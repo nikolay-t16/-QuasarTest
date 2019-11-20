@@ -19,13 +19,21 @@ module.exports.Product = {
     },
   },
   // метод, в котором формируется запрос и возвращаются данные (root, params, options)
+  // eslint-disable-next-line no-unused-vars
   resolve(root, params, options) {
-    return Product.findByPk(params.id); // возвращаем JSON
+    return Product.findByPk(params.id, {
+      include: [{
+        model: Rubric,
+        as: 'rubrics',
+        required: false,
+      }],
+    }); // возвращаем JSON
   },
 };
 module.exports.Products = {
   type: new GraphQLList(ProductType),
   args: {},
+  // eslint-disable-next-line no-unused-vars
   resolve(root, params, options) {
     return Product.findAll({
       order: [[Product.FIELD_ID, 'ASC']],

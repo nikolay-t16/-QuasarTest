@@ -2,13 +2,12 @@ const {
   GraphQLString,
   GraphQLInt,
   GraphQLBoolean,
-  GraphQLID,
 } = require('graphql');
 const { Rubric } = require('../../models');
 
 module.exports = {
   [Rubric.FIELD_ID]: {
-    type: GraphQLID,
+    type: GraphQLInt,
   },
   [Rubric.FIELD_NAME]: {
     type: GraphQLString,

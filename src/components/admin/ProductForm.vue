@@ -34,6 +34,7 @@
             <AdminTree
               v-bind:data=rubricTree
               :show-checkbox="true"
+              v-bind:checked-rubrics="checkedRubrics"
             />
         </div>
         <div class="d-flex column">
@@ -91,6 +92,12 @@ export default {
     title() {
       if (this.data) return `Редактирование товара - ${this.product.name}`;
       return 'Добавить товар';
+    },
+    checkedRubrics() {
+      if (this.product.rubrics === null) {
+        return [];
+      }
+      return this.product.rubrics.map(item => +item.rubricId);
     },
   },
   watch: {

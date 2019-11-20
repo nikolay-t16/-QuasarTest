@@ -81,14 +81,13 @@
         <div v-if="showCheckbox">
           <q-checkbox
             v-model="checkedRubrics"
-            :val="prop.node.data.rubricId"
+            :val="+prop.node.data.rubricId"
             left-label
             :label="prop.node.label"
           />
         </div>
       </div>
     </template>
-
     <template v-slot:body-toggle="prop">
       <p class="text-caption">{{ prop.node.caption }}</p>
       <q-toggle v-model="prop.node.enabled" label="I agree to the terms and conditions"/>
@@ -101,11 +100,9 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: 'AdminTree',
-  props: ['data', 'showCheckbox'],
+  props: ['data', 'showCheckbox', 'checkedRubrics'],
   data() {
-    return {
-      checkedRubrics: [],
-    };
+    return {};
   },
   methods: {
     onAddRubricClick(item) {
