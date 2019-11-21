@@ -1,9 +1,10 @@
 const axios = require('axios');
 
 export async function getAllProducts(context) {
+  const productFields = Object.values(context.state.allFields).join(' ');
   axios.post('http://localhost:3001/graphql', {
     query: `{
-        Products{ ${context.state.listFields.join(' ')} } 
+        Products{ ${productFields}  }
       }`,
   })
     .then((res) => {
@@ -15,14 +16,19 @@ export async function getAllProducts(context) {
 }
 
 export async function getProduct(context, options) {
-  console.log('getProduct');
-  console.log(options);
+  const productFields = Object.values(context.state.allFields).join(' ');
+  const rubricFieldId = context.rootGetters['rubric/allFields'].FIELD_ID;
   axios
     .post(
       'http://localhost:3001/graphql',
       {
         query: `{
-          Product(id:${options.id}){ ${context.state.allFields.join(' ')} } 
+          Product(id:${options.id}) { 
+            ${productFields} 
+            rubrics {
+              ${rubricFieldId} 
+            }
+          } 
         }`,
       },
     )

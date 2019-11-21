@@ -1,10 +1,11 @@
 const axios = require('axios');
 
 export async function getAllRubrics(context) {
+  const rubricFields = Object.values(context.state.allFields).join(' ');
   return axios.post('http://localhost:3001/graphql', {
     query: `{
         Rubrics{
-          ${context.state.listFields.join(' ')}
+          ${rubricFields}
           products {
             productId
           }
@@ -20,13 +21,14 @@ export async function getAllRubrics(context) {
 }
 
 export async function getRubric(context, options) {
+  const rubricFields = Object.values(context.state.allFields).join(' ');
   axios
     .post(
       'http://localhost:3001/graphql',
       {
         query: `{
           Rubric(id:${options.id}){ 
-            ${context.state.allFields.join(' ')}
+            ${rubricFields}
           } 
         }`,
       },

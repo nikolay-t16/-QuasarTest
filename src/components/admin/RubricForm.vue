@@ -38,8 +38,6 @@
           <q-btn label="Добавить" type="submit" color="primary"/>
         </div>
       </q-form>
-      {{select}}
-      {{rubric}}
     </q-card-section>
   </q-card>
 </template>
@@ -67,7 +65,7 @@ export default {
     await this.getAllRubrics();
   },
   computed: {
-    ...mapGetters('rubric', ['allRubrics', '[allFields']),
+    ...mapGetters('rubric', ['allRubrics', 'allFields']),
     ...mapGetters('catalog', ['rubricTree']),
     title() {
       if (this.data) return `Редактирование рубрики - ${this.rubric.name}`;

@@ -1,6 +1,3 @@
-require('reflect-metadata');
-
-const { createConnection } = require('typeorm');
 const Koa = require('koa');
 const koaBody = require('koa-bodyparser');
 const { graphqlKoa, graphiqlKoa } = require('graphql-server-koa');

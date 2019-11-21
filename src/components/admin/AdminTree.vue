@@ -1,24 +1,53 @@
 <template>
-  <div class="q-pa-md q-gutter-sm">
-    <q-tree
-      :nodes="simple"
-      node-key="label"
-      default-expand-all
-    >
-      <template v-slot:header-root="prop">
-        <div class="row items-center">
-            {{ prop.node.label }}
-        </div>
-      </template>
+  <q-tree
+    :nodes="data"
+    node-key="label"
+    default-expand-all
+  >
+    <template v-slot:header-root="prop">
+      <div class="row items-center">
+        {{ prop.node.label }}
+      </div>
+    </template>
 
-      <template v-slot:header-product="prop">
-        <div class="row items-center">
-          <q-icon
-            class="q-tree__icon q-mr-sm"
-            name="local_atm"
-            title="Товар"
-          />
-          <div
+    <template v-slot:header-product="prop">
+      <div class="row items-center">
+        <q-icon
+          class="q-tree__icon q-mr-sm"
+          name="local_atm"
+          title="Товар"
+        />
+        <div
+          :class="
+            prop.node.data.show ?
+            '' :
+            'admin-tree_disable'
+            "
+        >
+          {{ prop.node.label }}
+        </div>
+        <q-icon
+          class="admin-tree_clicble"
+          name="edit"
+          size="md"
+          @click="onEditProductClick(prop.node.data)"
+          title="Редактировать"
+        />
+        <q-icon
+          class="admin-tree_clicble"
+          name="close"
+          size="md"
+          @click="onRemoveProductcClick(prop.node.data)"
+          title="Удалить"
+        />
+      </div>
+    </template>
+
+    <template v-slot:header-rubric="prop">
+      <div class="row items-center">
+        <q-icon class="q-tree__icon q-mr-sm" name="list" size="lg" title="Рубрика"/>
+        <div v-if="!showCheckbox">
+          <span
             :class="
             prop.node.data.show ?
             '' :
@@ -26,36 +55,7 @@
             "
           >
             {{ prop.node.label }}
-          </div>
-          <q-icon
-            class="admin-tree_clicble"
-            name="edit"
-            size="md"
-            @click="onEditProductClick(prop.node.data)"
-            title="Редактировать"
-          />
-          <q-icon
-            class="admin-tree_clicble"
-            name="close"
-            size="md"
-            @click="onRemoveProductcClick(prop.node.data)"
-            title="Удалить"
-          />
-        </div>
-      </template>
-
-      <template v-slot:header-rubric="prop">
-        <div class="row items-center">
-          <q-icon class="q-tree__icon q-mr-sm" name="list" size="lg" title="Рубрика"/>
-          <div
-            :class="
-            prop.node.data.show ?
-            '' :
-            'admin-tree_disable'
-            "
-          >
-            {{ prop.node.label }}
-          </div>
+          </span>
           <q-icon
             class="admin-tree_clicble"
             name="add"
@@ -78,14 +78,21 @@
             cli
           />
         </div>
-      </template>
-
-      <template v-slot:body-toggle="prop">
-        <p class="text-caption">{{ prop.node.caption }}</p>
-        <q-toggle v-model="prop.node.enabled" label="I agree to the terms and conditions" />
-      </template>
-    </q-tree>
-  </div>
+        <div v-if="showCheckbox">
+          <q-checkbox
+            v-model="checkedRubrics"
+            :val="+prop.node.data.rubricId"
+            left-label
+            :label="prop.node.label"
+          />
+        </div>
+      </div>
+    </template>
+    <template v-slot:body-toggle="prop">
+      <p class="text-caption">{{ prop.node.caption }}</p>
+      <q-toggle v-model="prop.node.enabled" label="I agree to the terms and conditions"/>
+    </template>
+  </q-tree>
 </template>
 
 <script>
@@ -93,7 +100,7 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: 'AdminTree',
-  props: ['simple'],
+  props: ['data', 'showCheckbox', 'checkedRubrics'],
   data() {
     return {};
   },

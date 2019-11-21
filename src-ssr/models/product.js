@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       [Product.FIELD_ID]: {
         type: DataTypes.NUMBER,
         autoIncrement: true,
-        primaryKey: true
+        primaryKey: true,
       },
       [Product.FIELD_NAME]: DataTypes.STRING,
       [Product.FIELD_PRICE]: DataTypes.NUMBER,
@@ -26,8 +26,8 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'Product',
-      tableName: 'product'
-    }
+      tableName: 'product',
+    },
   );
 
   Product.associate = function ({ Rubric }) {
