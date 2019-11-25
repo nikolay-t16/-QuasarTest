@@ -7,10 +7,15 @@ const fields = require('./fields');
 const rubricFields = require('../rubric/fields');
 
 const RubricType = new GraphQLObjectType({
-  name: 'ProductRubrucs',
+  name: 'ProductRubricsType',
+  fields: rubricFields,
+});
+const RubricInput = new GraphQLInputObjectType({
+  name: 'ProductRubricsInput',
   fields: rubricFields,
 });
 const fieldsType = Object.assign({ rubrics: { type: new GraphQLList(RubricType) } }, fields);
+const fieldsInput = Object.assign({ rubrics: { type: new GraphQLList(RubricInput) } }, fields);
 // тип для queries
 module.exports.ProductType = new GraphQLObjectType({
   name: 'Product',
@@ -19,5 +24,5 @@ module.exports.ProductType = new GraphQLObjectType({
 // тип для mutations
 module.exports.ProductInput = new GraphQLInputObjectType({
   name: 'ProductInput',
-  fields,
+  fields: fieldsInput,
 });

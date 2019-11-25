@@ -6,7 +6,7 @@ const {
 } = require('graphql');
 
 const { ProductType, ProductInput } = require('./types');
-const { Product } = require('../../models');
+const { sequelize, Product } = require('../../models');
 
 const ProductAdd = {
   description: 'Create new Product',
@@ -43,7 +43,17 @@ const ProductEdit = {
           limit: 1,
         },
       )
-      .then(() => true)
+      .then(() => {
+        sequelize.query(`DELETE FROM "rubric_product" WHERE "productId" = ${params.data.productId};`)
+          .then(([results, metadata]) => {
+            const values = [];
+            params.data.rubrics.forEach(item => values.push(`(${params.data.productId}, ${item.rubricId})`));
+            sequelize.query(
+              `INSERT INTO "rubric_product" ("productId", "rubricId") VALUES ${values.join(',')};`,
+            );
+          });
+        return true;
+      })
       .catch((e) => {
         console.log(e);
         throw new Error('Error edding Product');
