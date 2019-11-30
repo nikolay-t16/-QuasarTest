@@ -11,10 +11,22 @@
         :data="items"
         :columns="columns"
         row-key="productId"
+        :filter="filter"
+        :filter-method="filterMethod"
       >
         <template v-slot:top="props">
           <div class="col-2 q-table__title">{{ title }}</div>
           <q-btn label="Добавить" type="button" @click="onAddClick" color="primary"/>
+          <q-input class="q-table__search" v-model="filter.search" placeholder="Search">
+            <template v-slot:append>
+              <q-avatar>
+                <i class="material-icons"> search</i>
+              </q-avatar>
+            </template>
+          </q-input>
+          <q-toggle v-model="filter.show" label="Активен" />
+          <q-toggle v-model="filter.isNew" label="Новинка" />
+          <q-toggle v-model="filter.isHit" label="Хит продаж" />
         </template>
         <template v-slot:body="props">
           <q-tr :props="props">
@@ -80,9 +92,15 @@
 <script>
 export default {
   name: 'AdminTable',
-  props: ['data', 'columns', 'fieldId', 'title'],
+  props: ['data', 'columns', 'fieldId', 'title', 'filterMethod'],
   data() {
     return {
+      filter: {
+        search: '',
+        show: false,
+        isHit: false,
+        isNew: false,
+      },
       confirm: false,
       confirmText: 'Вы уверены что хотите удалить?',
       onConfirm: null,
@@ -127,7 +145,6 @@ export default {
       this.$emit('addClick');
     },
     action() {},
-
   },
 };
 </script>
@@ -145,5 +162,8 @@ export default {
   .admin-table__icon {
     font-size: 21px;
     cursor: pointer;
+  }
+  .q-table__search{
+    margin-left: 10px;
   }
 </style>
