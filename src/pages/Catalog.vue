@@ -47,6 +47,7 @@ export default {
       immediate: true,
       handler() {
         this.resetFilter();
+        this.resetSort();
       },
     },
   },
@@ -61,7 +62,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions('product', ['resetFilter']),
+    ...mapActions('product', ['resetFilter', 'resetSort']),
   },
 };
 </script>

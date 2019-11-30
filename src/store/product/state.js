@@ -27,7 +27,7 @@ export default {
     minPrice: 0,
     maxPrice: null,
   },
-  order: {
+  sort: {
     sortBy: null,
     sortDirect: 'ASC',
   },

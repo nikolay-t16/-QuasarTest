@@ -29,3 +29,21 @@ export function filter(state, payload) {
 export function resetFilter(state) {
   state.filter = {};
 }
+
+export function sort(state, payload) {
+  if (state.sort.sortBy !== payload) {
+    state.sort = {
+      sortBy: payload,
+      sortDirect: 'ASC',
+    };
+  } else {
+    state.sort = {
+      sortBy: payload,
+      sortDirect: state.sort.sortDirect === 'ASC' ? 'DESC' : 'ASC',
+    };
+  }
+}
+
+export function resetSort(state) {
+  state.sort = {};
+}

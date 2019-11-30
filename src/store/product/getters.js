@@ -102,11 +102,26 @@ export const productsByRubric = (state, getters, rootState, rootGetters) => (id)
   const rubrics = rootGetters['rubric/allMapRubrics'];
   const rubricTree = rootGetters['rubric/rubricTree'];
   const res = getAllRubricProducts(
-    +id, rubrics,
+    +id,
+    rubrics,
     getters.allMapProducts,
     rubricTree,
     state.filter,
   );
+  if (state.sort.sortBy) {
+    res.items = res.items.sort((a, b) => {
+      const direct = state.sort.sortDirect === 'ASC' ? 1 : -1;
+      let val1 = a[state.sort.sortBy];
+      let val2 = b[state.sort.sortBy];
+      if (state.sort.sortBy === 'price') {
+        val1 = +val1;
+        val2 = +val2;
+      }
+      if (val1 > val2) return direct;
+      if (val1 === val2) return 0;
+      return -direct;
+    });
+  }
   return res;
 };
 
@@ -129,4 +144,8 @@ export function listFields(state) {
 
 export function allFields(state) {
   return state.allFields;
+}
+
+export function sort(state) {
+  return state.sort;
 }

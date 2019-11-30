@@ -131,3 +131,11 @@ export function resetFilter(context, options = {}) {
   } = options;
   context.commit('resetFilter', { minPrice, maxPrice });
 }
+
+export function sort(context, options) {
+  context.commit('sort', options);
+}
+
+export function resetSort(context) {
+  context.commit('resetSort');
+}

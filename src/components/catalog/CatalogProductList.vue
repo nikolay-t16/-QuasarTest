@@ -12,11 +12,15 @@
           </div>
           <div class="sort_header view_block">
             <div class="sort_filter">
-              <a href="/catalog/index.php?sort=SHOWS&amp;order=desc&amp;display=block"
-                 class="sort_btn current asc SHOWS" rel="nofollow" onclick="ajaxReSort(event)">
-                <i class="icon" title="По популярности"></i>
-                <span>По популярности</span>
-                <i class="arr icons_fa"></i>
+              <a
+                href="javascript:;"
+                :class="getSortLabelClass('price')"
+                @click="onClickSort('price')"
+              >
+                <span>
+                  По цене
+                  <q-icon :name="getSortIcon('price')"/>
+                </span>
               </a>
             </div>
             <div class="clearfix"></div>
@@ -66,6 +70,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 import ProductListItem from '../product/ProductListItem';
 
 export default {
@@ -73,6 +78,26 @@ export default {
   props: ['products'],
   components: {
     ProductListItem,
+  },
+  computed: {
+    ...mapGetters('product', { sortGetter: 'sort' }),
+  },
+  methods: {
+    ...mapActions('product', ['sort']),
+    onClickSort(field) {
+      this.sort(field);
+    },
+    getSortIcon(field) {
+      const isDescDirect = this.sortGetter.sortBy === field && this.sortGetter.sortDirect === 'ASC';
+      return isDescDirect ? 'expand_less' : 'expand_more';
+    },
+    getSortLabelClass(field) {
+      let className = 'sort_btn';
+      if (this.sortGetter.sortBy === field) {
+        className = `${className} current`;
+      }
+      return className;
+    },
   },
 };
 </script>
