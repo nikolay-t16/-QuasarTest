@@ -3,12 +3,15 @@
     <li
       v-for="(rub, id) in getSubRubrics(rubricId)"
       v-bind:key="id"
-      class="full has-child  m_line v_hover"
+      class="full m_line v_hover"
     >
       <router-link class="icons_fa parent" :to="`/catalog/${rub.rubricId}`">
         <span class="name">{{rub.name}}</span>
-        <div class="toggle_block"></div>
-        <div class="clearfix"></div>
+        <q-icon
+          name="keyboard_arrow_right"
+          v-if="getSubRubrics(rub.rubricId)"
+          class="catalog-left-menu-items__arrow-next"
+        />
       </router-link>
       <ul v-if="getSubRubrics(rub.rubricId)" class="dropdown">
         <li
@@ -51,3 +54,15 @@ export default {
   },
 };
 </script>
+
+<style>
+  .icons_fa {
+    position: relative;
+  }
+  .catalog-left-menu-items__arrow-next {
+    position: absolute;
+    right: 0;
+    padding-right: 27px;
+    padding-top: 9px;
+  }
+</style>
