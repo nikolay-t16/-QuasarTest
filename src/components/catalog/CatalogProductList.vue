@@ -26,7 +26,7 @@
             <div class="top_wrapper row margin0 show_un_props">
               <div class="catalog_block items block_list">
                 <product-list-item
-                  v-for="(prod, i) in products"
+                  v-for="(prod, i) in products.items"
                   v-bind:key="i"
                   :data="prod"
                 />

@@ -23,4 +23,12 @@ export default {
   allFields,
   allProducts: [],
   product: {},
+  filter: {
+    minPrice: 0,
+    maxPrice: null,
+  },
+  order: {
+    sortBy: null,
+    sortDirect: 'ASC',
+  },
 };

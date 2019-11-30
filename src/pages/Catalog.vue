@@ -19,29 +19,49 @@
     <div class="wrapper_inner ">
       <div class="right_block wide_N">
         <catalog-product-list
-          :products="allProducts"
+          :products="products"
         />
       </div>
       <div class="left-block">
-        <catalog-left-menu/>
+        <catalog-left-menu
+          :rubricId="rubricId"
+          v-bind:maxPrice="products.maxPrice"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import CatalogLeftMenu from '../components/catalog/CatalogLeftMenu';
 import CatalogProductList from '../components/catalog/CatalogProductList';
 
 export default {
   name: 'Catalog',
+  props: {
+    rubricId: String,
+  },
+  watch: {
+    rubricId: {
+      immediate: true,
+      handler() {
+        this.resetFilter();
+      },
+    },
+  },
   components: {
     CatalogProductList,
     CatalogLeftMenu,
   },
   computed: {
-    ...mapGetters('product', ['allProducts']),
+    ...mapGetters('product', ['allProducts', 'productsByRubric', 'filter']),
+    products() {
+      return this.productsByRubric(this.rubricId);
+    },
+  },
+  methods: {
+    ...mapActions('product', ['resetFilter']),
   },
 };
 </script>

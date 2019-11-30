@@ -21,3 +21,11 @@ export function editProduct(state, payload) {
     }
   }
 }
+
+export function filter(state, payload) {
+  state.filter = payload;
+}
+
+export function resetFilter(state) {
+  state.filter = {};
+}

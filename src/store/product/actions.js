@@ -115,3 +115,19 @@ export async function addProduct(context, options) {
     });
   return res;
 }
+
+export function filter(context, options = {}) {
+  const {
+    minPrice = 0,
+    maxPrice = null,
+  } = options;
+  context.commit('filter', { minPrice, maxPrice });
+}
+
+export function resetFilter(context, options = {}) {
+  const {
+    minPrice = 0,
+    maxPrice = null,
+  } = options;
+  context.commit('resetFilter', { minPrice, maxPrice });
+}

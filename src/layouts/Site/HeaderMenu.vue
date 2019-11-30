@@ -4,14 +4,14 @@
       <div class="table-menu index__table-menu">
         <div class="menu-item dropdown catalog wide_menu">
           <div class="wrap">
-            <a @mouseover="onSelectMenu" class="dropdown-toggle" href="/catalog/">
+            <router-link @mouseover="onSelectMenu" class="dropdown-toggle" to="/catalog/">
               <div>
                 Каталог
                 <div class="line-wrapper">
                   <span class="line"></span></div>
               </div>
               <q-icon name="expand_more" size="md"/>
-            </a>
+            </router-link>
             <div class="index-menu__layout">
               <div class="index-menu__layout-wrap">
                 <div class="index-menu__column"
@@ -25,7 +25,7 @@
                             class="dropdown-submenu has_img"
                             @mouseover="onSelectMenuItem(item, 0)"
                     >
-                      <router-link to="/catalog/">
+                      <router-link :to="`/catalog/${item.data.rubricId}`">
                         <span class="name">{{item.label}}</span>
                         <q-icon
                           v-if="item.children.length>0"
@@ -42,7 +42,7 @@
                 >
                   <ul class="second-level__list">
                     <li class="menu-item ">
-                      <router-link to="/catalog/">
+                      <router-link :to="`/catalog/${selectItem1.data.rubricId}`">
                         <span class="name">Смотреть весь раздел</span>
                       </router-link>
                     </li>
@@ -52,7 +52,7 @@
                             @mouseover="onSelectMenuItem(item, 1)"
                             class="dropdown-submenu has_img"
                     >
-                      <router-link to="/catalog/">
+                      <router-link :to="`/catalog/${item.data.rubricId}`">
                         <span class="name">{{item.label}}</span>
                         <q-icon
                                 v-if="item.children.length>0"
@@ -69,7 +69,7 @@
                 >
                   <ul class="second-level__list">
                     <li class="menu-item ">
-                      <router-link to="javascript:;">
+                      <router-link :to="`/catalog/${selectItem2.data.rubricId}`">
                         <span class="name">Смотреть весь раздел</span>
                       </router-link>
                     </li>
@@ -78,7 +78,7 @@
                             v-bind:key="item.id"
                             class="dropdown-submenu has_img"
                     >
-                      <router-link to="">
+                      <router-link :to="`/catalog/${item.data.rubricId}`">
                         <span class="name">{{item.label}}</span>
                       </router-link>
                     </li>

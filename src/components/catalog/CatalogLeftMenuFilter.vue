@@ -6,18 +6,13 @@
       <div class="bx_filter_section">
         <form
            name="_form"
-           action="/catalog/?display=block"
            method="get"
            class="smartfilter"
-           id="smartfilter"
         >
           <div class="bx_filter_parameters_box active title">
             <div class="bx_filter_parameters_box_title">Фильтр по параметрам</div>
           </div>
-          <input type="hidden" name="del_url" id="del_url" value="/catalog/">
-          <input type="hidden" name="display" id="display" value="block">
           <div class="bx_filter_parameters_box active">
-            <span class="bx_filter_container_modef"></span>
             <div class="bx_filter_parameters_box_title icons_fa">Цена</div>
             <div class="bx_filter_block">
               <div class="bx_filter_parameters_box_container numbers">
@@ -49,13 +44,13 @@
                     <div
                        class="flex justify-between"
                        style="margin-bottom: -17px;margin-top: 5px;">
-                      <span style="color:#999;">{{rangeMin}}</span>
-                      <span style="color:#999;">{{rangeMax}}</span>
+                      <span style="color:#999;">{{minPrice}}</span>
+                      <span style="color:#999;">{{maxPrice}}</span>
                     </div>
                     <q-range
                             v-model="rangeSlider"
-                            :min="rangeMin"
-                            :max="rangeMax"
+                            :min="minPrice"
+                            :max="maxPrice"
                             color="main-brown"
                     />
                   </div>
@@ -64,6 +59,27 @@
             </div>
           </div>
           <div class="clb"></div>
+          <div class="bx_filter_button_box active">
+            <div class="bx_filter_block">
+              <div class="bx_filter_parameters_box_container">
+                <input
+                  class="bx_filter_search_button btn btn-default"
+                  type="button"
+                  name="set_filter"
+                  value="Показать"
+                  @click="onClickFilter"
+                >
+                <button
+                  class="bx_filter_search_reset btn btn-default white grey"
+                  type="button"
+                  name="del_filter"
+                  @click="onClickReset"
+                >
+                  Сбросить
+                </button>
+              </div>
+            </div>
+          </div>
         </form>
         <div style="clear: both;"></div>
       </div>
@@ -74,17 +90,32 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   name: 'CatalogLeftMenuFilter',
+  props: ['maxPrice'],
   data() {
     return {
-      rangeMin: 0,
-      rangeMax: 50,
+      minPrice: 0,
       rangeSlider: {
-        min: 10,
-        max: 35,
+        min: 0,
+        max: 0,
       },
     };
+  },
+  created() {
+    this.rangeSlider.max = this.maxPrice;
+  },
+  methods: {
+    ...mapActions('product', ['resetFilter', 'filter']),
+    onClickFilter() {
+      this.filter({ minPrice: this.rangeSlider.min, maxPrice: this.rangeSlider.max });
+    },
+    onClickReset() {
+      this.resetFilter({ minPrice: 0, maxPrice: null });
+      // this.filter({ minPrice: 0, maxPrice: null });
+    },
   },
 };
 </script>
