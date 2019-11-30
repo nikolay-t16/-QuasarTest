@@ -35,6 +35,7 @@
               v-bind:data=rubricTree
               :show-checkbox="true"
               v-bind:checked-rubrics="checkedRubrics"
+              @changeCheckedRubrics="onChangeCheckedRubrics"
             />
         </div>
         <div class="d-flex column">
@@ -87,19 +88,6 @@ export default {
   created() {
     this.getAllRubrics();
   },
-  computed: {
-    ...mapGetters('catalog', ['rubricTree', 'catalogTree']),
-    title() {
-      if (this.data) return `Редактирование товара - ${this.product.name}`;
-      return 'Добавить товар';
-    },
-    checkedRubrics() {
-      if (this.product.rubrics === null) {
-        return [];
-      }
-      return this.product.rubrics.map(item => +item.rubricId);
-    },
-  },
   watch: {
     data: {
       immediate: true,
@@ -109,6 +97,19 @@ export default {
           Object.assign(this.product, value);
         }
       },
+    },
+  },
+  computed: {
+    ...mapGetters('catalog', ['rubricTree', 'catalogTree']),
+    title() {
+      if (this.data) return `Редактирование товара - ${this.product.name}`;
+      return 'Добавить товар';
+    },
+    checkedRubrics() {
+      if (!this.product.rubrics) {
+        return [];
+      }
+      return this.product.rubrics.map(item => +item.rubricId);
     },
   },
   methods: {
@@ -127,6 +128,9 @@ export default {
     },
     onClickSaveAndExit() {
       this.saveAndExit = true;
+    },
+    onChangeCheckedRubrics(checkedRubrics) {
+      this.product.rubrics = checkedRubrics.map(item => ({ rubricId: item }));
     },
   },
 

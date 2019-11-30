@@ -5,6 +5,7 @@
       v-bind:columns=columns
       title="Товары"
       fieldId="productId"
+      :filter-method="filterMethod"
       @rowAction="rowAction"
       @rowEdit="rowEdit"
       @addClick="onAddClick"
@@ -115,6 +116,20 @@ export default {
   },
   methods: {
     ...mapActions('product', ['getAllProducts', 'removeProduct', 'editProductField']),
+    filterMethod(raws, terms) {
+      const search = terms.search.toLowerCase();
+      return raws.filter(
+        item => (!terms.isHit || item.isHit)
+        && (!terms.isNew || item.isNew)
+        && (!terms.show || item.show)
+        && (
+          !terms.search
+          || item.productId === +search
+          || item.name.toLowerCase().indexOf(search) !== -1
+          || item.code.toLowerCase() === search
+        ),
+      );
+    },
     deleteProduct(item) {
       const index = this.data.indexOf(item);
       if (index > -1) {

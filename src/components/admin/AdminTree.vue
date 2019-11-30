@@ -80,10 +80,11 @@
         </div>
         <div v-if="showCheckbox">
           <q-checkbox
-            v-model="checkedRubrics"
+            v-model="checkedRubricsClone"
             :val="+prop.node.data.rubricId"
             left-label
             :label="prop.node.label"
+            @input="onChangeCheckedRubrics"
           />
         </div>
       </div>
@@ -102,7 +103,23 @@ export default {
   name: 'AdminTree',
   props: ['data', 'showCheckbox', 'checkedRubrics'],
   data() {
-    return {};
+    return {
+      checkedRubricsClone: [],
+    };
+  },
+  watch: {
+    checkedRubrics: {
+      immediate: true,
+      handler(value) {
+        if (value) {
+          this.checkedRubricsClone = [...this.checkedRubrics];
+        }
+      },
+    },
+  },
+  computed: {
+    ...mapGetters('rubric', { allRubricFields: 'allFields' }),
+    ...mapGetters('product', { allProductFields: 'allFields' }),
   },
   methods: {
     onAddRubricClick(item) {
@@ -120,10 +137,9 @@ export default {
     onRemoveProductcClick(item) {
       this.$emit('removeProductcClick', item);
     },
-  },
-  computed: {
-    ...mapGetters('rubric', { allRubricFields: 'allFields' }),
-    ...mapGetters('product', { allProductFields: 'allFields' }),
+    onChangeCheckedRubrics() {
+      this.$emit('changeCheckedRubrics', this.checkedRubricsClone);
+    },
   },
 };
 </script>
