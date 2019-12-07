@@ -28990,16 +28990,6 @@ div.item-title a span {
 	content: ""
 }
 
-.bx_filter .bx_filter_parameters_box_title:after {
-	width: 8px;
-	height: 5px;
-	right: -3px;
-	top: 3px;
-	content: "";
-	font-size: 15px;
-	color: #888
-}
-
 .bx_filter .active .bx_filter_parameters_box_title:after {
 	content: ""
 }
