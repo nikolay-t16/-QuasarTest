@@ -160,8 +160,16 @@
                     <div class="price_matrix_block">
                       <div class="price_matrix_wrapper ">
                         <div class="price" data-currency="RUB" data-value="2385">
-                          <span class="values_wrapper"><span class="price_value">2 385</span><span
-                            class="price_currency"> руб.</span></span></div>
+                          <span class="values_wrapper">
+                            <span class="price_value">
+                            {{product.price}}
+                            </span>
+                            <span
+                              class="price_currency">
+                              руб.
+                            </span>
+                          </span>
+                        </div>
                         <div class="price discount" data-currency="RUB" data-value="2650">
                           <span class="values_wrapper"><span class="price_value">2 650</span><span
                             class="price_currency"> руб.</span></span>
@@ -625,6 +633,9 @@
 <script>
 export default {
   name: 'ProductItem',
+  props: {
+    product: Object,
+  },
 };
 </script>
 

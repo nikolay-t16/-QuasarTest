@@ -21,7 +21,6 @@
               class="js-giftd-product-title  js-giftd-block-1  js-giftd-product-mai"
               data-giftd-block-id-product="1"
             >
-              Букет конфет большой "Мамочке"
             </h1>
           </div>
         </section>
@@ -34,21 +33,43 @@
         />
       </div>
       <div class="right_block wide_N">
-        <product-item/>
+        <product-item
+          :product="product"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 import ProductItem from '../components/product/ProductItem';
 import CatalogLeftMenu from '../components/catalog/CatalogLeftMenu';
 
 export default {
   name: 'ProductPage',
+  props: {
+    productId: String,
+  },
   components: {
     ProductItem,
     CatalogLeftMenu,
+  },
+  computed: {
+    ...mapGetters('product', ['product']),
+  },
+  watch: {
+    productId: {
+      immediate: true,
+      handler() {
+        console.log('watch');
+        console.log(this.productId);
+        this.getProduct({ id: this.productId });
+      },
+    },
+  },
+  methods: {
+    ...mapActions('product', ['getProduct']),
   },
 };
 </script>
