@@ -12,13 +12,16 @@
             <span v-else title="Отложить" class="wish_item to"><i></i></span>
           </div>
         </div>
-        <a class="item-info" href="https://confaelshop.ru/catalog/personalnye-podarki/solobox/dlya-nee/7324/">
+        <router-link
+          class="item-info"
+          :to="`/catalog/product/${data.productId}`"
+        >
           <div class="item-image shine">
             <img
                     src="https://cdn.retailrocket.net/api/1.0/partner/5c86511097a5281d447d7a3b/item/1514/picture/?format=png&width=170&height=170&scale=both"
                     title="Набор конфет с индивидуальным дизайном (SoloBox «Будь всегда со мной»)">
           </div>
-        </a>
+        </router-link>
         <!-- <div
           class="fast_view_block"
           data-event="jqm"
@@ -29,13 +32,13 @@
           data-name="fast_view">Быстрый просмотр</div>
       </div> -->
       <div class="item-name-block">
-        <a
+        <router-link
           class="item-info"
-          href="https://confaelshop.ru/catalog/komu/podarki-dlya-muzhchin/1514/"
+          :to="`/catalog/product/${data.productId}`"
           tabindex="0"
         >
           <div class="item-title">{{ data.name}}</div>
-        </a>
+        </router-link>
       </div>
       <div class="rating">
         <span class="star-active star-voted"></span>
@@ -79,15 +82,15 @@
               <i></i>
               <span>Заказать</span>
             </span>
-            <a
+            <router-link
               rel="nofollow"
-              href="/basket/"
+              to="/basket/"
               class="small in-cart btn btn-default transition_bg"
               style="display:none;"
               tabindex="0">
               <i></i>
               <span>В корзине</span>
-            </a>
+            </router-link>
           </div>
           <div class="total_summ" style="overflow: hidden; display: none;">
             <div>Общая стоимость <span class="rr-summ"></span> <b>руб.</b></div>

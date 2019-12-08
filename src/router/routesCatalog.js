@@ -3,6 +3,11 @@ const route = {
   component: () => import('layouts/Site.vue'),
   children: [
     {
+      path: '/catalog/product/:productId',
+      component: () => import('pages/ProductPage.vue'),
+      props: true,
+    },
+    {
       path: '/catalog/:rubricId',
       component: () => import('pages/Catalog.vue'),
       props: true,
