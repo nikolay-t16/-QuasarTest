@@ -20,7 +20,7 @@
        class="wraps hover_shine js-giftd-block-product  js-giftd-product-main "
        id="content"
        data-giftd-block-id-product="1">
-        <router-view />
+        <router-view/>
       </div>
     </div>
     <Footer/>
@@ -28,8 +28,7 @@
 </template>
 
 <script>
-import { openURL } from 'quasar';
-import { mapGetters, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 import Header from './Site/Header';
 import Footer from './Site/Footer';
 
@@ -43,14 +42,11 @@ export default {
   },
   created() {
     this.getCatalog();
+    this.getBasket();
   },
   methods: {
     ...mapActions('catalog', ['getCatalog']),
-    openURL,
-  },
-  computed: {
-    ...mapGetters('rubric', ['allRubrics']),
-    ...mapGetters('product', ['allProducts']),
+    ...mapActions('basket', ['getBasket']),
   },
 };
 </script>

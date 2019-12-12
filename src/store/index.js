@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import product from './product';
 import rubric from './rubric';
 import catalog from './catalog';
+import basket from './basket';
 
 // import example from './module-example'
 
@@ -19,6 +20,7 @@ export default function (/* { ssrContext } */) {
       product,
       rubric,
       catalog,
+      basket,
     },
 
     // enable strict mode (adds overhead!)

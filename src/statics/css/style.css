@@ -23044,7 +23044,7 @@ div.header-v5 .logo_and_menu-row .right-icons {
 	height: auto
 }
 
-.counter_block input[type=text] {
+.counter_block input {
 	width: 34px;
 	border: 0;
 	border-left: 1px solid #f3f3f5;
@@ -23058,11 +23058,11 @@ div.header-v5 .logo_and_menu-row .right-icons {
 	line-height: 13px
 }
 
-.flexslider .counter_block input[type=text] {
+.flexslider .counter_block input {
 	width: 34px
 }
 
-.bx-firefox .counter_block input[type=text] {
+.bx-firefox .counter_block input {
 	padding-top: 7px
 }
 
@@ -23118,7 +23118,7 @@ div.header-v5 .logo_and_menu-row .right-icons {
 	opacity: 1
 }
 
-.counter_block input[type=text] {
+.counter_block input {
 	padding: 7px 3px
 }
 
@@ -48587,7 +48587,7 @@ ul.tabs li.stretch {
 		white-space: normal
 	}
 
-	.module-cart .counter_block input[type=text] {
+	.module-cart .counter_block input {
 		width: 30px;
 		height: 30px;
 		font-size: 13px

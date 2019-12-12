@@ -181,9 +181,9 @@
                               0a1.5,1.5,0,1,1-1.5,1.5A1.5,1.5,0,0,1,1503.5,127Z"
         transform="translate(-1486 -111)"></path></svg></i> <span class="wrap">
 <span class="title dark_link">Корзина</span>
-<span class="prices">410 руб.</span>
+<span class="prices">{{basket.totalPrice}} руб.</span>
 </span>
-<span class="count">1</span>
+<span class="count">{{basket.totalCount}}</span>
 </span>
                     </a>
                   </div>
@@ -212,11 +212,15 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import HeaderMenu from './HeaderMenu';
 
 export default {
   components: { HeaderMenu },
   name: 'Header',
+  computed: {
+    ...mapGetters('basket', ['basket']),
+  },
 };
 </script>
 

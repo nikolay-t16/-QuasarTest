@@ -49,66 +49,120 @@
       </div>
       <div class="item-block-price">
         <div class="item-price">
-          <span class="item-price-value">{{ +data.price }}</span>
+          <span class="item-price-value">{{ price }}</span>
           <span class="item-price-currency"></span>
         </div>
       </div>
       <div class="footer_button">
         <div class="rr-container-wrap">
-          <div class="counter_block">
-            <span class="minus" id="bx_3966226736_1514_quant_down">-</span>
-            <input
-               type="text"
-               class="text"
-               id="bx_3966226736_1514_quantity"
-               name="quantity"
-               value="1"
-               tabindex="0"
-            >
-            <span class="plus" id="bx_3966226736_1514_quant_up">+</span>
+          <div v-if="data.productId in basket.items">
+            <div class="button_block  wide">
+              <router-link
+                rel="nofollow"
+                to="/basket/"
+                class="small in-cart btn btn-default transition_bg"
+              >
+                <i></i>
+                <span>В корзине</span>
+              </router-link>
+            </div>
           </div>
-          <div id="bx_3966226736_1514_basket_actions" class="button_block ">
-            <span
-              class="
-                small
-                giftd_add_basket
-                to-cart btn btn-default
-                transition_bg
-                animate-load
-                js-giftd-product-add
-                js-giftd-block-1
-                js-giftd-product-main"
+          <div v-else>
+            <div class="counter_block">
+              <span
+                class="minus"
+                @click="removeCount"
+              >-</span>
+              <input
+                v-model="count"
+                type="text"
+                class="text"
+              >
+              <span
+                class="plus"
+                @click="addCount"
+              >+</span>
+            </div>
+            <div
+              class="button_block"
+              @click="onOrderClick"
             >
-              <i></i>
-              <span>Заказать</span>
-            </span>
-            <router-link
-              rel="nofollow"
-              to="/basket/"
-              class="small in-cart btn btn-default transition_bg"
-              style="display:none;"
-              tabindex="0">
-              <i></i>
-              <span>В корзине</span>
-            </router-link>
-          </div>
-          <div class="total_summ" style="overflow: hidden; display: none;">
-            <div>Общая стоимость <span class="rr-summ"></span> <b>руб.</b></div>
+              <span
+                class="
+                  small
+                  giftd_add_basket
+                  to-cart btn btn-default
+                  transition_bg
+                  animate-load
+                  js-giftd-product-add
+                  js-giftd-block-1
+                  js-giftd-product-main"
+              >
+                <i></i>
+                <span>Заказать</span>
+              </span>
+              <router-link
+                rel="nofollow"
+                to="/basket/"
+                class="small in-cart btn btn-default transition_bg"
+                style="display:none;"
+                tabindex="0">
+                <i></i>
+                <span>В корзине</span>
+              </router-link>
+            </div>
+            <div
+              v-if="count>1"
+              class="total_summ"
+              style="overflow: hidden;">
+              <div>Общая стоимость <span class="rr-summ">{{totalPrice}}</span> <b> руб.</b></div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+    </div>
   </div>
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
+import { strToPrice } from '../../helpers/string';
+
 export default {
   name: 'ProductListItem',
   props: {
     data: {
       type: Object,
       default: () => {},
+    },
+  },
+  data() {
+    return {
+      count: 1,
+    };
+  },
+  computed: {
+    ...mapGetters('basket', ['basket']),
+    price() {
+      return strToPrice(this.data.price);
+    },
+    totalPrice() {
+      return strToPrice(this.count * this.data.price);
+    },
+  },
+  methods: {
+    ...mapActions('basket', ['addProduct']),
+    addCount() {
+      this.count += 1;
+    },
+    removeCount() {
+      if (this.count > 1) {
+        this.count -= 1;
+      }
+    },
+    onOrderClick() {
+      this.addProduct({ productId: this.data.productId, count: this.count });
     },
   },
 };
@@ -129,6 +183,11 @@ export default {
     padding-bottom:5px;
     margin-bottom:5px;
     cursor:pointer;
+  }
+  .rr-container-wrap .button_block.wide {
+    display: block;
+    margin: 0;
+    width: 100%;
   }
   .rr-content .rr-tabLink.active span{border-bottom-color:#4f433e;}
   .tab-title{width:calc(100% - 66px);}
@@ -239,7 +298,7 @@ export default {
   }
 
   .item-price-currency::before {
-    content: 'руб.'
+    content: ' руб.'
   }
 
   .slick-list {
