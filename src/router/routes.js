@@ -1,5 +1,6 @@
 import admin from './routesAdmin';
 import catalog from './routesCatalog';
+import basket from './routesBasket';
 
 const routes = [
   {
@@ -10,6 +11,7 @@ const routes = [
     ],
   },
   catalog,
+  basket,
   admin,
 ];
 

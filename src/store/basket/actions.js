@@ -17,3 +17,8 @@ export function removeProduct(context, productId) {
   context.commit('setItem', { productId, count: 0 });
   saveBasket(context);
 }
+
+export function emptyBasket(context) {
+  context.commit('setItems', {});
+  saveBasket(context);
+}
