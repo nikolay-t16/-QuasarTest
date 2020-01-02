@@ -1737,7 +1737,7 @@ apollo-server-core@^1.4.0:
     apollo-tracing "^0.1.0"
     graphql-extensions "^0.0.x"
 
-apollo-server-koa@^1.1.3, apollo-server-koa@^1.4.0:
+apollo-server-koa@^1.1.3:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/apollo-server-koa/-/apollo-server-koa-1.4.0.tgz#59accc941d02ab2b2f8c7e76426a20b7a0ad5a3a"
   integrity sha512-iXoyEcYqlaFdTvilJ+Qlyi+B5Gj8O1Iy1FwbeoXwBiZs6Uz9xQpd4WkwCm/1dGtEGdvD26U5gycIxpTwrNEKnw==
@@ -5512,13 +5512,6 @@ graphql-extensions@^0.0.x, graphql-extensions@~0.0.9:
     core-js "^2.5.3"
     source-map-support "^0.5.1"
 
-graphql-server-koa@^1.4.1:
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/graphql-server-koa/-/graphql-server-koa-1.4.1.tgz#10377979bb0818176880f43d7dffa3bf35df81b0"
-  integrity sha512-JLcC4yW5oFk5vIUr8Jcw5ylXNNb/GXlMCflamHdN9BuS95MqYk3p5oIxknGfYPSAwJweGGUubLGK7MKBU9FBlw==
-  dependencies:
-    apollo-server-koa "^1.4.0"
-
 graphql-tools@^4.0.6:
   version "4.0.6"
   resolved "https://registry.yarnpkg.com/graphql-tools/-/graphql-tools-4.0.6.tgz#0e729e73db05ade3df10a2f92511be544972a844"
@@ -5531,9 +5524,9 @@ graphql-tools@^4.0.6:
     uuid "^3.1.0"
 
 graphql@^14.5.6:
-  version "14.5.6"
-  resolved "https://registry.yarnpkg.com/graphql/-/graphql-14.5.6.tgz#3fa12173b50e6ccdef953c31c82f37c50ef58bec"
-  integrity sha512-zJ6Oz8P1yptV4O4DYXdArSwvmirPetDOBnGFRBl0zQEC68vNW3Ny8qo8VzMgfr+iC8PKiRYJ+f2wub41oDCoQg==
+  version "14.5.8"
+  resolved "https://registry.yarnpkg.com/graphql/-/graphql-14.5.8.tgz#504f3d3114cb9a0a3f359bbbcf38d9e5bf6a6b3c"
+  integrity sha512-MMwmi0zlVLQKLdGiMfWkgQD7dY/TUKt4L+zgJ/aR0Howebod3aNgP5JkgvAULiR2HPVZaP2VEElqtdidHweLkg==
   dependencies:
     iterall "^1.2.2"
 

@@ -6,7 +6,7 @@ import {
   graphiqlKoa,
 } from 'apollo-server-koa';
 
-import { schema } from './graphql/schema';
+import schema from './graphql/schema';
 
 
 export const routes = new Router();

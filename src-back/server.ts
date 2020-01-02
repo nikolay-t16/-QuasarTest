@@ -1,11 +1,11 @@
 import * as Koa from 'koa';
 
-import { databaseInitializer } from './initializers/database';
+import connect from './db/connect';
 import { routes } from './routes';
 
 
 const bootstrap = async () => {
-  await databaseInitializer();
+  await connect();
   const app = new Koa();
   app
     .use(routes.routes())

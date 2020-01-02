@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "quasar dev",
     "ssr-dev": "nodemon ./src-ssr/api.js",
-    "dev-back": "cross-env NODE_ENV=development nodemon --watch src-back/**/* -e ts,tsx --exec ts-node src-back/graphql.ts",
+    "dev-back": "cross-env NODE_ENV=development nodemon --watch src-back/**/* -e ts,tsx --exec ts-node src-back/server.ts",
     "build": "quasar build",
     "lint": "eslint --ext .js,.vue src",
     "test": "echo \"No test specified\" && exit 0"
@@ -19,7 +19,7 @@
     "@quasar/extras": "^1.3.3",
     "axios": "^0.18.1",
     "graphql": "^14.5.6",
-    "graphql-server-koa": "^1.4.1",
+    "apollo-server-koa": "^1.1.3",
     "graphql-tools": "^4.0.6",
     "koa": "^2.8.1",
     "koa-bodyparser": "^4.2.1",
@@ -39,7 +39,6 @@
     "@types/koa-router": "7.0.23",
     "@types/node": "^8.0.33",
     "@vue/eslint-config-airbnb": "^4.0.0",
-    "apollo-server-koa": "^1.1.3",
     "babel-eslint": "^10.0.1",
     "cross-env": "5.0.5",
     "eslint": "^5.10.0",

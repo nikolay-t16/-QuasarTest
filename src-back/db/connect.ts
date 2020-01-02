@@ -1,8 +1,7 @@
 import { createConnection } from 'typeorm';
-import { Card } from '../entities/card';
 
 // eslint-disable-next-line no-return-await
-export const databaseInitializer = async () => await createConnection({
+export default async () => createConnection({
   type: 'postgres',
   host: 'localhost',
   port: 5432,
@@ -10,7 +9,7 @@ export const databaseInitializer = async () => await createConnection({
   password: '123',
   database: 'shop',
   entities: [
-    Card,
+    'src-back/entities/*.ts',
   ],
   logging: ['query', 'error'],
   // synchronize: true,
