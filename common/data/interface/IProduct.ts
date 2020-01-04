@@ -1,9 +1,8 @@
-export interface IProduct {
-  productId: number;
-  name: string;
-  price: number;
-  show: boolean;
-  code: string;
-  isNew: boolean;
-  isHit: boolean;
+import IProductBase from './IProductBase';
+import iRubric from './iRubric';
+
+interface IProduct extends IProductBase {
+  rubrics: iRubric[];
 }
+
+export default IProduct;

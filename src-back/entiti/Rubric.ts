@@ -9,7 +9,8 @@ import {
   JoinTable,
   JoinColumn,
 } from 'typeorm';
-import { IRubric } from '../../common/data/interface/iRubric';
+import IRubric from '../../common/data/interface/iRubric';
+import IProduct from '../../common/data/interface/IProduct';
 import { Product } from './Product';
 
 const TABLE_NAME:string = 'rubric';
@@ -19,26 +20,6 @@ export class Rubric implements IRubric {
   static TABLE_NAME:string = TABLE_NAME;
 
   static FIELD_ID:string = 'rubricId';
-
-  constructor(options?:IRubric) {
-    if (!options) {
-      return;
-    }
-
-    const {
-      rubricId = null,
-      parentId = 0,
-      name = '',
-    } = options;
-
-    if (rubricId) {
-      this.rubricId = rubricId;
-    }
-    this.parentId = parentId;
-    if (name) {
-      this.name = name;
-    }
-  }
 
   @PrimaryGeneratedColumn()
   rubricId: number;
@@ -78,7 +59,7 @@ export class Rubric implements IRubric {
   @JoinColumn({
     name: 'parentId',
   })
-  parent: Rubric;
+  parent: IRubric;
 
   // eslint-disable-next-line no-unused-vars
   @ManyToMany(type => Product)
@@ -93,5 +74,5 @@ export class Rubric implements IRubric {
       referencedColumnName: 'productId',
     },
   })
-  products: Product[];
+  products: IProduct[];
 }

@@ -3,7 +3,7 @@ import {
   GraphQLList,
 } from 'graphql';
 import fields from '../field';
-import productFields from '../../product/fields';
+import productFields from '../../product/field';
 
 const ProductType = new GraphQLObjectType({
   name: 'RubrucProducts',

@@ -13,6 +13,6 @@ export const Rubrics = {
   args: {},
   resolve(root, params, options) {
     const repository = getRepository(RubricEntite);
-    return repository.find();
+    return repository.find({ relations: ['products'] });
   },
 };

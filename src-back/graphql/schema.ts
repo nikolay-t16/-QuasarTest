@@ -1,9 +1,18 @@
 import { GraphQLObjectType, GraphQLSchema } from 'graphql';
 import Rubric from './rubric';
+import Product from './product';
 
 
-const queries = Object.assign({}, Rubric.Query);
-const mutation = Object.assign({}, Rubric.Mutation);
+const queries = Object.assign(
+  {},
+  Rubric.Query,
+  Product.Query,
+);
+const mutation = Object.assign(
+  {},
+  Rubric.Mutation,
+  Product.Mutation,
+);
 
 // создадим GraphQL схему и заполним параметрами
 // каждый параметр может содержать только один GraphQLObjectType

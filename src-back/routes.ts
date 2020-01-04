@@ -18,7 +18,7 @@ const graphQlOpts = graphqlKoa({
 });
 
 routes.get(apiEntrypointPath, graphQlOpts);
-routes.post(apiEntrypointPath, koaBody(), graphQlOpts);
+routes.post(apiEntrypointPath, graphQlOpts);
 
 // GraphiQL entrypoint
 routes.get('/graphiql', graphiqlKoa({ endpointURL: apiEntrypointPath }));

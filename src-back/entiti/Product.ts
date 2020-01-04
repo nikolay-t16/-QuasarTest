@@ -3,15 +3,19 @@ import {
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
-  UpdateDateColumn,
+  UpdateDateColumn, ManyToMany, JoinTable,
 } from 'typeorm';
-import { IProduct } from '../../common/data/interface/IProduct';
+import IProduct from '../../common/data/interface/IProduct';
+import IRubric from '../../common/data/interface/iRubric';
+import { Rubric } from './Rubric';
 
 const TABLE_NAME:string = 'product';
 
 @Entity(TABLE_NAME)
 export class Product implements IProduct {
   static TABLE_NAME:string = TABLE_NAME;
+
+  static FIELD_ID = 'productId';
 
   @PrimaryGeneratedColumn()
   productId: number;
@@ -45,4 +49,18 @@ export class Product implements IProduct {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @ManyToMany(type => Rubric)
+  @JoinTable({
+    name: 'rubric_product',
+    joinColumn: {
+      name: 'productId',
+      referencedColumnName: 'productId',
+    },
+    inverseJoinColumn: {
+      name: 'rubricId',
+      referencedColumnName: 'rubricId',
+    },
+  })
+  rubrics: IRubric[];
 }

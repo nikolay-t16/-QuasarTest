@@ -1,10 +1,9 @@
-export interface IRubric {
-  rubricId?: number;
-  parentId?: number;
-  name?: string;
-  show?: boolean;
-  sort?: number;
-  createdAt?: Date;
-  updatedAt?: Date;
-  parent?: IRubric;
+import iRubricBase from './iRubricBase';
+import IProductBase from './IProductBase';
+
+interface IRubric extends iRubricBase{
+  parent: IRubric;
+  products: IProductBase[];
 }
+
+export default IRubric;
