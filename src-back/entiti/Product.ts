@@ -5,11 +5,12 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { IProduct } from '../../common/data/interface/IProduct';
 
 const TABLE_NAME:string = 'product';
 
 @Entity(TABLE_NAME)
-export class Product {
+export class Product implements IProduct {
   static TABLE_NAME:string = TABLE_NAME;
 
   @PrimaryGeneratedColumn()

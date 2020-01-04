@@ -1,5 +1,6 @@
 import { createConnection } from 'typeorm';
-
+import { Product } from '../entiti/Product';
+import { Rubric } from '../entiti/Rubric';
 // eslint-disable-next-line no-return-await
 export default async () => createConnection({
   type: 'postgres',
@@ -9,7 +10,7 @@ export default async () => createConnection({
   password: '123',
   database: 'shop',
   entities: [
-    'src-back/entities/*.ts',
+    'src-back/entiti/*.ts',
   ],
   logging: ['query', 'error'],
   // synchronize: true,

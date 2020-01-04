@@ -9,18 +9,46 @@ import {
   JoinTable,
   JoinColumn,
 } from 'typeorm';
-import { Product } from './product';
+import { IRubric } from '../../common/data/interface/iRubric';
+import { Product } from './Product';
 
 const TABLE_NAME:string = 'rubric';
 
 @Entity(TABLE_NAME)
-export class Rubric {
+export class Rubric implements IRubric {
   static TABLE_NAME:string = TABLE_NAME;
+
+  static FIELD_ID:string = 'rubricId';
+
+  constructor(options?:IRubric) {
+    if (!options) {
+      return;
+    }
+
+    const {
+      rubricId = null,
+      parentId = 0,
+      name = '',
+    } = options;
+
+    if (rubricId) {
+      this.rubricId = rubricId;
+    }
+    this.parentId = parentId;
+    if (name) {
+      this.name = name;
+    }
+  }
 
   @PrimaryGeneratedColumn()
   rubricId: number;
 
-  @Column('int')
+  @Column(
+    'int',
+    {
+      default: 0,
+    },
+  )
   parentId: number;
 
   @Column('text')
@@ -31,7 +59,12 @@ export class Rubric {
   })
   show: boolean;
 
-  @Column('int')
+  @Column(
+    'int',
+    {
+      default: 0,
+    },
+  )
   sort: number;
 
   @CreateDateColumn()
@@ -40,12 +73,14 @@ export class Rubric {
   @UpdateDateColumn()
   updatedAt: Date;
 
+  // eslint-disable-next-line no-unused-vars
   @OneToOne(type => Rubric)
   @JoinColumn({
     name: 'parentId',
   })
   parent: Rubric;
 
+  // eslint-disable-next-line no-unused-vars
   @ManyToMany(type => Product)
   @JoinTable({
     name: 'rubric_product',
