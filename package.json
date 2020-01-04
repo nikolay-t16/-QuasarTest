@@ -8,7 +8,6 @@
   "private": true,
   "scripts": {
     "dev": "quasar dev",
-    "ssr-dev": "nodemon ./src-ssr/api.js",
     "dev-back": "cross-env NODE_ENV=development nodemon --watch src-back/**/* --watch common -e ts,tsx --exec ts-node src-back/server.ts",
     "build": "quasar build",
     "lint": "eslint --ext .js,.vue src",
