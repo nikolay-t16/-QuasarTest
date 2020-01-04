@@ -30,11 +30,5 @@ export const RubricEdit = {
         console.log(e);
         throw new Error('Error editing Rubric');
       });
-
-    // .update(params.data[Rubric.FIELD_ID], params.data).then(() => true)
-    // .catch((e) => {
-    //   console.log(e);
-    //   throw new Error('Error edding Rubric');
-    // });
   },
 };
