@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "quasar dev",
     "ssr-dev": "nodemon ./src-ssr/api.js",
+    "dev-back": "cross-env NODE_ENV=development nodemon --watch src-back/**/* --watch common -e ts,tsx --exec ts-node src-back/server.ts",
     "build": "quasar build",
     "lint": "eslint --ext .js,.vue src",
     "test": "echo \"No test specified\" && exit 0"
@@ -16,9 +17,10 @@
   "dependencies": {
     "@quasar/cli": "^1.0.5",
     "@quasar/extras": "^1.3.3",
+    "apollo-server-koa": "^1.1.3",
     "axios": "^0.18.1",
     "graphql": "^14.5.6",
-    "graphql-server-koa": "^1.4.1",
+    "graphql-tools": "^4.0.6",
     "koa": "^2.8.1",
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",
@@ -32,14 +34,26 @@
   },
   "devDependencies": {
     "@quasar/app": "^1.4.3",
+    "@types/koa": "2.0.39",
+    "@types/koa-bodyparser": "^4.3.0",
+    "@types/koa-router": "7.0.23",
+    "@types/node": "^8.0.33",
     "@vue/eslint-config-airbnb": "^4.0.0",
     "babel-eslint": "^10.0.1",
+    "cross-env": "5.0.5",
     "eslint": "^5.10.0",
     "eslint-loader": "^2.1.1",
     "eslint-plugin-vue": "^5.0.0",
+    "nodemon": "1.12.0",
     "quasar-app-extension-ide-helper": "^0.0.6",
+    "reflect-metadata": "^0.1.10",
     "sequelize-auto": "^0.4.29",
-    "sequelize-cli": "^5.5.1"
+    "sequelize-cli": "^5.5.1",
+    "ts-node": "^8.5.4",
+    "tsconfig-paths": "^3.9.0",
+    "tslint": "^5.20.1",
+    "typeorm": "^0.2.22",
+    "typescript": "^3.7.4"
   },
   "engines": {
     "node": ">= 8.9.0",
