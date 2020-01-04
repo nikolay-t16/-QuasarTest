@@ -4,7 +4,6 @@ import product from './product';
 import rubric from './rubric';
 import catalog from './catalog';
 import basket from './basket';
-import favorites from './favorites';
 
 // import example from './module-example'
 
@@ -22,7 +21,6 @@ export default function (/* { ssrContext } */) {
       rubric,
       catalog,
       basket,
-      favorites,
     },
 
     // enable strict mode (adds overhead!)

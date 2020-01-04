@@ -17,3 +17,17 @@ export function removeProduct(context, productId) {
   context.commit('setItem', { productId, count: 0 });
   saveBasket(context);
 }
+
+export function getFavorites(context) {
+  context.commit('setFavorites', JSON.parse(localStorage.getFavorite(lsBasket)));
+}
+
+export function addFavProduct(context, { productId, count }) {
+  context.commit('setFavorite', { productId, count });
+  saveBasket(context);
+}
+
+export function removeFavProduct(context, productId) {
+  context.commit('setFavorite', { productId, count: 0 });
+  saveBasket(context);
+}
