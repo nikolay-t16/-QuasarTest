@@ -1,18 +1,18 @@
 const route = {
   path: '/admin/',
-  component: () => import('layouts/Admin.vue'),
+  component: () => import('src/layouts/AdminLayout.vue'),
   children: [
     {
       path: '/admin/',
-      component: () => import('pages/admin/Index.vue'),
+      component: () => import('src/pages/admin/IndexPage.vue'),
     },
     {
       path: '/admin/orders/',
-      component: () => import('pages/admin/Index.vue'),
+      component: () => import('src/pages/admin/IndexPage.vue'),
     },
     {
       path: '/admin/users/',
-      component: () => import('pages/admin/Index.vue'),
+      component: () => import('src/pages/admin/IndexPage.vue'),
     },
     {
       path: '/admin/catalog/',
@@ -44,7 +44,7 @@ const route = {
     },
     {
       path: '/admin/pages/',
-      component: () => import('pages/admin/Index.vue'),
+      component: () => import('src/pages/admin/IndexPage.vue'),
     },
   ],
 };

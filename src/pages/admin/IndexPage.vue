@@ -6,8 +6,9 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import Component from 'vue-class-component';
 
-export default Vue.extend({
-  name: 'Admin',
-});
+@Component
+export default class IndexPage extends Vue {
+};
 </script>

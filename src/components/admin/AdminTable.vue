@@ -92,64 +92,69 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import Component from 'vue-class-component';
 
-export default Vue.extend({
-  name: 'AdminTable',
+@Component({
   props: ['data', 'columns', 'fieldId', 'title', 'filterMethod'],
-  data() {
-    return {
-      filter: {
-        search: '',
-        show: false,
-        isHit: false,
-        isNew: false,
-      },
-      confirm: false,
-      confirmText: 'Вы уверены что хотите удалить?',
-      onConfirm: null,
-      selected: null,
-    };
-  },
-  computed: {
-    items() {
-      return this.data;
-    },
-  },
-  methods: {
-    confirmAction(text, item, action) {
+
+})
+export default class AdminTable extends Vue {
+  filter = {
+    search: '',
+    show: false,
+    isHit: false,
+    isNew: false,
+  };
+  confirm: boolean = false;
+  confirmText: string = 'Вы уверены что хотите удалить?';
+  onConfirm: Function | null = null;
+  selected: Function | null = null;
+
+  get items() {
+    return this.data;
+  };
+
+
+  confirmAction(text, item, action) {
+    this.action = action;
+    this.selected = item;
+    this.confirm = true;
+    this.confirmText = text;
+  };
+
+  rowAction(action?, item?): void {
+    if (action) {
       this.action = action;
+    }
+    if (item) {
       this.selected = item;
-      this.confirm = true;
-      this.confirmText = text;
-    },
-    rowAction(action = null, item = null) {
-      if (action) {
-        this.action = action;
-      }
-      if (item) {
-        this.selected = item;
-      }
-      this.confirm = false;
-      this.$emit('rowAction', this.action, this.selected);
-    },
-    rowEdit(e) {
-      this.$emit('rowEdit', e.target.dataset.rowId, e.target.dataset.fieldName, e.target.value);
-    },
-    onToggle(id, field, value) {
-      this.$emit('rowEdit', id, field, value);
-    },
-    deleteProduct(item) {
-      const index = this.data.indexOf(item);
-      if (index > -1) {
-        this.data = this.data.splice(index, 1);
-      }
-    },
-    onAddClick() {
-      this.$emit('addClick');
-    },
-    action() {},
-  },
-});
+    }
+    this.confirm = false;
+    this.$emit('rowAction', this.action, this.selected);
+  };
+
+  rowEdit(e) {
+    this.$emit('rowEdit', e.target.dataset.rowId, e.target.dataset.fieldName, e.target.value);
+  };
+
+  onToggle(id, field, value) {
+    this.$emit('rowEdit', id, field, value);
+  };
+
+  deleteProduct(item): void {
+    const index = this.data.indexOf(item);
+    if (index > -1) {
+      this.data = this.data.splice(index, 1);
+    }
+  };
+
+  onAddClick() {
+    this.$emit('addClick');
+  };
+
+  action() {};
+
+};
 </script>
 
 <style>

@@ -56,15 +56,12 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import Component from 'vue-class-component';
 
-export default Vue.extend({
-  name: 'Carousel',
-  data() {
-    return {
-      slide: 1,
-    };
-  },
-});
+@Component
+export default class IndexCarousel extends Vue {
+  slide: number = 1;
+};
 </script>
 
 <style>

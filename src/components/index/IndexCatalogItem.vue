@@ -22,14 +22,14 @@
 
 <script lang="ts">
 import Vue from 'vue';
-
-export default Vue.extend({
-  name: 'IndexCatalogItem',
+import Component from 'vue-class-component';
+@Component({
   props: {
     data: {
       type: Object,
       default: () => {},
     },
   },
-});
+})
+export default class IndexCatalogItem extends Vue {};
 </script>

@@ -17,35 +17,31 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import Component from 'vue-class-component';
 import HeaderUserFormLogin from './HeaderUserFormLogin';
 import HeaderUserFormRegister from './HeaderUserFormRegister';
 
-
-export default Vue.extend({
-  name: 'HeaderUserForm',
+@Component({
   components: {
     HeaderUserFormLogin,
     HeaderUserFormRegister,
   },
-  data() {
-    return {
-      isLogin: true,
-    };
-  },
-  computed: {
-    header() {
-      return this.isLogin ? 'Авторизация' : 'Регистрация';
-    },
-  },
-  methods: {
-    onRegFormClick() {
-      this.isLogin = false;
-    },
-    onLoginFormClick() {
-      this.isLogin = true;
-    },
-  },
-});
+})
+export default class HeaderUserForm extends Vue {
+  isLogin:boolean = true;
+
+  get header() {
+    return this.isLogin ? 'Авторизация' : 'Регистрация';
+  };
+
+  onRegFormClick() {
+    this.isLogin = false;
+  };
+
+  onLoginFormClick() {
+    this.isLogin = true;
+  };
+};
 </script>
 
 <style>

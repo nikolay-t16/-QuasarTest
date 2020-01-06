@@ -27,12 +27,8 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import Component from 'vue-class-component';
 
-export default Vue.extend({
-  name: 'IndexAbout',
-});
+@Component
+export default class IndexAbout extends Vue {};
 </script>
-
-<style scoped>
-
-</style>

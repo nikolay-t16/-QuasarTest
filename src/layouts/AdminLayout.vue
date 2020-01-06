@@ -46,12 +46,11 @@
 </template>
 
 <script lang="ts">
-import { openURL } from 'quasar';
-
 import Vue from 'vue';
+import Component from 'vue-class-component';
 
-export default Vue.extend({
-  name: 'Admin',
+@Component
+export default class AdminLayout extends Vue {
   data() {
     return {
       leftDrawerOpen: this.$q.platform.is.desktop,
@@ -94,11 +93,8 @@ export default Vue.extend({
         },
       ],
     };
-  },
-  methods: {
-    openURL,
-  },
-});
+  };
+};
 </script>
 
 <style>

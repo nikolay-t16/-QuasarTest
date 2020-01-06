@@ -42,32 +42,29 @@
 <script lang="ts">
 import Vue from 'vue';
 import ProductListItem from '../product/ProductListItem';
+import Component from 'vue-class-component';
+import {Prop} from 'vue-property-decorator';
 
-
-export default Vue.extend({
-  name: 'SpecialCategory',
+@Component({
   components: {
     ProductListItem,
   },
-  props: ['data'],
-  data() {
-    return {
-      slide: 'style',
-      lorem: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque voluptatem totam, architecto cupiditate officia rerum, error dignissimos praesentium libero ab nemo.',
-    };
-  },
-  computed: {
-    slides() {
-      let i = 0;
-      const res = [];
-      while (i < this.data.length) {
-        res.push(this.data.slice(i, i + 10));
-        i += 10;
-      }
-      return res;
-    },
-  },
-});
+})
+export default class IndexAbout extends Vue {
+  @Prop({})
+  data: any[] = [];
+  slide: string = 'style';
+
+  get slides() {
+    let i = 0;
+    const res: any[] = [];
+    while (i < this.data.length) {
+      res.push(this.data.slice(i, i + 10));
+      i += 10;
+    }
+    return res;
+  }
+};
 </script>
 
 <style>

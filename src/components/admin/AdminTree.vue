@@ -98,17 +98,12 @@
 
 <script lang="ts">
 import { mapGetters } from 'vuex';
-
 import Vue from 'vue';
+import Component from 'vue-class-component';
+import {Prop} from 'vue-property-decorator';
 
-export default Vue.extend({
-  name: 'AdminTree',
+@Component({
   props: ['data', 'showCheckbox', 'checkedRubrics'],
-  data() {
-    return {
-      checkedRubricsClone: [],
-    };
-  },
   watch: {
     checkedRubrics: {
       immediate: true,
@@ -123,27 +118,34 @@ export default Vue.extend({
     ...mapGetters('rubric', { allRubricFields: 'allFields' }),
     ...mapGetters('product', { allProductFields: 'allFields' }),
   },
-  methods: {
-    onAddRubricClick(item) {
-      this.$emit('addRubricClick', item[this.allRubricFields.FIELD_ID]);
-    },
-    onEditRubricClick(item) {
-      this.$emit('editRubricClick', item[this.allRubricFields.FIELD_ID]);
-    },
-    onRemoveRubricClick(item) {
-      this.$emit('removeRubricClick', item);
-    },
-    onEditProductClick(item) {
-      this.$emit('editProductClick', item[this.allProductFields.FIELD_ID]);
-    },
-    onRemoveProductcClick(item) {
-      this.$emit('removeProductcClick', item);
-    },
-    onChangeCheckedRubrics() {
-      this.$emit('changeCheckedRubrics', this.checkedRubricsClone);
-    },
-  },
-});
+})
+export default class AdminTree extends Vue {
+  checkedRubricsClone: any[] = [];
+
+  onAddRubricClick(item): void {
+    this.$emit('addRubricClick', item[this.allRubricFields.FIELD_ID]);
+  };
+
+  onEditRubricClick(item): void {
+    this.$emit('editRubricClick', item[this.allRubricFields.FIELD_ID]);
+  };
+
+  onRemoveRubricClick(item): void {
+    this.$emit('removeRubricClick', item);
+  };
+
+  onEditProductClick(item): void {
+    this.$emit('editProductClick', item[this.allProductFields.FIELD_ID]);
+  };
+
+  onRemoveProductcClick(item): void {
+    this.$emit('removeProductcClick', item);
+  };
+
+  onChangeCheckedRubrics(): void {
+    this.$emit('changeCheckedRubrics', this.checkedRubricsClone);
+  };
+};
 </script>
 
 <style>

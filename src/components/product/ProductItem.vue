@@ -632,13 +632,14 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import Component from 'vue-class-component';
 
-export default Vue.extend({
-  name: 'ProductItem',
+@Component({
   props: {
     product: Object,
   },
-});
+})
+export default class ProductItem extends Vue {};
 </script>
 
 <style>

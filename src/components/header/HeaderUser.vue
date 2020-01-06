@@ -29,25 +29,22 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import Component from 'vue-class-component';
 import HeaderUserForm from './HeaderUserForm';
 
 
-export default Vue.extend({
-  name: 'HeaderUser',
+@Component({
   components: {
     HeaderUserForm,
   },
-  data() {
-    return {
-      authPopup: false,
-    };
-  },
-  methods: {
-    onClickCabinet() {
-      this.authPopup = true;
-    },
-  },
-});
+})
+export default class HeaderUser extends Vue {
+  authPopup: boolean = false;
+
+  onClickCabinet(): void {
+    this.authPopup = true;
+  };
+};
 </script>
 
 <style>

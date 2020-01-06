@@ -10,42 +10,41 @@
         </div>
       </div>
     </div>
-    <special-category :data="newProducts" v-if="activeCategory === CATEGORY_NEW"/>
-    <category :data="hitProducts" v-if="activeCategory === CATEGORY_HIT"/>
+    <index-special-category :data="newProducts" v-if="activeCategory === CATEGORY_NEW"/>
+    <index-special-category :data="hitProducts" v-if="activeCategory === CATEGORY_HIT"/>
   </div>
 </template>
 
 <script lang="ts">
 import { mapGetters } from 'vuex';
-import SpecialCategory from './SpecialCategory';
+import IndexSpecialCategory from './IndexSpecialCategory.vue';
 
 const CATEGORY_NEW = 'new';
 const CATEGORY_HIT = 'hit';
 import Vue from 'vue';
+import Component from 'vue-class-component';
 
-export default Vue.extend({
-  name: 'Special',
-  components: { SpecialCategory },
-  data() {
-    return {
-      CATEGORY_NEW,
-      CATEGORY_HIT,
-      activeCategory: CATEGORY_NEW,
-      slide: 1,
-    };
-  },
-  methods: {
-    getTabTittleClass(type) {
-      return type === this.activeCategory ? 'rr-tabLink active' : 'rr-tabLink';
-    },
-    selectTab(type) {
-      this.activeCategory = type;
-    },
-  },
+@Component({
+  components: { IndexSpecialCategory },
   computed: {
     ...mapGetters('product', ['newProducts', 'hitProducts']),
   },
-});
+})
+export default class IndexSpecial extends Vue {
+  CATEGORY_NEW: string = CATEGORY_NEW;
+  CATEGORY_HIT: string = CATEGORY_HIT;
+  activeCategory: string = CATEGORY_NEW;
+  slide: number = 1;
+
+  getTabTittleClass(type: string): string {
+    return type === this.activeCategory ? 'rr-tabLink active' : 'rr-tabLink';
+  };
+
+  selectTab(type): void {
+    this.activeCategory = type;
+  };
+
+};
 </script>
 
 <style>

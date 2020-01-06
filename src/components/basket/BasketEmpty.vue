@@ -12,10 +12,10 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import Component from 'vue-class-component';
 
-export default Vue.extend({
-  name: 'BasketEmpty',
-});
+@Component
+export default class BasketEmpty extends Vue {};
 </script>
 
 <style>

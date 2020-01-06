@@ -16,21 +16,20 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import Component from 'vue-class-component';
 import CatalogLeftMenuItems from './CatalogLeftMenuItems';
 import CatalogLeftMenuFilter from './CatalogLeftMenuFilter';
 
-
-export default Vue.extend({
-  name: 'CatalogLeftMenu',
+@Component({
   props: ['rubricId', 'maxPrice'],
   components: {
     CatalogLeftMenuItems,
     CatalogLeftMenuFilter,
   },
-  methods: {
-    onFiltered() {
-      this.$emit('filtered');
-    },
-  },
-});
+})
+export default class HeaderUserFormRegister extends Vue {
+  onFiltered(): void {
+    this.$emit('filtered');
+  }
+};
 </script>

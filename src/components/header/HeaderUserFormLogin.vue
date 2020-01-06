@@ -102,15 +102,14 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import Component from 'vue-class-component';
 
-export default Vue.extend({
-  name: 'HeaderUserFormLogin',
-  methods: {
-    onRegFormClick() {
-      this.$emit('regFormClick');
-    },
-  },
-});
+@Component
+export default class HeaderUserFormLogin extends Vue {
+  onRegFormClick():void {
+    this.$emit('regFormClick');
+  };
+};
 </script>
 
 <style>

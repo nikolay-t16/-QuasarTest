@@ -1,35 +1,35 @@
 <template>
   <div class="index" id="main">
-    <carousel/>
+    <carousel-component/>
     <index-catalog/>
     <special/>
     <index-about/>
   </div>
 </template>
 
-<style>
-</style>
-
 <script lang="ts">
 import Vue from 'vue';
-import Carousel from '../components/index/Carousel';
+import Component from 'vue-class-component';
+import CarouselComponent from '../components/index/IndexCarousel.vue';
 import IndexCatalog from '../components/index/IndexCatalog';
-import Special from '../components/index/Special';
+import Special from '../components/index/IndexSpecial.vue';
 import IndexAbout from '../components/index/IndexAbout';
 
 
-export default Vue.extend({
-  name: 'PageIndex',
+
+@Component({
   components: {
-    Carousel,
+    CarouselComponent,
     IndexCatalog,
     IndexAbout,
     Special,
   },
+})
+export default class IndexPage extends Vue {
   data() {
     return {
       slide: 1,
     };
-  },
-});
+  };
+};
 </script>

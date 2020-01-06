@@ -29,16 +29,16 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import Component from 'vue-class-component';
 import BasketItem from './BasketItem';
 
-
-export default Vue.extend({
-  name: 'BasketItems',
-  props: {
-    data: Object,
-  },
+@Component({
   components: {
     BasketItem,
   },
-});
+  props: {
+    data: Object,
+  },
+})
+export default class BasketItems extends Vue {};
 </script>
