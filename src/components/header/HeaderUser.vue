@@ -27,10 +27,12 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 import HeaderUserForm from './HeaderUserForm';
 
-export default {
+
+export default Vue.extend({
   name: 'HeaderUser',
   components: {
     HeaderUserForm,
@@ -45,7 +47,7 @@ export default {
       this.authPopup = true;
     },
   },
-};
+});
 </script>
 
 <style>

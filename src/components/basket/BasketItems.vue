@@ -27,10 +27,12 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 import BasketItem from './BasketItem';
 
-export default {
+
+export default Vue.extend({
   name: 'BasketItems',
   props: {
     data: Object,
@@ -38,5 +40,5 @@ export default {
   components: {
     BasketItem,
   },
-};
+});
 </script>

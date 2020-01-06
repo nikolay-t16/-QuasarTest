@@ -1,5 +1,4 @@
 import * as Router from 'koa-router';
-import * as koaBody from 'koa-bodyparser';
 
 import {
   graphqlKoa,
@@ -21,4 +20,5 @@ routes.get(apiEntrypointPath, graphQlOpts);
 routes.post(apiEntrypointPath, graphQlOpts);
 
 // GraphiQL entrypoint
+// @ts-ignore
 routes.get('/graphiql', graphiqlKoa({ endpointURL: apiEntrypointPath }));

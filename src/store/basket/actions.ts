@@ -5,6 +5,7 @@ function saveBasket(context) {
 }
 
 export function getBasket(context) {
+  const lsBasketStr = localStorage.getItem(lsBasket);
   context.commit('setItems', JSON.parse(localStorage.getItem(lsBasket)));
 }
 

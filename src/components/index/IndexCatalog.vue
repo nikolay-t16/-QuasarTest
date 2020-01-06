@@ -6,7 +6,7 @@
       </div>
       <div class="list items">
         <div class="row margin0 flexbox">
-          <IndexCatalogItem
+          <index-catalog-item
             v-for="(item, index) in rootRubrics"
             v-bind:key="index"
             :data="item"
@@ -17,16 +17,17 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapGetters } from 'vuex';
+import Vue from 'vue';
 import IndexCatalogItem from './IndexCatalogItem';
 
 
-export default {
+export default Vue.extend({
   name: 'Catalog',
   components: { IndexCatalogItem },
   computed: {
     ...mapGetters('catalog', ['rootRubrics']),
   },
-};
+});
 </script>

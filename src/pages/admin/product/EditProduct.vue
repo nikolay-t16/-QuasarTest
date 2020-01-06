@@ -8,11 +8,13 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapActions, mapGetters } from 'vuex';
+import Vue from 'vue';
 import ProductForm from '../../../components/admin/ProductForm';
 
-export default {
+
+export default Vue.extend({
   name: 'EditProduct',
   components: {
     ProductForm,
@@ -34,7 +36,7 @@ export default {
       }
     },
   },
-};
+});
 </script>
 
 <style>

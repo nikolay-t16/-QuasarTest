@@ -104,10 +104,12 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapActions } from 'vuex';
 
-export default {
+import Vue from 'vue';
+
+export default Vue.extend({
   name: 'CatalogLeftMenuFilter',
   props: ['maxPrice'],
   data() {
@@ -137,7 +139,7 @@ export default {
       this.activeFilterItems[item] = !this.activeFilterItems[item];
     },
   },
-};
+});
 </script>
 
 <style>

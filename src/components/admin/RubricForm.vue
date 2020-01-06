@@ -42,7 +42,7 @@
   </q-card>
 </template>
 
-<script>
+<script lang="ts">
 import { mapGetters, mapActions } from 'vuex';
 
 const createDefaultRubric = () => ({
@@ -52,7 +52,9 @@ const createDefaultRubric = () => ({
   show: false,
 });
 
-export default {
+import Vue from 'vue';
+
+export default Vue.extend({
   name: 'RubricForm',
   props: ['data'],
   data() {
@@ -116,7 +118,7 @@ export default {
       return res;
     },
   },
-};
+});
 </script>
 
 <style>

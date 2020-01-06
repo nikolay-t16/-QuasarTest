@@ -10,18 +10,20 @@
         </div>
       </div>
     </div>
-    <SpecialCategory :data="newProducts" v-if="activeCategory === CATEGORY_NEW"/>
-    <SpecialCategory :data="hitProducts" v-if="activeCategory === CATEGORY_HIT"/>
+    <special-category :data="newProducts" v-if="activeCategory === CATEGORY_NEW"/>
+    <category :data="hitProducts" v-if="activeCategory === CATEGORY_HIT"/>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapGetters } from 'vuex';
 import SpecialCategory from './SpecialCategory';
 
 const CATEGORY_NEW = 'new';
 const CATEGORY_HIT = 'hit';
-export default {
+import Vue from 'vue';
+
+export default Vue.extend({
   name: 'Special',
   components: { SpecialCategory },
   data() {
@@ -43,7 +45,7 @@ export default {
   computed: {
     ...mapGetters('product', ['newProducts', 'hitProducts']),
   },
-};
+});
 </script>
 
 <style>

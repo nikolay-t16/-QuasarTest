@@ -14,11 +14,13 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 import CatalogLeftMenuItems from './CatalogLeftMenuItems';
 import CatalogLeftMenuFilter from './CatalogLeftMenuFilter';
 
-export default {
+
+export default Vue.extend({
   name: 'CatalogLeftMenu',
   props: ['rubricId', 'maxPrice'],
   components: {
@@ -30,5 +32,5 @@ export default {
       this.$emit('filtered');
     },
   },
-};
+});
 </script>

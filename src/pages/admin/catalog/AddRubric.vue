@@ -7,11 +7,13 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapActions } from 'vuex';
+import Vue from 'vue';
 import RubricForm from '../../../components/admin/RubricForm';
 
-export default {
+
+export default Vue.extend({
   name: 'AddRubric',
   components: {
     RubricForm,
@@ -29,5 +31,5 @@ export default {
       }
     },
   },
-};
+});
 </script>

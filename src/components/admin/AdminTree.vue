@@ -96,10 +96,12 @@
   </q-tree>
 </template>
 
-<script>
+<script lang="ts">
 import { mapGetters } from 'vuex';
 
-export default {
+import Vue from 'vue';
+
+export default Vue.extend({
   name: 'AdminTree',
   props: ['data', 'showCheckbox', 'checkedRubrics'],
   data() {
@@ -141,7 +143,7 @@ export default {
       this.$emit('changeCheckedRubrics', this.checkedRubricsClone);
     },
   },
-};
+});
 </script>
 
 <style>

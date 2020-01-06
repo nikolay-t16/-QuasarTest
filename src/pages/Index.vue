@@ -1,8 +1,8 @@
 <template>
   <div class="index" id="main">
-    <Carousel/>
+    <carousel/>
     <index-catalog/>
-    <Special/>
+    <special/>
     <index-about/>
   </div>
 </template>
@@ -10,13 +10,15 @@
 <style>
 </style>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 import Carousel from '../components/index/Carousel';
 import IndexCatalog from '../components/index/IndexCatalog';
 import Special from '../components/index/Special';
 import IndexAbout from '../components/index/IndexAbout';
 
-export default {
+
+export default Vue.extend({
   name: 'PageIndex',
   components: {
     Carousel,
@@ -29,5 +31,5 @@ export default {
       slide: 1,
     };
   },
-};
+});
 </script>

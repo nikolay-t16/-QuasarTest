@@ -28,7 +28,7 @@
                 v-bind:key="index"
                 :name="index"
                 class="flex-center">
-          <ProductListItem
+          <product-list-item
             v-for="(prod, i) in slide"
             v-bind:key="i"
             :data="prod"
@@ -39,10 +39,12 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 import ProductListItem from '../product/ProductListItem';
 
-export default {
+
+export default Vue.extend({
   name: 'SpecialCategory',
   components: {
     ProductListItem,
@@ -65,7 +67,7 @@ export default {
       return res;
     },
   },
-};
+});
 </script>
 
 <style>

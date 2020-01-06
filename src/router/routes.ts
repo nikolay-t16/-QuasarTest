@@ -1,8 +1,9 @@
+import { RouteConfig } from 'vue-router';
 import admin from './routesAdmin';
 import catalog from './routesCatalog';
 import basket from './routesBasket';
 
-const routes = [
+const routes: RouteConfig[] = [
   {
     path: '/',
     component: () => import('layouts/Site.vue'),

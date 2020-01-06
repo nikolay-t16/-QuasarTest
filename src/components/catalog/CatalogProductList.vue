@@ -69,11 +69,13 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapActions, mapGetters } from 'vuex';
+import Vue from 'vue';
 import ProductListItem from '../product/ProductListItem';
 
-export default {
+
+export default Vue.extend({
   name: 'CatalogProductList',
   props: ['products'],
   components: {
@@ -99,5 +101,5 @@ export default {
       return className;
     },
   },
-};
+});
 </script>

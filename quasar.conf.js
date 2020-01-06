@@ -3,6 +3,11 @@
 
 module.exports = function (ctx) {
   return {
+    // Quasar looks for *.js files by default
+    sourceFiles: {
+      router: 'src/router/index.ts',
+      store: 'src/store/index.ts',
+    },
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     boot: [
@@ -166,7 +171,7 @@ module.exports = function (ctx) {
     electron: {
       // bundler: 'builder', // or 'packager'
 
-      extendWebpack (cfg) {
+      extendWebpack(cfg) {
         // do something with Electron main process Webpack cfg
         // chainWebpack also available besides this extendWebpack
       },
@@ -191,4 +196,4 @@ module.exports = function (ctx) {
       },
     },
   };
-}
+};

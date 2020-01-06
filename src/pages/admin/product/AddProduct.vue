@@ -7,11 +7,13 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapActions } from 'vuex';
+import Vue from 'vue';
 import ProductForm from '../../../components/admin/ProductForm';
 
-export default {
+
+export default Vue.extend({
   name: 'AddProduct',
   components: {
     ProductForm,
@@ -32,5 +34,5 @@ export default {
       }
     },
   },
-};
+});
 </script>

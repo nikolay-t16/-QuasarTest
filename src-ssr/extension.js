@@ -18,4 +18,4 @@ module.exports.extendApp = function ({ app }) {
 
      Example: app.use(), app.get() etc
   */
-}
+};

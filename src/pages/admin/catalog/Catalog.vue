@@ -13,11 +13,13 @@
   </q-page>
 </template>
 
-<script>
+<script lang="ts">
 import { mapGetters, mapActions } from 'vuex';
+import Vue from 'vue';
 import AdminTree from '../../../components/admin/AdminTree';
 
-export default {
+
+export default Vue.extend({
   name: 'Catalog',
   components: { AdminTree },
   data() {
@@ -57,5 +59,5 @@ export default {
       this.removeProduct(rubric);
     },
   },
-};
+});
 </script>

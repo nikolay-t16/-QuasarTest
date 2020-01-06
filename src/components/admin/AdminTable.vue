@@ -1,3 +1,4 @@
+
 <template>
   <div class="admin-table">
     <div class="q-pa-md">
@@ -89,8 +90,10 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue';
+
+export default Vue.extend({
   name: 'AdminTable',
   props: ['data', 'columns', 'fieldId', 'title', 'filterMethod'],
   data() {
@@ -146,7 +149,7 @@ export default {
     },
     action() {},
   },
-};
+});
 </script>
 
 <style>

@@ -20,10 +20,12 @@ export default new GraphQLSchema(
   {
     query: new GraphQLObjectType({
       name: 'Query', // произвольное имя для API библиотеки
+      // @ts-ignore
       fields: queries, // поля из файла queries.js
     }),
     mutation: new GraphQLObjectType({
       name: 'Mutation',
+      // @ts-ignore
       fields: mutation,
     }),
   },

@@ -101,11 +101,13 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapGetters, mapActions } from 'vuex';
+import Vue from 'vue';
 import BasketItems from './BasketItems';
 
-export default {
+
+export default Vue.extend({
   name: 'BasketComponent',
   components: {
     BasketItems,
@@ -128,5 +130,5 @@ export default {
       this.searchFocus = false;
     },
   },
-};
+});
 </script>

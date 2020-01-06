@@ -72,10 +72,12 @@
   </tr>
 </template>
 
-<script>
+<script lang="ts">
 import { mapActions } from 'vuex';
 
-export default {
+import Vue from 'vue';
+
+export default Vue.extend({
   name: 'BasketItem',
   props: {
     product: Object,
@@ -97,5 +99,5 @@ export default {
       }
     },
   },
-};
+});
 </script>

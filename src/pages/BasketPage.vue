@@ -15,13 +15,15 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapGetters, mapActions } from 'vuex';
+import Vue from 'vue';
 import BreadcrumbsBlock from '../layouts/Site/BreadcrumbsBlock';
 import BasketComponent from '../components/basket/BasketComponent';
 import BasketEmpty from '../components/basket/BasketEmpty';
 
-export default {
+
+export default Vue.extend({
   name: 'BasketPage',
   components: {
     BreadcrumbsBlock,
@@ -46,7 +48,7 @@ export default {
       this.searchFocus = false;
     },
   },
-};
+});
 </script>
 
 <style>

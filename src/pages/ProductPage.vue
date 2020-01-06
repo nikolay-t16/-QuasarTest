@@ -41,12 +41,14 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapActions, mapGetters } from 'vuex';
+import Vue from 'vue';
 import ProductItem from '../components/product/ProductItem';
 import CatalogLeftMenu from '../components/catalog/CatalogLeftMenu';
 
-export default {
+
+export default Vue.extend({
   name: 'ProductPage',
   props: {
     productId: String,
@@ -71,5 +73,5 @@ export default {
   methods: {
     ...mapActions('product', ['getProduct']),
   },
-};
+});
 </script>

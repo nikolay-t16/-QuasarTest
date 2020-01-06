@@ -9,20 +9,20 @@ import {
   JoinTable,
   JoinColumn,
 } from 'typeorm';
-import IRubric from '../../common/data/interface/iRubric';
-import IProduct from '../../common/data/interface/IProduct';
-import { Product } from './Product';
+import RubricData from '../../common/data/interface/RubricData';
+import ProductData from '../../common/data/interface/ProductData';
+import {Product} from './Product';
 
-const TABLE_NAME:string = 'rubric';
+const TABLE_NAME = 'rubric';
 
 @Entity(TABLE_NAME)
-export class Rubric implements IRubric {
-  static TABLE_NAME:string = TABLE_NAME;
+export class Rubric implements RubricData {
+  public static TABLE_NAME = TABLE_NAME;
 
-  static FIELD_ID:string = 'rubricId';
+  public static FIELD_ID = 'rubricId';
 
   @PrimaryGeneratedColumn()
-  rubricId: number;
+  public rubricId: number | null = null;
 
   @Column(
     'int',
@@ -30,15 +30,15 @@ export class Rubric implements IRubric {
       default: 0,
     },
   )
-  parentId: number;
+  public parentId: number = 0;
 
   @Column('text')
-  name:string;
+  public name: string = '';
 
   @Column('boolean', {
     default: 'false',
   })
-  show: boolean;
+  public show: boolean = false;
 
   @Column(
     'int',
@@ -46,20 +46,20 @@ export class Rubric implements IRubric {
       default: 0,
     },
   )
-  sort: number;
+  public sort: number = 0;
 
   @CreateDateColumn()
-  createdAt: Date;
+  public createdAt: Date = new Date;
 
   @UpdateDateColumn()
-  updatedAt: Date;
+  public updatedAt: Date = new Date;
 
   // eslint-disable-next-line no-unused-vars
   @OneToOne(type => Rubric)
   @JoinColumn({
     name: 'parentId',
   })
-  parent: IRubric;
+  public parent: RubricData | null = null;
 
   // eslint-disable-next-line no-unused-vars
   @ManyToMany(type => Product)
@@ -74,5 +74,6 @@ export class Rubric implements IRubric {
       referencedColumnName: 'productId',
     },
   })
-  products: IProduct[];
+  // @ts-ignore
+  public products: ProductData[];
 }

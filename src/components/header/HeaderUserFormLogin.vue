@@ -100,15 +100,17 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue';
+
+export default Vue.extend({
   name: 'HeaderUserFormLogin',
   methods: {
     onRegFormClick() {
       this.$emit('regFormClick');
     },
   },
-};
+});
 </script>
 
 <style>

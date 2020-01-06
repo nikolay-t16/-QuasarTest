@@ -45,10 +45,12 @@
   </q-layout>
 </template>
 
-<script>
+<script lang="ts">
 import { openURL } from 'quasar';
 
-export default {
+import Vue from 'vue';
+
+export default Vue.extend({
   name: 'Admin',
   data() {
     return {
@@ -96,7 +98,7 @@ export default {
   methods: {
     openURL,
   },
-};
+});
 </script>
 
 <style>

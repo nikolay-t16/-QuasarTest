@@ -9,7 +9,9 @@ import { routes } from './routes';
 const bootstrap = async () => {
   await connect();
   const app = new Koa();
+
   app
+    // @ts-ignore
     .use(koaBody())
     .use(cors())
     .use(routes.routes())

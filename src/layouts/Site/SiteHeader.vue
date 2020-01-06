@@ -86,7 +86,7 @@
           <div class="maxwidth-theme">
             <div class="row">
               <div class="col-md-12">
-                <HeaderMenu/>
+                <header-menu/>
               </div>
             </div>
           </div>
@@ -98,19 +98,21 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 import HeaderMenu from './HeaderMenu';
 import BasketHeader from '../../components/basket/BasketHeader';
 import HeaderUser from '../../components/header/HeaderUser';
 
-export default {
+
+export default Vue.extend({
   components: {
     HeaderUser,
     HeaderMenu,
     BasketHeader,
   },
-  name: 'Header',
-};
+  name: 'SiteHeader',
+});
 </script>
 
 <style>

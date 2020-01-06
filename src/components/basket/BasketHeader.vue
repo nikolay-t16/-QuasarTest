@@ -89,13 +89,15 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapGetters } from 'vuex';
 
-export default {
+import Vue from 'vue';
+
+export default Vue.extend({
   name: 'BasketHeader',
   computed: {
     ...mapGetters('basket', ['basket']),
   },
-};
+});
 </script>

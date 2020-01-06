@@ -35,10 +35,12 @@
   </ul>
 </template>
 
-<script>
+<script lang="ts">
 import { mapGetters } from 'vuex';
 
-export default {
+import Vue from 'vue';
+
+export default Vue.extend({
   name: 'CatalogLeftMenuItems',
   props: ['rubricId'],
   computed: {
@@ -52,7 +54,7 @@ export default {
       return null;
     },
   },
-};
+});
 </script>
 
 <style>

@@ -32,12 +32,14 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapGetters, mapActions } from 'vuex';
+import Vue from 'vue';
 import CatalogLeftMenu from '../components/catalog/CatalogLeftMenu';
 import CatalogProductList from '../components/catalog/CatalogProductList';
 
-export default {
+
+export default Vue.extend({
   name: 'Catalog',
   props: {
     rubricId: String,
@@ -64,5 +66,5 @@ export default {
   methods: {
     ...mapActions('product', ['resetFilter', 'resetSort']),
   },
-};
+});
 </script>

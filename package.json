@@ -10,7 +10,7 @@
     "dev": "quasar dev",
     "dev-back": "cross-env NODE_ENV=development nodemon --watch src-back/**/* --watch common -e ts,tsx --exec ts-node src-back/server.ts",
     "build": "quasar build",
-    "lint": "eslint --ext .js,.vue src",
+    "lint": "eslint --ext .js,.ts,.vue --ignore-path .gitignore ./",
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
@@ -33,14 +33,19 @@
   },
   "devDependencies": {
     "@quasar/app": "^1.4.3",
+    "@quasar/quasar-app-extension-typescript": "^1.0.0-beta.2",
     "@types/koa": "2.0.39",
     "@types/koa-bodyparser": "^4.3.0",
     "@types/koa-router": "7.0.23",
-    "@types/node": "^8.0.33",
+    "@types/koa2-cors": "^2.0.1",
+    "@types/node": "11.9.5",
+    "@typescript-eslint/eslint-plugin": "^1.12.0",
+    "@typescript-eslint/parser": "^1.12.0",
     "@vue/eslint-config-airbnb": "^4.0.0",
     "babel-eslint": "^10.0.1",
     "cross-env": "5.0.5",
     "eslint": "^5.10.0",
+    "eslint-config-prettier": "^6.0.0",
     "eslint-loader": "^2.1.1",
     "eslint-plugin-vue": "^5.0.0",
     "nodemon": "1.12.0",
@@ -52,7 +57,7 @@
     "tsconfig-paths": "^3.9.0",
     "tslint": "^5.20.1",
     "typeorm": "^0.2.22",
-    "typescript": "^3.7.4"
+    "typescript": "^3.3.3"
   },
   "engines": {
     "node": ">= 8.9.0",

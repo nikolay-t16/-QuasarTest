@@ -15,7 +15,7 @@
       front-vindex2
       title-v2
       with_phones">
-      <Header/>
+      <site-header/>
       <div
        class="wraps hover_shine js-giftd-block-product  js-giftd-product-main "
        id="content"
@@ -23,18 +23,20 @@
         <router-view/>
       </div>
     </div>
-    <Footer/>
+    <site-footer/>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapActions } from 'vuex';
-import Header from './Site/Header';
-import Footer from './Site/Footer';
+import Vue from 'vue';
+import SiteHeader from './Site/SiteHeader.vue';
+import SiteFooter from './Site/SiteFooter.vue';
 
-export default {
+
+export default Vue.extend({
   name: 'MyLayout',
-  components: { Header, Footer },
+  components: { SiteHeader, SiteFooter },
   data() {
     return {
       leftDrawerOpen: this.$q.platform.is.desktop,
@@ -48,7 +50,7 @@ export default {
     ...mapActions('catalog', ['getCatalog']),
     ...mapActions('basket', ['getBasket']),
   },
-};
+});
 </script>
 
 

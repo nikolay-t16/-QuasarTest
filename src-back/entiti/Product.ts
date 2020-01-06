@@ -5,50 +5,50 @@ import {
   CreateDateColumn,
   UpdateDateColumn, ManyToMany, JoinTable,
 } from 'typeorm';
-import IProduct from '../../common/data/interface/IProduct';
-import IRubric from '../../common/data/interface/iRubric';
+import ProductData from '../../common/data/interface/ProductData';
+import RubricData from '../../common/data/interface/RubricData';
 import { Rubric } from './Rubric';
 
-const TABLE_NAME:string = 'product';
+const TABLE_NAME = 'product';
 
 @Entity(TABLE_NAME)
-export class Product implements IProduct {
-  static TABLE_NAME:string = TABLE_NAME;
+export class Product implements ProductData {
+  public static TABLE_NAME = TABLE_NAME;
 
-  static FIELD_ID = 'productId';
+  public static FIELD_ID = 'productId';
 
   @PrimaryGeneratedColumn()
-  productId: number;
+  public productId: number | null = null;
 
   @Column('text')
-  name:string;
+  public name:string = '';
 
   @Column('text')
-  code:string;
+  public code:string = '';
 
   @Column('boolean', {
     default: 'false',
   })
-  show: boolean;
+  public show: boolean = false;
 
   @Column('numeric')
-  price: number;
+  public price: number = 0;
 
   @Column('boolean', {
     default: 'false',
   })
-  isHit: boolean;
+  public isHit: boolean = false;
 
   @Column('boolean', {
     default: 'false',
   })
-  isNew: boolean;
+  public isNew: boolean = false;
 
   @CreateDateColumn()
-  createdAt: Date;
+  public createdAt: Date = new Date();
 
   @UpdateDateColumn()
-  updatedAt: Date;
+  public updatedAt: Date = new Date();
 
   @ManyToMany(type => Rubric)
   @JoinTable({
@@ -62,5 +62,6 @@ export class Product implements IProduct {
       referencedColumnName: 'rubricId',
     },
   })
-  rubrics: IRubric[];
+  // @ts-ignore
+  public rubrics: RubricData[];
 }

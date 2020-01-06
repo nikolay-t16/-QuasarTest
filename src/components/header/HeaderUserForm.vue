@@ -15,11 +15,13 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 import HeaderUserFormLogin from './HeaderUserFormLogin';
 import HeaderUserFormRegister from './HeaderUserFormRegister';
 
-export default {
+
+export default Vue.extend({
   name: 'HeaderUserForm',
   components: {
     HeaderUserFormLogin,
@@ -43,7 +45,7 @@ export default {
       this.isLogin = true;
     },
   },
-};
+});
 </script>
 
 <style>

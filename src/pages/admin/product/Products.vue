@@ -13,11 +13,13 @@
   </q-page>
 </template>
 
-<script>
+<script lang="ts">
 import { mapGetters, mapActions } from 'vuex';
+import Vue from 'vue';
 import AdminTable from '../../../components/admin/AdminTable';
 
-export default {
+
+export default Vue.extend({
   name: 'Products',
   components: { AdminTable },
   data() {
@@ -146,5 +148,5 @@ export default {
       this.$router.push('/admin/product/new');
     },
   },
-};
+});
 </script>

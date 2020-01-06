@@ -231,8 +231,10 @@
   </footer>
 </template>
 
-<script>
-export default {
-  name: 'Footer',
-};
+<script lang="ts">
+import Vue from 'vue';
+
+export default Vue.extend({
+  name: 'SiteFooter',
+});
 </script>

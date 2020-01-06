@@ -125,11 +125,13 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapActions, mapGetters } from 'vuex';
+import Vue from 'vue';
 import { strToPrice } from '../../helpers/string';
 
-export default {
+
+export default Vue.extend({
   name: 'ProductListItem',
   props: {
     data: {
@@ -165,7 +167,7 @@ export default {
       this.addProduct({ productId: this.data.productId, count: this.count });
     },
   },
-};
+});
 </script>
 
 <style type="text/css">

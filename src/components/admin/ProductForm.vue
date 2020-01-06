@@ -31,7 +31,7 @@
         />
         <div class="flex">
           <label class="product-form__q-tree-label">Рубрики: </label>
-            <AdminTree
+            <admin-tree
               v-bind:data=rubricTree
               :show-checkbox="true"
               v-bind:checked-rubrics="checkedRubrics"
@@ -62,7 +62,7 @@
   </q-card>
 </template>
 
-<script>
+<script lang="ts">
 import { mapGetters, mapActions } from 'vuex';
 import AdminTree from './AdminTree';
 
@@ -75,7 +75,9 @@ const createDefaultProduct = () => ({
   isNew: false,
 });
 
-export default {
+import Vue from 'vue';
+
+export default Vue.extend({
   name: 'ProductForm',
   props: ['data'],
   components: { AdminTree },
@@ -134,7 +136,7 @@ export default {
     },
   },
 
-};
+});
 </script>
 
 <style>

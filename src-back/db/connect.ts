@@ -1,6 +1,5 @@
 import { createConnection } from 'typeorm';
-import { Product } from '../entiti/Product';
-import { Rubric } from '../entiti/Rubric';
+
 // eslint-disable-next-line no-return-await
 export default async () => createConnection({
   type: 'postgres',

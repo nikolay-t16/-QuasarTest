@@ -115,10 +115,12 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapState, mapGetters } from 'vuex';
 
-export default {
+import Vue from 'vue';
+
+export default Vue.extend({
   name: 'HeaderMenu',
   data() {
     return {
@@ -155,7 +157,7 @@ export default {
       return this.subMenu[level] && this.subMenu[level].length > 0;
     },
   },
-};
+});
 </script>
 
 <style>

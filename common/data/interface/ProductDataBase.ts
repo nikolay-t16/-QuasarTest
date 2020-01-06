@@ -1,5 +1,5 @@
-interface IProductBase {
-  productId: number;
+interface ProductDataBase {
+  productId: number | null;
   name: string;
   price: number;
   show: boolean;
@@ -8,4 +8,4 @@ interface IProductBase {
   isHit: boolean;
 }
 
-export default IProductBase;
+export default ProductDataBase;
