@@ -8,32 +8,37 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapActions, mapGetters } from 'vuex';
+import { Component, Prop, Vue, } from 'vue-property-decorator';
 import ProductForm from '../../../components/admin/ProductForm';
 
-export default {
-  name: 'EditProduct',
-  components: {
-    ProductForm,
-  },
-  props: ['id'],
-  data() {
+@Component({
+    components: {
+        ProductForm,
+    },
+    computed: {
+        ...mapGetters('product', ['product']),
+    },
+    methods: {
+        ...mapActions('product', ['getProduct', 'editProduct']),
+    },
+})
+export default class EditProduct extends Vue{
+
+  @Prop(Object)
+  id: number = 0;
+
+  created(): void{
     this.getProduct({ id: this.id });
-    return { };
-  },
-  computed: {
-    ...mapGetters('product', ['product']),
-  },
-  methods: {
-    ...mapActions('product', ['getProduct', 'editProduct']),
-    onSubmit(product, saveAndExit) {
+  };
+
+  onSubmit(product, saveAndExit): void {
       product.price = +product.price;
       if (this.editProduct(product) && saveAndExit) {
         this.$router.go(-1);
       }
-    },
-  },
+  };
 };
 </script>
 

@@ -42,8 +42,10 @@
   </q-card>
 </template>
 
-<script>
+<script lang="ts">
 import { mapGetters, mapActions } from 'vuex';
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import RubricData, { rubricDataFabric } from '../../../common/data/interface/RubricData';
 
 const createDefaultRubric = () => ({
   name: '',
@@ -52,52 +54,58 @@ const createDefaultRubric = () => ({
   show: false,
 });
 
-export default {
-  name: 'RubricForm',
-  props: ['data'],
-  data() {
-    return {
-      select: {},
-      rubric: createDefaultRubric(),
-    };
-  },
-  async created() {
-    await this.getAllRubrics();
-  },
-  computed: {
-    ...mapGetters('rubric', ['allRubrics', 'allFields']),
-    ...mapGetters('catalog', ['rubricTree']),
-    title() {
+@Component({
+    watch: {
+        data: {
+            immediate: true,
+            handler(value) {
+                if (value) {
+                    this.rubric = createDefaultRubric();
+                    Object.assign(this.rubric, value);
+                }
+            },
+        },
+    },
+    computed: {
+        ...mapGetters('rubric', ['allRubrics', 'allFields']),
+        ...mapGetters('catalog', ['rubricTree']),
+    },
+    methods: {
+        ...mapActions('rubric', ['getAllRubrics']),
+    },
+})
+export default class RubricForm extends Vue {
+    @Prop(Object)
+    data: RubricData = rubricDataFabric();
+
+    select: string = '';
+
+    rubric: RubricData = rubricDataFabric();
+
+  created(): void {
+    this.getAllRubrics();
+  };
+
+  get title(): string {
       if (this.data) return `Редактирование рубрики - ${this.rubric.name}`;
       return 'Добавить рубрику';
-    },
-    selectOptions() {
+  };
+  get selectOptions(): number[] {
       return this.getSubRubrics(this.rubricTree[0]);
-    },
-  },
-  watch: {
-    data: {
-      immediate: true,
-      handler(value) {
-        if (value) {
-          this.rubric = createDefaultRubric();
-          Object.assign(this.rubric, value);
-        }
-      },
-    },
-  },
-  methods: {
-    ...mapActions('rubric', ['getAllRubrics']),
-    onSubmit() {
+  };
+
+  onSubmit(): void {
       this.rubric.sort = +this.rubric.sort;
       this.rubric.parentId = this.select.value ? +this.select.value : 0;
       this.$emit('submit', this.rubric);
-    },
-    onReset() {
-      this.rubric = createDefaultRubric();
+  };
+
+  onReset(): void {
+      this.rubric = rubricDataFabric();
       Object.assign(this.rubric, this.data);
-    },
-    getSubRubrics(root, pref = '') {
+  };
+
+  getSubRubrics(root, pref = ''): number[] {
       const res = [];
       root.children.forEach((el) => {
         const selectItem = {
@@ -114,8 +122,7 @@ export default {
         }
       });
       return res;
-    },
-  },
+  };
 };
 </script>
 

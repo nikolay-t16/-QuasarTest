@@ -35,23 +35,25 @@
   </ul>
 </template>
 
-<script>
+<script lang="ts">
 import { mapGetters } from 'vuex';
+import { Component, Prop, Vue, } from 'vue-property-decorator';
 
-export default {
-  name: 'CatalogLeftMenuItems',
-  props: ['rubricId'],
-  computed: {
-    ...mapGetters('rubric', ['rubricTree']),
-  },
-  methods: {
-    getSubRubrics(rubricId) {
+@Component({
+    computed: {
+        ...mapGetters('rubric', ['rubricTree']),
+    },
+})
+export default class CatalogLeftMenuItems extends Vue {
+    @Prop(Object)
+    rubricId: number = 0;
+
+    getSubRubrics(rubricId): [] | null {
       if (this.rubricTree.has(+rubricId)) {
         return this.rubricTree.get(+rubricId).values();
       }
       return null;
-    },
-  },
+    };
 };
 </script>
 

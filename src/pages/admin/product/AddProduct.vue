@@ -7,21 +7,22 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapActions } from 'vuex';
+import { Component, Vue, } from 'vue-property-decorator';
 import ProductForm from '../../../components/admin/ProductForm';
 
-export default {
-  name: 'AddProduct',
-  components: {
-    ProductForm,
-  },
-  data() {
-    return {};
-  },
-  methods: {
-    ...mapActions('product', ['addProduct']),
-    async onSubmit(product, saveAndExit) {
+@Component({
+    components: {
+        ProductForm,
+    },
+    methods: {
+        ...mapActions('product', ['addProduct']),
+    },
+})
+export default class AddProduct extends Vue{
+
+    async onSubmit(product, saveAndExit){
       const res = await this.addProduct(product);
       if (res.data.data.ProductAdd.id) {
         if (saveAndExit) {
@@ -30,7 +31,6 @@ export default {
           this.$router.push(`/admin/product/${res.data.data.ProductAdd.id}`);
         }
       }
-    },
-  },
+    };
 };
 </script>

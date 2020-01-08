@@ -32,37 +32,40 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapGetters, mapActions } from 'vuex';
+import { Component, Prop, Vue, } from 'vue-property-decorator';
 import CatalogLeftMenu from '../components/catalog/CatalogLeftMenu';
 import CatalogProductList from '../components/catalog/CatalogProductList';
 
-export default {
-  name: 'Catalog',
-  props: {
-    rubricId: String,
-  },
-  watch: {
-    rubricId: {
-      immediate: true,
-      handler() {
-        this.resetFilter();
-        this.resetSort();
-      },
+@Component({
+    watch: {
+        rubricId: {
+            immediate: true,
+            handler() {
+                this.resetFilter();
+                this.resetSort();
+            },
+        },
     },
-  },
-  components: {
-    CatalogProductList,
-    CatalogLeftMenu,
-  },
-  computed: {
-    ...mapGetters('product', ['allProducts', 'productsByRubric', 'filter']),
-    products() {
+    components: {
+        CatalogProductList,
+        CatalogLeftMenu,
+    },
+    computed: {
+        ...mapGetters('product', ['allProducts', 'productsByRubric', 'filter']),
+    },
+    methods: {
+        ...mapActions('product', ['resetFilter', 'resetSort']),
+    },
+})
+export default class Catalog extends Vue {
+  @Prop(Object)
+    rubricId: number = 0;
+
+
+  products(): object {
       return this.productsByRubric(this.rubricId);
-    },
-  },
-  methods: {
-    ...mapActions('product', ['resetFilter', 'resetSort']),
-  },
+  };
 };
 </script>

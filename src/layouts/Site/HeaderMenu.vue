@@ -10,10 +10,10 @@
                 <div class="line-wrapper">
                   <span class="line"></span></div>
               </div>
-              <q-icon name="expand_more" size="md"/>
+              <q-icon name="expand_more" size="xs"/>
             </router-link>
             <div class="index-menu__layout">
-              <div class="index-menu__layout-wrap">
+              <div class="index-menu__layout-wrap">Войти
                 <div class="index-menu__column"
                      v-if="rubricTree && rubricTree[0].children.length > 0"
                 >
@@ -115,33 +115,33 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapState, mapGetters } from 'vuex';
+import { Component, Vue, } from 'vue-property-decorator';
 
-export default {
-  name: 'HeaderMenu',
-  data() {
-    return {
-      selectItem1: null,
-      selectItem2: null,
-      subMenu1: [],
-      subMenu2: [],
-      menuItems: [
-        { label: 'Доставка и оплата', url: '' },
-        { label: 'Контакты', url: '' },
-      ],
-    };
-  },
-  computed: {
-    ...mapState('catalog', ['TYPE_RUBRIC']),
-    ...mapGetters('catalog', ['rubricTree']),
-  },
-  methods: {
-    onSelectMenu() {
+@Component({
+    computed: {
+        ...mapState('catalog', ['TYPE_RUBRIC']),
+        ...mapGetters('catalog', ['rubricTree']),
+    },
+})
+export default class HeaderMenu extends Vue {
+
+  selectItem1: number|null = null;
+  selectItem2: number|null = null;
+  subMenu1: [] = [];
+  subMenu2: [] = [];
+  menuItems: {} = [
+    { label: 'Доставка и оплата', url: '' },
+    { label: 'Контакты', url: '' },
+  ];
+
+  onSelectMenu():void {
       this.subMenu1 = [];
       this.subMenu2 = [];
-    },
-    onSelectMenuItem(item, level) {
+  };
+
+  onSelectMenuItem(item, level): void {
       if (level === 0) {
         this.selectItem1 = item;
         this.subMenu1 = item.children;
@@ -150,11 +150,11 @@ export default {
         this.selectItem2 = item;
         this.subMenu2 = item.children;
       }
-    },
-    showSubMenu(level) {
+  };
+
+  showSubMenu(level): boolean {
       return this.subMenu[level] && this.subMenu[level].length > 0;
-    },
-  },
+  };
 };
 </script>
 

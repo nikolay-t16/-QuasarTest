@@ -1,0 +1,27 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "allowJs": true,
+    "target": "es6",
+    "strict": true,
+    // "module": "esnext", // перестает работать бэк
+    "noImplicitAny": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "lib": [
+      "es2017",
+      "dom"
+    ],
+    "types": [
+      "quasar",
+      "node"
+    ],
+    "sourceMap": true,
+    "baseUrl": "."
+  },
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
+}

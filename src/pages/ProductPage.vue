@@ -41,35 +41,36 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapActions, mapGetters } from 'vuex';
+import { Component, Prop, Vue, } from 'vue-property-decorator';
 import ProductItem from '../components/product/ProductItem';
 import CatalogLeftMenu from '../components/catalog/CatalogLeftMenu';
 
-export default {
-  name: 'ProductPage',
-  props: {
-    productId: String,
-  },
-  components: {
-    ProductItem,
-    CatalogLeftMenu,
-  },
-  computed: {
-    ...mapGetters('product', ['product']),
-  },
-  watch: {
-    productId: {
-      immediate: true,
-      handler() {
-        console.log('watch');
-        console.log(this.productId);
-        this.getProduct({ id: this.productId });
-      },
+@Component({
+    components: {
+        ProductItem,
+        CatalogLeftMenu,
     },
-  },
-  methods: {
-    ...mapActions('product', ['getProduct']),
-  },
+    computed: {
+        ...mapGetters('product', ['product']),
+    },
+    watch: {
+        productId: {
+            immediate: true,
+            handler() {
+                console.log('watch');
+                console.log(this.productId);
+                this.getProduct({ id: this.productId });
+            },
+        },
+    },
+    methods: {
+        ...mapActions('product', ['getProduct']),
+    },
+})
+export default class ProductPage extends Vue {
+  @Prop(Object)
+    productId: number = 0;
 };
 </script>

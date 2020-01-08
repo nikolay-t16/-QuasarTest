@@ -69,35 +69,42 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapActions, mapGetters } from 'vuex';
+import { Component, Prop, Vue, } from 'vue-property-decorator';
 import ProductListItem from '../product/ProductListItem';
 
-export default {
-  name: 'CatalogProductList',
-  props: ['products'],
-  components: {
-    ProductListItem,
-  },
-  computed: {
-    ...mapGetters('product', { sortGetter: 'sort' }),
-  },
-  methods: {
-    ...mapActions('product', ['sort']),
-    onClickSort(field) {
-      this.sort(field);
+@Component({
+    components: {
+        ProductListItem,
     },
-    getSortIcon(field) {
+    computed: {
+        ...mapGetters('product', { sortGetter: 'sort' }),
+    },
+    methods: {
+        ...mapActions('product', ['sort']),
+    },
+})
+export default class CatalogProductList extends Vue {
+
+  @Prop(Object)
+  products: object = {};
+
+  onClickSort(field): void {
+      this.sort(field);
+  };
+
+  getSortIcon(field): string {
       const isDescDirect = this.sortGetter.sortBy === field && this.sortGetter.sortDirect === 'ASC';
       return isDescDirect ? 'expand_less' : 'expand_more';
-    },
-    getSortLabelClass(field) {
+  };
+
+  getSortLabelClass(field): string {
       let className = 'sort_btn';
       if (this.sortGetter.sortBy === field) {
         className = `${className} current`;
       }
       return className;
-    },
-  },
+  };
 };
 </script>

@@ -25,12 +25,10 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'IndexAbout',
-};
+<script lang="ts">
+import Vue from 'vue';
+import Component from 'vue-class-component';
+
+@Component
+export default class IndexAbout extends Vue {};
 </script>
-
-<style scoped>
-
-</style>

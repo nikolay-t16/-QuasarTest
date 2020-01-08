@@ -20,14 +20,16 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'IndexCatalogItem',
+<script lang="ts">
+import Vue from 'vue';
+import Component from 'vue-class-component';
+@Component({
   props: {
     data: {
       type: Object,
       default: () => {},
     },
   },
-};
+})
+export default class IndexCatalogItem extends Vue {};
 </script>

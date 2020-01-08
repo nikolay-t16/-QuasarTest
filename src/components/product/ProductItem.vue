@@ -633,43 +633,46 @@
   </div>
 </template>
 
-<script>
-import { mapActions, mapGetters } from 'vuex';
-import { strToPrice } from '../../helpers/string';
+<script lang="ts">
+import { mapActions, mapGetters, } from 'vuex';
+import { Component, Prop, Vue, } from 'vue-property-decorator';
+import { strToPrice, } from '../../helpers/string';
+import ProductData, { productDataFabric, } from '../../../common/data/interface/ProductData';
 
-export default {
-  name: 'ProductItem',
-  props: {
-    product: Object,
-  },
-  data() {
-    return {
-      count: 1,
-    };
-  },
+@Component({
   computed: {
     ...mapGetters('basket', ['basket']),
-    price() {
-      return strToPrice(this.product.price);
-    },
-    totalPrice() {
-      return strToPrice(this.count * this.product.price);
-    },
   },
   methods: {
     ...mapActions('basket', ['addProduct']),
-    addCount() {
-      this.count += 1;
-    },
-    removeCount() {
-      if (this.count > 1) {
-        this.count -= 1;
-      }
-    },
-    onOrderClick() {
-      this.addProduct({ productId: this.product.productId, count: this.count });
-    },
   },
+})
+export default class ProductItem extends Vue {
+    @Prop(Object)
+    product: ProductData = productDataFabric();
+
+    count: number = 1;
+    get price(): string {
+        return strToPrice(this.product.price);
+    };
+
+    get totalPrice(): string {
+        return strToPrice(this.count * this.product.price);
+    };
+
+    addCount(): void {
+        this.count += 1;
+    };
+
+    removeCount(): void {
+        if (this.count > 1) {
+            this.count -= 1;
+        }
+    };
+
+    onOrderClick(): void {
+        this.addProduct({ productId: this.product.productId, count: this.count });
+    };
 };
 </script>
 
