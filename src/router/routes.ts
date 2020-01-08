@@ -2,6 +2,7 @@ import { RouteConfig } from 'vue-router';
 import admin from './routesAdmin';
 import catalog from './routesCatalog';
 import basket from './routesBasket';
+import ks from './ks/';
 
 const routes: RouteConfig[] = [
   {
@@ -14,6 +15,7 @@ const routes: RouteConfig[] = [
   catalog,
   basket,
   admin,
+  ks,
 ];
 
 // Always leave this as last one

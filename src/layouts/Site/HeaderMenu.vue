@@ -13,7 +13,7 @@
               <q-icon name="expand_more" size="xs"/>
             </router-link>
             <div class="index-menu__layout">
-              <div class="index-menu__layout-wrap">Войти
+              <div class="index-menu__layout-wrap">
                 <div class="index-menu__column"
                      v-if="rubricTree && rubricTree[0].children.length > 0"
                 >
