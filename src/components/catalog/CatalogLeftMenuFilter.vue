@@ -106,40 +106,41 @@
 
 <script lang="ts">
 import { mapActions } from 'vuex';
+import { Component, Prop, Vue, } from 'vue-property-decorator';
 
-import Vue from 'vue';
+@Component({
+    created() {
+        this.rangeSlider.max = this.maxPrice;
+    },
+    methods: {
+        ...mapActions('product', ['resetFilter', 'filter']),
+    },
+})
+export default class CatalogLeftMenuFilter extends Vue {
+  @Prop(Object)
+  maxPrice: number = 0;
 
-export default Vue.extend({
-  name: 'CatalogLeftMenuFilter',
-  props: ['maxPrice'],
-  data() {
-    return {
-      minPrice: 0,
-      activeFilterItems: {
+  minPrice: number = 0;
+  activeFilterItems: object = {
         price: false,
-      },
-      rangeSlider: {
+  };
+  rangeSlider: object = {
         min: 0,
         max: 0,
-      },
-    };
-  },
-  created() {
-    this.rangeSlider.max = this.maxPrice;
-  },
-  methods: {
-    ...mapActions('product', ['resetFilter', 'filter']),
-    onClickFilter() {
+  };
+
+
+
+  onClickFilter(): void {
       this.filter({ minPrice: this.rangeSlider.min, maxPrice: this.rangeSlider.max });
-    },
-    onClickReset() {
+  };
+  onClickReset(): void {
       this.resetFilter({ minPrice: 0, maxPrice: null });
-    },
-    onClickFilterItem(item) {
+  };
+  onClickFilterItem(item: number): void {
       this.activeFilterItems[item] = !this.activeFilterItems[item];
-    },
-  },
-});
+  };
+};
 </script>
 
 <style>

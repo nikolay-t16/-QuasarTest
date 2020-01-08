@@ -29,28 +29,28 @@
 
 <script lang="ts">
 import { mapActions } from 'vuex';
-import Vue from 'vue';
+import { Component, Vue, } from 'vue-property-decorator';
 import SiteHeader from './Site/SiteHeader.vue';
 import SiteFooter from './Site/SiteFooter.vue';
 
-
-export default Vue.extend({
-  name: 'MyLayout',
-  components: { SiteHeader, SiteFooter },
-  data() {
-    return {
-      leftDrawerOpen: this.$q.platform.is.desktop,
-    };
-  },
-  created() {
-    this.getCatalog();
-    this.getBasket();
+@Component({
+  components: {
+    SiteHeader,
+    SiteFooter,
   },
   methods: {
     ...mapActions('catalog', ['getCatalog']),
     ...mapActions('basket', ['getBasket']),
   },
-});
+})
+export default class SiteLayout extends Vue {
+  leftDrawerOpen: boolean = this.$q.platform.is.desktop;
+
+  created(): void {
+    this.getCatalog();
+    this.getBasket();
+  };
+};
 </script>
 
 

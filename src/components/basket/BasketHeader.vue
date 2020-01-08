@@ -91,13 +91,14 @@
 
 <script lang="ts">
 import { mapGetters } from 'vuex';
+import { Component, Vue, } from 'vue-property-decorator';
 
-import Vue from 'vue';
+@Component({
+    computed: {
+        ...mapGetters('basket', ['basket']),
+    },
+})
+export default class BasketHeader extends Vue {
 
-export default Vue.extend({
-  name: 'BasketHeader',
-  computed: {
-    ...mapGetters('basket', ['basket']),
-  },
-});
+};
 </script>

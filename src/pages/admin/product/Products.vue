@@ -15,16 +15,25 @@
 
 <script lang="ts">
 import { mapGetters, mapActions } from 'vuex';
-import Vue from 'vue';
+import { Component, Prop, Vue, } from 'vue-property-decorator';
 import AdminTable from '../../../components/admin/AdminTable';
+import isEmptyObject from 'graphql-tools/dist/isEmptyObject';
+import {promises} from "fs";
 
+@Component({
+    components: {
+        AdminTable
+    },
+    computed: {
+        ...mapGetters('product', ['allProducts']),
+    },
+    methods: {
+        ...mapActions('product', ['getAllProducts', 'removeProduct', 'editProductField']),
+    },
+})
+export default class Products extends Vue{
 
-export default Vue.extend({
-  name: 'Products',
-  components: { AdminTable },
-  data() {
-    return {
-      columns: [
+  columns: object = [
         {
           name: 'id',
           label: 'Id',
@@ -107,18 +116,14 @@ export default Vue.extend({
           },
           action: item => this.$store.dispatch('product/removeProduct', item),
         },
-      ],
-    };
-  },
+      ];
+
   async created() {
     await this.getAllProducts();
-  },
-  computed: {
-    ...mapGetters('product', ['allProducts']),
-  },
-  methods: {
-    ...mapActions('product', ['getAllProducts', 'removeProduct', 'editProductField']),
-    filterMethod(raws, terms) {
+  };
+
+
+  filterMethod(raws, terms): void {
       const search = terms.search.toLowerCase();
       return raws.filter(
         item => (!terms.isHit || item.isHit)
@@ -131,22 +136,25 @@ export default Vue.extend({
           || item.code.toLowerCase() === search
         ),
       );
-    },
-    deleteProduct(item) {
+  };
+
+  deleteProduct(item): void {
       const index = this.data.indexOf(item);
       if (index > -1) {
         this.data = this.data.splice(index, 1);
       }
-    },
-    rowAction(action, item) {
+  };
+
+  rowAction(action, item): void {
       action(item);
-    },
-    rowEdit(id, field, value) {
+  };
+
+  rowEdit(id, field, value): void {
       this.editProductField({ id, field, value });
-    },
-    onAddClick() {
+  };
+
+  onAddClick(): void {
       this.$router.push('/admin/product/new');
-    },
-  },
-});
+  };
+};
 </script>

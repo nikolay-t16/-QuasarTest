@@ -1,6 +1,6 @@
 const route = {
   path: '/catalog/',
-  component: () => import('layouts/Site.vue'),
+  component: () => import('src/layouts/SiteLayout.vue'),
   children: [
     {
       path: '/catalog/product/:productId',

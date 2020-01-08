@@ -7,7 +7,7 @@ import ks from './ks/';
 const routes: RouteConfig[] = [
   {
     path: '/',
-    component: () => import('layouts/Site.vue'),
+    component: () => import('src/layouts/SiteLayout.vue'),
     children: [
       { path: '', component: () => import('src/pages/IndexPage.vue') },
     ],

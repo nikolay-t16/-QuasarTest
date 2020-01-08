@@ -15,49 +15,55 @@
 
 <script lang="ts">
 import { mapGetters, mapActions } from 'vuex';
-import Vue from 'vue';
+import { Component, Vue, } from 'vue-property-decorator';
 import AdminTree from '../../../components/admin/AdminTree';
 
+@Component({
+    components: {
+        AdminTree
+    },
+    computed: {
+        ...mapGetters('catalog', ['catalogTree']),
+    },
+    methods: {
+        ...mapActions('rubric', ['removeRubric']),
+        ...mapActions('product', ['removeProduct']),
+        ...mapActions('catalog', ['getCatalog']),
+    },
+})
+export default class Catalog extends Vue{
 
-export default Vue.extend({
-  name: 'Catalog',
-  components: { AdminTree },
-  data() {
-    return {
-      simple: [],
-    };
-  },
-  computed: {
-    ...mapGetters('catalog', ['catalogTree']),
-  },
-  async created() {
-    await this.getCatalog();
-  },
-  methods: {
-    ...mapActions('rubric', ['removeRubric']),
-    ...mapActions('product', ['removeProduct']),
-    ...mapActions('catalog', ['getCatalog']),
-    deleteRubric(item) {
+  simple: [] = [];
+
+  created(): void {
+    this.getCatalog();
+  };
+
+  deleteRubric(item): void {
       const index = this.data.indexOf(item);
       if (index > -1) {
         this.data = this.data.splice(index, 1);
       }
-    },
-    onAddRubricClick() {
+  };
+
+  onAddRubricClick(): void {
       this.$router.push('/admin/rubric/new');
-    },
-    onEditRubricClick(id) {
+  };
+
+  onEditRubricClick(id: number): void {
       this.$router.push(`/admin/rubric/${id}`);
-    },
-    onRemoveRubricClick(rubric) {
+  };
+
+  onRemoveRubricClick(rubric: object): void {
       this.removeRubric(rubric);
-    },
-    onEditProductClick(id) {
+  };
+
+  onEditProductClick(id: number): void {
       this.$router.push(`/admin/product/${id}`);
-    },
-    onRemoveProductcClick(rubric) {
+  };
+
+  onRemoveProductcClick(rubric: object): void {
       this.removeProduct(rubric);
-    },
-  },
-});
+  };
+};
 </script>

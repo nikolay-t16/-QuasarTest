@@ -64,79 +64,81 @@
 
 <script lang="ts">
 import { mapGetters, mapActions } from 'vuex';
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import ProductData, { productDataFabric } from '../../../common/data/interface/ProductData';
 import AdminTree from './AdminTree';
 
-const createDefaultProduct = () => ({
-  name: '',
-  code: '',
-  price: 0,
-  show: false,
-  isHit: false,
-  isNew: false,
-});
+interface ProductFormData extends ProductData {
+    rubricsId?: number[];
+}
 
-import Vue from 'vue';
-
-export default Vue.extend({
-  name: 'ProductForm',
-  props: ['data'],
-  components: { AdminTree },
-  data() {
-    return {
-      product: createDefaultProduct(),
-      saveAndExit: false,
-    };
-  },
-  created() {
-    this.getAllRubrics();
-  },
-  watch: {
-    data: {
-      immediate: true,
-      handler(value) {
-        if (value) {
-          this.product = createDefaultProduct();
-          Object.assign(this.product, value);
-        }
-      },
+@Component({
+    components: {
+        AdminTree
     },
-  },
-  computed: {
-    ...mapGetters('catalog', ['rubricTree', 'catalogTree']),
-    title() {
+    watch: {
+        data: {
+            immediate: true,
+            handler(value) {
+                if (value) {
+                    this.product = productDataFabric();
+                    Object.assign(this.product, value);
+                }
+            },
+        },
+    },
+    computed: {
+        ...mapGetters('catalog', ['rubricTree', 'catalogTree']),
+    },
+    methods: {
+        ...mapActions('rubric', ['getAllRubrics']),
+    },
+})
+export default class ProductForm extends Vue {
+  @Prop(Object)
+  data: ProductData = productDataFabric();
+
+   product : ProductFormData = productDataFabric();
+
+   saveAndExit: boolean = false;
+
+  created(): void {
+    this.getAllRubrics();
+  };
+
+
+  get title(): string {
       if (this.data) return `Редактирование товара - ${this.product.name}`;
       return 'Добавить товар';
-    },
-    checkedRubrics() {
-      if (!this.product.rubrics) {
+  };
+
+  get checkedRubrics(): number[] {
+      if (this.product.rubrics) {
         return [];
       }
       return this.product.rubrics.map(item => +item.rubricId);
-    },
-  },
-  methods: {
-    ...mapActions('rubric', ['getAllRubrics']),
-    onSubmit() {
-      this.product.price = parseFloat(this.product.price).toFixed(2);
-      this.$emit('submit', this.product, this.saveAndExit);
-      this.saveAndExit = false;
-    },
-    onReset() {
-      this.product = createDefaultProduct();
-      Object.assign(this.product, this.data);
-    },
-    onPriceChange(e) {
-      this.product.price = e.target.value ? parseFloat(e.target.value).toFixed(2) : 0;
-    },
-    onClickSaveAndExit() {
-      this.saveAndExit = true;
-    },
-    onChangeCheckedRubrics(checkedRubrics) {
-      this.product.rubrics = checkedRubrics.map(item => ({ rubricId: item }));
-    },
-  },
+  };
 
-});
+
+  onSubmit(): void {
+    this.product.price = +this.product.price.toFixed(2);
+    this.$emit('submit', this.product, this.saveAndExit);
+    this.saveAndExit = false;
+  };
+  onReset(): void {
+    this.product = productDataFabric();
+    Object.assign(this.product, this.data);
+  };
+  onPriceChange(e): void {
+    this.product.price = e.target.value ? +parseFloat(e.target.value).toFixed(2) : 0;
+  };
+  onClickSaveAndExit() : void {
+    this.saveAndExit = true;
+  };
+  onChangeCheckedRubrics(checkedRubrics): void {
+    this.product.rubrics = checkedRubrics.map(item => ({ rubricId: item }));
+  };
+};
 </script>
 
 <style>

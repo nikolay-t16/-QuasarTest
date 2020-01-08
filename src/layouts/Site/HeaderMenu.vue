@@ -117,33 +117,31 @@
 
 <script lang="ts">
 import { mapState, mapGetters } from 'vuex';
+import { Component, Vue, } from 'vue-property-decorator';
 
-import Vue from 'vue';
+@Component({
+    computed: {
+        ...mapState('catalog', ['TYPE_RUBRIC']),
+        ...mapGetters('catalog', ['rubricTree']),
+    },
+})
+export default class HeaderMenu extends Vue {
 
-export default Vue.extend({
-  name: 'HeaderMenu',
-  data() {
-    return {
-      selectItem1: null,
-      selectItem2: null,
-      subMenu1: [],
-      subMenu2: [],
-      menuItems: [
-        { label: 'Доставка и оплата', url: '' },
-        { label: 'Контакты', url: '' },
-      ],
-    };
-  },
-  computed: {
-    ...mapState('catalog', ['TYPE_RUBRIC']),
-    ...mapGetters('catalog', ['rubricTree']),
-  },
-  methods: {
-    onSelectMenu() {
+  selectItem1: number|null = null;
+  selectItem2: number|null = null;
+  subMenu1: [] = [];
+  subMenu2: [] = [];
+  menuItems: {} = [
+    { label: 'Доставка и оплата', url: '' },
+    { label: 'Контакты', url: '' },
+  ];
+
+  onSelectMenu():void {
       this.subMenu1 = [];
       this.subMenu2 = [];
-    },
-    onSelectMenuItem(item, level) {
+  };
+
+  onSelectMenuItem(item, level): void {
       if (level === 0) {
         this.selectItem1 = item;
         this.subMenu1 = item.children;
@@ -152,12 +150,12 @@ export default Vue.extend({
         this.selectItem2 = item;
         this.subMenu2 = item.children;
       }
-    },
-    showSubMenu(level) {
+  };
+
+  showSubMenu(level): boolean {
       return this.subMenu[level] && this.subMenu[level].length > 0;
-    },
-  },
-});
+  };
+};
 </script>
 
 <style>

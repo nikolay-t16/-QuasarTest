@@ -9,21 +9,20 @@
 
 <script lang="ts">
 import { mapActions } from 'vuex';
-import Vue from 'vue';
+import { Component, Vue, } from 'vue-property-decorator';
 import ProductForm from '../../../components/admin/ProductForm';
 
+@Component({
+    components: {
+        ProductForm,
+    },
+    methods: {
+        ...mapActions('product', ['addProduct']),
+    },
+})
+export default class AddProduct extends Vue{
 
-export default Vue.extend({
-  name: 'AddProduct',
-  components: {
-    ProductForm,
-  },
-  data() {
-    return {};
-  },
-  methods: {
-    ...mapActions('product', ['addProduct']),
-    async onSubmit(product, saveAndExit) {
+    async onSubmit(product, saveAndExit){
       const res = await this.addProduct(product);
       if (res.data.data.ProductAdd.id) {
         if (saveAndExit) {
@@ -32,7 +31,6 @@ export default Vue.extend({
           this.$router.push(`/admin/product/${res.data.data.ProductAdd.id}`);
         }
       }
-    },
-  },
-});
+    };
+};
 </script>

@@ -19,15 +19,18 @@
 
 <script lang="ts">
 import { mapGetters } from 'vuex';
-import Vue from 'vue';
+import { Component, Prop, Vue, } from 'vue-property-decorator';
 import IndexCatalogItem from './IndexCatalogItem';
 
+@Component({
+    components: {
+        IndexCatalogItem
+    },
+    computed: {
+        ...mapGetters('catalog', ['rootRubrics']),
+    },
+})
+export default class Catalog extends Vue {
 
-export default Vue.extend({
-  name: 'Catalog',
-  components: { IndexCatalogItem },
-  computed: {
-    ...mapGetters('catalog', ['rootRubrics']),
-  },
-});
+};
 </script>

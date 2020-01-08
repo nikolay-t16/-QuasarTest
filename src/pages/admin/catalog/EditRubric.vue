@@ -10,30 +10,31 @@
 
 <script lang="ts">
 import { mapActions, mapGetters } from 'vuex';
-import Vue from 'vue';
+import { Component, Prop, Vue, } from 'vue-property-decorator';
 import RubricForm from '../../../components/admin/RubricForm';
 
-
-export default Vue.extend({
-  name: 'EditRubric',
-  components: {
-    RubricForm,
-  },
-  props: ['id'],
-  data() {
-    return { };
-  },
-  created() {
-    this.getRubric({ id: this.id });
-  },
-  computed: {
-    ...mapGetters('rubric', ['rubric']),
-  },
-  methods: {
-    ...mapActions('rubric', ['getRubric', 'editRubric']),
-    onSubmit(rubric) {
-      this.editRubric(rubric);
+@Component({
+    components: {
+        RubricForm,
     },
-  },
-});
+    computed: {
+        ...mapGetters('rubric', ['rubric']),
+    },
+    methods: {
+        ...mapActions('rubric', ['getRubric', 'editRubric']),
+    },
+})
+export default class EditRubric extends Vue{
+
+  @Prop(Object)
+  id: number = 0;
+
+  created():void {
+    this.getRubric({ id: this.id });
+  };
+
+  onSubmit(rubric): void {
+      this.editRubric(rubric);
+  };
+};
 </script>

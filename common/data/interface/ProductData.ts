@@ -5,4 +5,15 @@ interface ProductData extends ProductDataBase {
   rubrics: RubricData[];
 }
 
+export const productDataFabric = ():ProductData  => ({
+  productId: null,
+  code: '',
+  isHit: false,
+  isNew: false,
+  name: '',
+  price: 0,
+  rubrics: [],
+  show: false,
+});
+
 export default ProductData;

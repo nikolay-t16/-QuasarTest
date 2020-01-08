@@ -103,32 +103,31 @@
 
 <script lang="ts">
 import { mapGetters, mapActions } from 'vuex';
-import Vue from 'vue';
+import { Component, Vue, } from 'vue-property-decorator';
 import BasketItems from './BasketItems';
 
+@Component({
+    components: {
+        BasketItems,
+    },
+    computed: {
+        ...mapGetters('basket', ['basket']),
+    },
+    methods: {
+        ...mapActions('basket', ['emptyBasket']),
+    },
+})
+export default class BasketComponent extends Vue {
 
-export default Vue.extend({
-  name: 'BasketComponent',
-  components: {
-    BasketItems,
-  },
-  data() {
-    return {
-      searchFocus: false,
-      searchValue: '',
-    };
-  },
-  computed: {
-    ...mapGetters('basket', ['basket']),
-  },
-  methods: {
-    ...mapActions('basket', ['emptyBasket']),
-    onFocusSearch() {
+  searchFocus: boolean = false;
+  searchValue: string = '';
+
+
+  onFocusSearch(): void {
       this.searchFocus = true;
-    },
-    onFocusOutSearch() {
+  };
+  onFocusOutSearch(): void {
       this.searchFocus = false;
-    },
-  },
-});
+  };
+};
 </script>

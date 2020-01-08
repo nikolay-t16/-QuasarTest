@@ -37,24 +37,24 @@
 
 <script lang="ts">
 import { mapGetters } from 'vuex';
+import { Component, Prop, Vue, } from 'vue-property-decorator';
 
-import Vue from 'vue';
+@Component({
+    computed: {
+        ...mapGetters('rubric', ['rubricTree']),
+    },
+})
+export default class CatalogLeftMenuItems extends Vue {
+    @Prop(Object)
+    rubricId: number = 0;
 
-export default Vue.extend({
-  name: 'CatalogLeftMenuItems',
-  props: ['rubricId'],
-  computed: {
-    ...mapGetters('rubric', ['rubricTree']),
-  },
-  methods: {
-    getSubRubrics(rubricId) {
+    getSubRubrics(rubricId): [] | null {
       if (this.rubricTree.has(+rubricId)) {
         return this.rubricTree.get(+rubricId).values();
       }
       return null;
-    },
-  },
-});
+    };
+};
 </script>
 
 <style>

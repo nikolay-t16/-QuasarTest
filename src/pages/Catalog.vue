@@ -34,37 +34,38 @@
 
 <script lang="ts">
 import { mapGetters, mapActions } from 'vuex';
-import Vue from 'vue';
+import { Component, Prop, Vue, } from 'vue-property-decorator';
 import CatalogLeftMenu from '../components/catalog/CatalogLeftMenu';
 import CatalogProductList from '../components/catalog/CatalogProductList';
 
+@Component({
+    watch: {
+        rubricId: {
+            immediate: true,
+            handler() {
+                this.resetFilter();
+                this.resetSort();
+            },
+        },
+    },
+    components: {
+        CatalogProductList,
+        CatalogLeftMenu,
+    },
+    computed: {
+        ...mapGetters('product', ['allProducts', 'productsByRubric', 'filter']),
+    },
+    methods: {
+        ...mapActions('product', ['resetFilter', 'resetSort']),
+    },
+})
+export default class Catalog extends Vue {
+  @Prop(Object)
+    rubricId: number = 0;
 
-export default Vue.extend({
-  name: 'Catalog',
-  props: {
-    rubricId: String,
-  },
-  watch: {
-    rubricId: {
-      immediate: true,
-      handler() {
-        this.resetFilter();
-        this.resetSort();
-      },
-    },
-  },
-  components: {
-    CatalogProductList,
-    CatalogLeftMenu,
-  },
-  computed: {
-    ...mapGetters('product', ['allProducts', 'productsByRubric', 'filter']),
-    products() {
+
+  products(): object {
       return this.productsByRubric(this.rubricId);
-    },
-  },
-  methods: {
-    ...mapActions('product', ['resetFilter', 'resetSort']),
-  },
-});
+  };
+};
 </script>

@@ -3,7 +3,7 @@
     <div class="container">
       <div class="catalog_detail detail element_custom"
            itemscope itemtype="http://schema.org/Product">
-        <div class="basket_props_block" id="bx_basket_div_10726" style="display: none;">
+        <div class="basket_props_block" style="display: none;">
         </div>
         <div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating" style="display: none">
           <span itemprop="ratingValue">5</span>
@@ -19,8 +19,7 @@
               content="Букет конфет большой &quot;Мамочке&quot;"/>
         <meta itemprop="category" content="Шоколадные подарки/Букеты из конфет"/>
         <meta itemprop="description" content=""/>
-        <div class="item_main_info noffer unshow_un_props"
-             id="bx_117848907_10726">
+        <div class="item_main_info noffer unshow_un_props">
           <div class="img_wrapper">
             <div class="stickers">
               <div>
@@ -36,7 +35,7 @@
             <div class="item_slider">
               <div class="like_wrapper">
                 <div class="like_icons iblock">
-                  <div class="wish_item text" data-item="10726" data-iblock="4">
+                  <div class="wish_item text">
                                         <span class="value"
                                               title="Отложить"><i></i></span>
                     <span class="value added" title="В отложенных"><i></i></span>
@@ -46,12 +45,10 @@
 
               <div class="slides">
                 <ul>
-                  <li id="photo-0" class="current">
+                  <li class="current">
                     <a
                       href="/upload/iblock/e22/e22fa1d2d60f5b3e1221a18c2d7cc686.jpg"
-                      data-fancybox="item_slider"
                       class="popup_link fancy"
-                      data-caption="Букет конфет большой &quot;Мамочке&quot;"
                       title="Букет конфет большой &quot;Мамочке&quot;"
                     >
                       <img
@@ -67,11 +64,9 @@
                 <div
                   class="thumbs flexslider"
                   style="max-width:182px;">
-                  <ul class="slides_block" id="thumbs">
+                  <ul class="slides_block">
                     <li
                       class="current"
-                      data-big_img="/upload/iblock/e22/e22fa1d2d60f5b3e1221a18c2d7cc686.jpg"
-                      data-small_img=""
                     >
                       <span>
                         <img
@@ -89,11 +84,10 @@
             </div>
             <div class="item_slider color-controls flex flexslider">
               <ul class="slides">
-                <li id="mphoto-0" style="display: none;">
+                <li style="display: none;">
                   <a
                     href="/upload/iblock/e22/e22fa1d2d60f5b3e1221a18c2d7cc686.jpg"
-                    data-fancybox="item_slider_flex"
-                    class="fancy popup_link" data-caption="Букет конфет большой &quot;Мамочке&quot;"
+                    class="fancy popup_link"
                     title="Букет конфет большой &quot;Мамочке&quot;">
                     <img
                       src=""
@@ -112,7 +106,7 @@
                   <div class="item_block col-2">
                     <!--'start_frame_cache_dv_10726'-->
                     <div class="rating">
-                      <div class="iblock-vote" id="vote_10726">
+                      <div class="iblock-vote">
                         <table border="0" cellspacing="0" cellpadding="0">
                           <tr>
                             <td>
@@ -159,7 +153,7 @@
 
                     <div class="price_matrix_block">
                       <div class="price_matrix_wrapper ">
-                        <div class="price" data-currency="RUB" data-value="2385">
+                        <div class="price">
                           <span class="values_wrapper">
                             <span class="price_value">
                             {{product.price}}
@@ -170,7 +164,7 @@
                             </span>
                           </span>
                         </div>
-                        <div class="price discount" data-currency="RUB" data-value="2650">
+                        <div class="price discount">
                           <span class="values_wrapper"><span class="price_value">2 650</span><span
                             class="price_currency"> руб.</span></span>
                         </div>
@@ -183,30 +177,49 @@
                       </div>
                     </div>
                   </div>
-
-                </div>
-
-                <div class="quantity_block_wrapper">
-                </div>
-              </div>
-              <div class="buy_block">
-                <div class="counter_wrapp ">
-                  <div class="counter_block big_basket"
-                       data-offers="N"
-                       data-item="10726">
-                                    <span class="minus"
-                                          id="bx_117848907_10726_quant_down">-</span>
-                    <input type="text" class="text"
-                           id="bx_117848907_10726_quantity"
-                           name="quantity"
-                           value="1"/>
-                    <span class="plus"
-                          id="bx_117848907_10726_quant_up">+</span>
+                  <div class="quantity_block_wrapper">
                   </div>
-                  <div id="bx_117848907_10726_basket_actions" class="button_block">
-                    <!--noindex-->
+                </div>
+                <div class="buy_block">
+                  <div class="counter_wrapp">
+                    <div v-if="product.productId in basket.items">
+                      <div class="button_block  wide">
+                        <router-link
+                          rel="nofollow"
+                          to="/basket/"
+                          class="small in-cart btn btn-default transition_bg"
+                        >
+                          <i></i>
+                          <span>В корзине</span>
+                        </router-link>
+                      </div>
+                    </div>
+                    <div v-else>
+                      <div class="counter_block big_basket">
                     <span
-                      class="
+                      class="minus"
+                      @click="removeCount"
+                    >
+                      -
+                    </span>
+                      <input
+                        v-model="count"
+                        type="text"
+                        class="text"
+                      />
+                      <span
+                        class="plus"
+                        @click="addCount">
+                      +
+                    </span>
+                    </div>
+                      <div
+                      class="button_block"
+                      @click="onOrderClick"
+                    >
+                      <!--noindex-->
+                      <span
+                        class="
                         btn-lg
                         w_icons
                         giftd_add_basket
@@ -215,33 +228,33 @@
                         btn-default
                         transition_bg
                         animate-load"
-                    >
+                      >
                       <i></i>
                       <span>Заказать</span>
                     </span>
-                    <a
-                      href="/basket/"
-                      class="btn-lg w_icons in-cart btn btn-default transition_bg"
-                      data-item="10726"
-                      style="display:none;"><i></i>
-                      <span>В корзине</span>
-                    </a>
-                  </div>
+                      <a
+                        href="/basket/"
+                        class="btn-lg w_icons in-cart btn btn-default transition_bg"
+                        style="display:none;"><i></i>
+                        <span>В корзине</span>
+                      </a>
+                    </div>
+                    </div>
 
-                  <div class="wrapp_one_click">
+                    <div class="wrapp_one_click">
                     <span class="btn btn-default white btn-lg type_block transition_bg one_click"
-                      style="width: 100%;"
+                          style="width: 100%;"
                     >
                       <span>Купить в 1 клик</span>
                     </span>
+                    </div>
                   </div>
-                </div>
-                <div class="gift_form">
+                  <div class="gift_form">
                   <span>
                     <span class="animate-load">Хочу в подарок</span>
                   </span>
+                  </div>
                 </div>
-
               </div>
             </div>
 
@@ -288,8 +301,7 @@
                     </td>
                   </tr>
                 </table>
-                <table class="props_list"
-                       id="bx_117848907_10726_sku_prop"></table>
+                <table class="props_list"></table>
               </div>
             </div>
             <br>
@@ -420,20 +432,17 @@
         <div class="tabs">
           <ul class="nav nav-tabs">
             <li class=" active">
-              <a href="#descr"
-                 data-toggle="tab"><span>Описание</span></a>
+              <a href="#descr"><span>Описание</span></a>
             </li>
             <li class="">
-              <a href="#dops" data-toggle="tab"><span>О товаре</span></a>
+              <a href="#dops"><span>О товаре</span></a>
             </li>
             <li class="product_reviews_tab">
-              <a href="#review"
-                 data-toggle="tab"><span>Отзывы</span><span
+              <a href="#review"><span>Отзывы</span><span
                 class="count empty"></span></a>
             </li>
             <li class="product_ask_tab ">
-              <a href="#ask"
-                 data-toggle="tab"><span>Задать вопрос</span></a>
+              <a href="#ask"><span>Задать вопрос</span></a>
             </li>
 
           </ul>
@@ -502,7 +511,6 @@
                 <input
                   type="hidden"
                   name="bxajaxid"
-                  id="bxajaxid_d50a6ad23e7df6097e44962f55367ac9_8BACKi"
                   value="d50a6ad23e7df6097e44962f55367ac9"
                 />
                 <input
@@ -533,7 +541,6 @@
                       <div class="form-control">
                         <label><span>Вопрос&nbsp;<span class="star">*</span></span></label>
                         <textarea
-                          data-sid="QUESTION"
                           required name="form_textarea_9"
                           cols="40"
                           rows="5"
@@ -542,7 +549,6 @@
                       </div>
                       <input
                         type="hidden"
-                        data-sid="PRODUCT_NAME"
                         name="form_hidden_32"
                         value=""/>
                     </div>
@@ -552,7 +558,6 @@
                         <input
                           type="text"
                           class="inputtext"
-                          data-sid="CLIENT_NAME"
                           required
                           name="form_text_6"
                           value=""
@@ -563,7 +568,6 @@
                         <input
                           type="tel"
                           class="inputtext"
-                          data-sid="PHONE"
                           required
                           name="form_text_7"
                           value=""
@@ -575,7 +579,6 @@
                           type="email"
                           placeholder="mail@domen.com"
                           class="inputtext"
-                          data-sid="EMAIL"
                           name="form_email_8"
                           value=""
                         />
@@ -631,15 +634,46 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { mapActions, mapGetters, } from 'vuex';
+import { Component, Prop, Vue, } from 'vue-property-decorator';
+import { strToPrice, } from '../../helpers/string';
+import ProductData, { productDataFabric, } from '../../../common/data/interface/ProductData';
 
 @Component({
-  props: {
-    product: Object,
+  computed: {
+    ...mapGetters('basket', ['basket']),
+  },
+  methods: {
+    ...mapActions('basket', ['addProduct']),
   },
 })
-export default class ProductItem extends Vue {};
+export default class ProductItem extends Vue {
+    @Prop(Object)
+    product: ProductData = productDataFabric();
+
+    count: number = 1;
+    get price(): string {
+        return strToPrice(this.product.price);
+    };
+
+    get totalPrice(): string {
+        return strToPrice(this.count * this.product.price);
+    };
+
+    addCount(): void {
+        this.count += 1;
+    };
+
+    removeCount(): void {
+        if (this.count > 1) {
+            this.count -= 1;
+        }
+    };
+
+    onOrderClick(): void {
+        this.addProduct({ productId: this.product.productId, count: this.count });
+    };
+};
 </script>
 
 <style>

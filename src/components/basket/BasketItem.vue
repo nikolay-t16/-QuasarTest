@@ -74,30 +74,29 @@
 
 <script lang="ts">
 import { mapActions } from 'vuex';
+import { Component, Prop, Vue, } from 'vue-property-decorator';
+import number from 'vue-i18n/src/components/number';
 
-import Vue from 'vue';
-
-export default Vue.extend({
-  name: 'BasketItem',
-  props: {
-    product: Object,
-    count: Number,
-  },
-  data() {
-    return {
-      count_: 0,
-    };
-  },
-  methods: {
-    ...mapActions('basket', ['addProduct']),
-    addCount() {
-      this.addProduct({ productId: this.product.productId, count: this.count + 1 });
+@Component({
+    methods: {
+        ...mapActions('basket', ['addProduct']),
     },
-    removeCount() {
+})
+export default class BasketItem extends Vue {
+  @Prop(Object)
+    product: object = {};
+  @Prop(Object)
+    count: number = 0;
+
+  count_: number = 0;
+
+  addCount(): void {
+      this.addProduct({ productId: this.product.productId, count: this.count + 1 });
+  };
+  removeCount(): void {
       if (this.count > 1) {
         this.addProduct({ productId: this.product.productId, count: this.count - 1 });
       }
-    },
-  },
-});
+  };
+};
 </script>

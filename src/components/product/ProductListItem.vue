@@ -127,47 +127,48 @@
 
 <script lang="ts">
 import { mapActions, mapGetters } from 'vuex';
-import Vue from 'vue';
+import { Component, Prop, Vue, } from 'vue-property-decorator';
 import { strToPrice } from '../../helpers/string';
 
-
-export default Vue.extend({
-  name: 'ProductListItem',
-  props: {
-    data: {
+@Component({
+    computed: {
+        ...mapGetters('basket', ['basket']),
+    },
+    methods: {
+        ...mapActions('basket', ['addProduct']),
+    },
+})
+export default class ProductListItem extends Vue {
+  @Prop(Object)
+  data: object = {
       type: Object,
       default: () => {},
-    },
-  },
-  data() {
-    return {
-      count: 1,
-    };
-  },
-  computed: {
-    ...mapGetters('basket', ['basket']),
-    price() {
+  };
+
+  count: number = 1;
+
+  get price(): string {
       return strToPrice(this.data.price);
-    },
-    totalPrice() {
+  }
+
+  get totalPrice(): string {
       return strToPrice(this.count * this.data.price);
-    },
-  },
-  methods: {
-    ...mapActions('basket', ['addProduct']),
-    addCount() {
+  };
+
+  addCount(): void {
       this.count += 1;
-    },
-    removeCount() {
+  };
+
+  removeCount(): void {
       if (this.count > 1) {
         this.count -= 1;
       }
-    },
-    onOrderClick() {
+  };
+
+  onOrderClick(): void {
       this.addProduct({ productId: this.data.productId, count: this.count });
-    },
-  },
-});
+  };
+};
 </script>
 
 <style type="text/css">
