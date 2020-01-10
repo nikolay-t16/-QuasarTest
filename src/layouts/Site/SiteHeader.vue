@@ -99,20 +99,19 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import HeaderMenu from './HeaderMenu';
+import { Vue, Component } from 'vue-property-decorator';
 import BasketHeader from '../../components/basket/BasketHeader';
 import HeaderUser from '../../components/header/HeaderUser';
+import HeaderMenu from './HeaderMenu';
 
-
-export default Vue.extend({
+@Component({
   components: {
     HeaderUser,
     HeaderMenu,
     BasketHeader,
   },
-  name: 'SiteHeader',
-});
+})
+export default class SiteHeader extends Vue {};
 </script>
 
 <style>
@@ -120,5 +119,4 @@ export default Vue.extend({
     font-size: 24px;
     color: black;
   }
-
 </style>

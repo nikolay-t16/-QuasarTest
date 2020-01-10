@@ -18,9 +18,8 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import { Vue, Component } from 'vue-property-decorator';
 
-export default Vue.extend({
-  name: 'BreadcrumbsBlock',
-});
+@Component
+export default class BreadcrumbsBlock extends Vue {};
 </script>
