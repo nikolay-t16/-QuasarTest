@@ -21,11 +21,11 @@ export default class ProductStore extends VuexModule {
     'isNew',
     'isHit',
   ];
-  filter: any = {
+  filter: object = {
     minPrice: 0,
     maxPrice: null,
   };
-  sort: any = {
+  sort: object = {
     sortBy: null,
     sortDirect: 'ASC',
   };
@@ -199,7 +199,7 @@ export default class ProductStore extends VuexModule {
   }
 
   @Mutation
-  public REMOVE_PRODUCT( payload) {
+  public removeProductMutation(payload) {
     const index = this.allProducts.indexOf(payload);
     if (index > -1) {
       this.allProducts.splice(index, 1);
@@ -207,7 +207,7 @@ export default class ProductStore extends VuexModule {
   }
 
   @Mutation
-  public EDIT_PRODUCT( payload) {
+  public editProductMutation(payload) {
     for (let i = 0; i < this.allProducts.length; i += 1) {
       if (this.allProducts[i].productId === payload.id) {
         this.allProducts[i][payload.field] = payload.value;
@@ -217,17 +217,17 @@ export default class ProductStore extends VuexModule {
   }
 
   @Mutation
-  public FILTER( payload) {
+  public filterMutation(payload) {
     this.filter = payload;
   }
 
   @Mutation
-  public RESET_FILTER(state) {
+  public resetFilterMutation(state) {
     this.filter = {};
   }
 
   @Mutation
-  public SORT( payload) {
+  public sortMutation(payload) {
     if (this.sort.sortBy !== payload) {
       this.sort = {
         sortBy: payload,
@@ -242,7 +242,7 @@ export default class ProductStore extends VuexModule {
   }
 
   @Mutation
-  public RESET_SORT(state) {
+  public resetSortMutation(state) {
     this.sort = {};
   }
 
@@ -295,7 +295,7 @@ export default class ProductStore extends VuexModule {
           query: `mutation { ProductDelete (id:${options.productId}) }`,
         },
       )
-      .then(() => this.REMOVE_PRODUCT(options))
+      .then(() => this.removeProductMutation(options))
       .catch(err => console.log(err));
   }
 
@@ -308,7 +308,7 @@ export default class ProductStore extends VuexModule {
           query: `mutation { ProductEditField (id:${options.id}, field: "${options.field}", value: "${options.value}") }`,
         },
       )
-      .then(() => this.EDIT_PRODUCT(options))
+      .then(() => this.editProductMutation(options))
       .catch(err => console.log(err));
   }
 
@@ -329,7 +329,7 @@ export default class ProductStore extends VuexModule {
       )
       .then(
         () => {
-          this.EDIT_PRODUCT(options);
+          this.editProductMutation(options);
           this.getProductt({ id: options.productId });
         },
       )
@@ -374,7 +374,7 @@ export default class ProductStore extends VuexModule {
       minPrice = 0,
       maxPrice = null,
     } = options;
-    this.FILTER({ minPrice, maxPrice });
+    this.filterMutation({ minPrice, maxPrice });
   }
 
   @Action
@@ -383,12 +383,12 @@ export default class ProductStore extends VuexModule {
       minPrice = 0,
       maxPrice = null,
     } = options;
-    this.RESET_FILTER({ minPrice, maxPrice });
+    this.resetFilterMutation({ minPrice, maxPrice });
   }
 
   @Action
-  sortAction( options) {
-    this.SORT(options);
+  sortProducts( options) {
+    this.sortMutation(options);
   }
 
   @Action
