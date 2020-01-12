@@ -15,12 +15,7 @@
         <div class="ht-right">
           <a href="#" class="login-panel"><i class="fa fa-user"></i>Login</a>
           <div class="lan-selector">
-            <select class="language_drop" name="countries" id="countries" style="width:300px;">
-              <option value='yt' data-image="~assets/ks/img/flag-1.jpg" data-imagecss="flag yt"
-                      data-title="English">English</option>
-              <option value='yu' data-image="~assets/ks/img/flag-2.jpg" data-imagecss="flag yu"
-                      data-title="Bangladesh">German </option>
-            </select>
+            <header-lan-selector/>
           </div>
           <div class="top-social">
             <a href="#"><i class="ti-facebook"></i></a>
@@ -163,7 +158,19 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
+import HeaderLanSelector from '../../../components/ks/header/HeaderLanSelector.vue';
 
-@Component
+@Component({
+  components: {
+    HeaderLanSelector,
+  },
+})
 export default class SiteHeader extends Vue {};
 </script>
+
+<style>
+  .lan-selector {
+    width: 142px;
+    padding: 0 20px;
+  }
+</style>
