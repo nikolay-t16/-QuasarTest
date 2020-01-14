@@ -1,7 +1,17 @@
 import { Action, Module, Mutation, VuexModule } from 'vuex-module-decorators';
 import Store from '../index';
-import ProductData, {productDataFabric} from '../../../common/data/interface/ProductData';
+import ProductData, {makeEmptyProductData} from '../../../common/data/interface/ProductData';
 import axios from "../../boot/axios";
+
+const allFields: string[] = [
+  'productId',
+  'name',
+  'price',
+  'show',
+  'code',
+  'isNew',
+  'isHit',
+];
 
 @Module({
   dynamic: true,
@@ -10,47 +20,31 @@ import axios from "../../boot/axios";
   store: Store
 })
 export default class ProductStore extends VuexModule {
-  allProducts: ProductData[] = [];
-  product?: ProductData;
-  allFields: object = [
-    'productId',
-    'name',
-    'price',
-    'show',
-    'code',
-    'isNew',
-    'isHit',
-  ];
-  filter: object = {
+  public allProducts: ProductData[] = [];
+  public product: ProductData | null = null;
+
+  public filter: object = {
     minPrice: 0,
     maxPrice: null,
   };
-  sort: object = {
+
+  public sort: object = {
     sortBy: null,
     sortDirect: 'ASC',
   };
 
-  get getAllProducts() {
-    return this.allProducts;
-  }
-
-  get getAllMapProducts() {
+  public get allMapProducts() {
     const res = new Map();
     this.allProducts.forEach(item => res.set(item.productId, item));
     return res;
   }
 
-  /*
-
-  const getEmptyRubricProducts = () => ({
+  protected getEmptyRubricProducts = () => ({
     items: [],
     maxPrice: null,
   });
 
-   */
-
-  /*
-  const concatRubricProducts = (item1, item2) => {
+  protected concatRubricProducts = (item1, item2) => {
     const res = Object.assign({}, item1);
     res.items = res.items.concat(item2.items);
     if (res.maxPrice === null || res.maxPrice < item2.maxPrice) {
@@ -59,9 +53,7 @@ export default class ProductStore extends VuexModule {
     return res;
   };
 
-   */
-
-  isProdValidForFilter(prod, filter) {
+  protected isProdValidForFilter(prod, filter) {
     if (filter.minPrice !== null && +filter.minPrice > +prod.price) {
       return false;
     }
@@ -71,14 +63,14 @@ export default class ProductStore extends VuexModule {
     return true;
   }
 
-  getRubricProducts(rubric, products, filter) {
-    const res = getEmptyRubricProducts();
+  protected getRubricProducts(rubric, products, filter) {
+    const res = this.getEmptyRubricProducts();
     if (rubric && rubric.products) {
       rubric.products.forEach(
         (item) => {
           if (products.has(+item.productId)) {
             const prod = products.get(+item.productId);
-            if (isProdValidForFilter(prod, filter)) {
+            if (this.isProdValidForFilter(prod, filter)) {
               res.items.push(prod);
             }
             if (res.maxPrice === null || res.maxPrice < prod.price) {
@@ -91,7 +83,7 @@ export default class ProductStore extends VuexModule {
     return res;
   }
 
-  getAllRubricProducts(
+  protected getAllRubricProducts(
     rubricId,
     rubrics,
     products,
@@ -99,18 +91,18 @@ export default class ProductStore extends VuexModule {
     filter,
     delteDuplicate = true,
   ) {
-    let res = getEmptyRubricProducts();
+    let res = this.getEmptyRubricProducts();
     const rubric = rubrics && rubrics.has(+rubricId) ? rubrics.get(+rubricId) : null;
 
     if (rubric) {
-      const rubricProducts = getRubricProducts(rubric, products, filter);
-      res = concatRubricProducts(res, rubricProducts);
+      const rubricProducts = this.getRubricProducts(rubric, products, filter);
+      res = this.concatRubricProducts(res, rubricProducts);
     }
 
     if (rubricTree.has(rubricId)) {
       rubricTree.get(rubricId).forEach(
         (subRub) => {
-          const subRubricProducts = getAllRubricProducts(
+          const subRubricProducts = this.getAllRubricProducts(
             subRub.rubricId,
             rubrics,
             products,
@@ -118,7 +110,7 @@ export default class ProductStore extends VuexModule {
             filter,
             false,
           );
-          res = concatRubricProducts(res, subRubricProducts);
+          res = this.concatRubricProducts(res, subRubricProducts);
         },
       );
     }
@@ -131,17 +123,14 @@ export default class ProductStore extends VuexModule {
 
   /**
    *
-   * @param state
-   * @param getters
-   * @param rootState
-   * @param rootGetters
+   * @param id
    * @returns {Array|Null}
    */
-  export const productsByRubric = ( getters, rootState, rootGetters) => (id) => {
+  public productsByRubric(id) {
     const rubrics = rootGetters['rubric/allMapRubrics'];
     const rubricTree = rootGetters['rubric/rubricTree'];
-    const res = getAllRubricProducts(
-      +id,
+    const res = this.getAllRubricProducts(
+      id,
       rubrics,
       getters.getAllMapProducts,
       rubricTree,
@@ -164,27 +153,19 @@ export default class ProductStore extends VuexModule {
     return res;
   };
 
-  get getProduct() {
+  public get getProduct() {
     return this.product;
   }
 
-  get newProducts() {
+  public get newProducts() {
     return this.allProducts.filter(item => item.isNew);
   }
 
-  get hitProducts() {
+  public get hitProducts() {
     return this.allProducts.filter(item => item.isHit);
   }
 
-  get getListFields() {
-    return this.listFields;
-  }
-
-  get getAllFields() {
-    return this.allFields;
-  }
-
-  get getSort() {
+  public get getSort() {
     return this.sort;
   }
 
@@ -222,7 +203,7 @@ export default class ProductStore extends VuexModule {
   }
 
   @Mutation
-  public resetFilterMutation(state) {
+  public resetFilterMutation() {
     this.filter = {};
   }
 
@@ -242,13 +223,13 @@ export default class ProductStore extends VuexModule {
   }
 
   @Mutation
-  public resetSortMutation(state) {
+  public resetSortMutation() {
     this.sort = {};
   }
 
   @Action
-  async getAllProductss() {
-    const productFields = Object.values(this.allFields).join(' ');
+  public async getAllProducts() {
+    const productFields = Object.values(allFields).join(' ');
     axios.post('http://localhost:3001/graphql', {
       query: `{
         Products{ ${productFields}  }
@@ -263,8 +244,8 @@ export default class ProductStore extends VuexModule {
   }
 
   @Action
-  async getProductt(options) {
-    const productFields = Object.values(this.allFields).join(' ');
+  public async getProduct(options) {
+    const productFields = Object.values(allFields).join(' ');
     const rubricFieldId = context.rootGetters['rubric/allFields'].FIELD_ID; /*???*/
     axios
       .post(
@@ -287,7 +268,7 @@ export default class ProductStore extends VuexModule {
   }
 
   @Action
-  async removeProduct(options) {
+  public async removeProduct(options) {
     axios
       .post(
         'http://localhost:3001/graphql',
@@ -300,7 +281,7 @@ export default class ProductStore extends VuexModule {
   }
 
   @Action
-  async editProductField(options) {
+  public async editProductField(options) {
     axios
       .post(
         'http://localhost:3001/graphql',
@@ -313,7 +294,7 @@ export default class ProductStore extends VuexModule {
   }
 
   @Action
-  async editProduct(options) {
+  public async editProduct(options) {
     options.price = +options.price;
     const res = axios
       .post(
@@ -344,7 +325,7 @@ export default class ProductStore extends VuexModule {
   }
 
   @Action
-  async addProduct(options) {
+  public async addProduct(options) {
     options.price = +options.price;
     if (!options.code) {
       options.code = null;
@@ -369,7 +350,7 @@ export default class ProductStore extends VuexModule {
   }
 
   @Action
-  filterAction(options = {}) {
+  public filterAction(options = {}) {
     const {
       minPrice = 0,
       maxPrice = null,
@@ -378,7 +359,7 @@ export default class ProductStore extends VuexModule {
   }
 
   @Action
-  resetFilter(options = {}) {
+  public resetFilter(options = {}) {
     const {
       minPrice = 0,
       maxPrice = null,
@@ -387,13 +368,7 @@ export default class ProductStore extends VuexModule {
   }
 
   @Action
-  sortProducts( options) {
+  public sortProducts( options) {
     this.sortMutation(options);
   }
-
-  @Action
-  resetSort() {
-    this.resetSort();
-  }
-
 }

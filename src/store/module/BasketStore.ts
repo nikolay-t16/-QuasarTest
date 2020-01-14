@@ -1,6 +1,10 @@
-import { Action, Module, Mutation, VuexModule } from 'vuex-module-decorators';
+import { Action, Module, Mutation, VuexModule, getModule } from 'vuex-module-decorators';
 import Store from '../index';
+import ProductStore from "./ProductStore";
 import axios from "../../boot/axios";
+import ProductData from "../../../common/data/interface/ProductData";
+
+const productStore =  getModule(ProductStore);
 
 @Module({
   dynamic: true,
@@ -9,30 +13,32 @@ import axios from "../../boot/axios";
   store: Store
 })
 export default class BasketStore extends VuexModule {
-  items: {};
-  favorites: {};
 
-  get basket(getters, rootState, rootGetters) {
-    const allPproducts = rootGetters['product/allMapProducts'];
+  public items: number[] = [];
+  public favorites: number[] = [];
+  protected readonly lsBasket: string = 'basket';
+
+  public get basket() {
+    const allProducts = productStore.allMapProducts;
     const items = {};
     const favorites = {};
     let totalCount = 0;
     let totalPrice = 0;
-    const products = [];
+    const products: ProductData[] = [];
     // eslint-disable-next-line array-callback-return
     Object.entries(this.items).map(([productId, count]) => {
-      if (allPproducts.has(+productId)) {
-        const product = allPproducts.get(+productId);
+      if (allProducts.has(productId)) {
+        const product = allProducts.get(productId);
         items[+productId] = count;
         products.push(product);
-        totalCount += +count;
+        totalCount += count;
         totalPrice += count * product.price;
       }
     });
     // eslint-disable-next-line array-callback-return
     Object.entries(this.favorites).map(([productId, count]) => {
-      if (products.has(+productId)) {
-        favorites[+productId] = count;
+      if (allProducts.has(productId)) {
+        favorites[productId] = count;
       }
     });
     return {
@@ -42,6 +48,10 @@ export default class BasketStore extends VuexModule {
       totalCount,
       totalPrice,
     };
+  }
+
+  public saveBasket(context): void {
+    localStorage.setItem(lsBasket, JSON.stringify(this.items));
   }
 
   @Mutation
@@ -70,11 +80,6 @@ export default class BasketStore extends VuexModule {
     } else if (+count === 0) {
       delete this.favorites[+productId];
     }
-  }
-
-  @Action
-  saveBasket(context) {
-    localStorage.setItem(lsBasket, JSON.stringify(context.state.items));
   }
 
   @Action

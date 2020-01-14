@@ -65,7 +65,7 @@
 <script lang="ts">
 import { mapGetters, mapActions } from 'vuex';
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import ProductData, { productDataFabric } from '../../../common/data/interface/ProductData';
+import ProductData, { makeEmptyProductData } from '../../../common/data/interface/ProductData';
 import AdminTree from './AdminTree';
 
 interface ProductFormData extends ProductData {
@@ -81,7 +81,7 @@ interface ProductFormData extends ProductData {
             immediate: true,
             handler(value) {
                 if (value) {
-                    this.product = productDataFabric();
+                    this.product = makeEmptyProductData();
                     Object.assign(this.product, value);
                 }
             },
@@ -96,9 +96,9 @@ interface ProductFormData extends ProductData {
 })
 export default class ProductForm extends Vue {
   @Prop(Object)
-  data: ProductData = productDataFabric();
+  data: ProductData = makeEmptyProductData();
 
-   product : ProductFormData = productDataFabric();
+   product : ProductFormData = makeEmptyProductData();
 
    saveAndExit: boolean = false;
 
@@ -126,7 +126,7 @@ export default class ProductForm extends Vue {
     this.saveAndExit = false;
   };
   onReset(): void {
-    this.product = productDataFabric();
+    this.product = makeEmptyProductData();
     Object.assign(this.product, this.data);
   };
   onPriceChange(e): void {

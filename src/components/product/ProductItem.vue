@@ -637,7 +637,7 @@
 import { mapActions, mapGetters, } from 'vuex';
 import { Component, Prop, Vue, } from 'vue-property-decorator';
 import { strToPrice, } from '../../helpers/string';
-import ProductData, { productDataFabric, } from '../../../common/data/interface/ProductData';
+import ProductData, { makeEmptyProductData, } from '../../../common/data/interface/ProductData';
 
 @Component({
   computed: {
@@ -649,7 +649,7 @@ import ProductData, { productDataFabric, } from '../../../common/data/interface/
 })
 export default class ProductItem extends Vue {
     @Prop(Object)
-    product: ProductData = productDataFabric();
+    product: ProductData = makeEmptyProductData();
 
     count: number = 1;
     get price(): string {
