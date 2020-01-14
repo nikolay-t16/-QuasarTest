@@ -2,8 +2,8 @@
   <div class="header-lan-selector">
     <div class="header-lan-selector__header" @click="onDropdownClick">
       <div>
-        <img src="~assets/ks/img/flag-1.jpg" class="header-lan-selector__flag">
-        <span class="header-lan-selector__label">English</span>
+        <img :src="require(`assets/ks/img/flag/${curDropdownItem.icon}`)" class="header-lan-selector__flag">
+        <span class="header-lan-selector__label">{{curDropdownItem.label}}</span>
       </div>
       <q-icon name="expand_more" class="header-lan-selector__arrow"/>
     </div>
@@ -11,13 +11,17 @@
       class="header-lan-selector__dropdown"
       v-bind:class="{ ['header-lan-selector__dropdown_state-open']: dropdownOpen }"
     >
-      <div class="header-lan-selector__dropdown-item">
-        <img src="~assets/ks/img/flag-1.jpg" class="header-lan-selector__dropdown-item-flag">
-        <span class="header-lan-selector__dropdown-item-label">English</span>
-      </div>
-      <div class="header-lan-selector__dropdown-item">
-        <img src="~assets/ks/img/flag-2.jpg" class="header-lan-selector__dropdown-item-flag">
-        <span class="header-lan-selector__dropdown-item-label">German</span>
+      <div
+        v-for="item in dropdownItems"
+        v-bind:key="item.value"
+        @click="onDropdownItemClick(item.value)"
+        class="header-lan-selector__dropdown-item"
+      >
+        <img
+          :src="require(`assets/ks/img/flag/${item.icon}`)"
+          class="header-lan-selector__dropdown-item-flag"
+        >
+        <span class="header-lan-selector__dropdown-item-label">{{item.label}}</span>
       </div>
     </div>
 
@@ -26,13 +30,42 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
+import { getModule } from 'vuex-module-decorators';
+import LangStore from '../../../store/module/LangStore'
+import config from '../../../../common/config';
+
+interface DropdownItemData {
+  icon: string;
+  label: string;
+  value: string;
+}
 
 @Component
 export default class HeaderLanSelector extends Vue {
+  protected langStore:LangStore  = getModule(LangStore);
   public dropdownOpen: boolean = false;
+
+  public lan: string | null = config.defaultLang;
+
+  public get curDropdownItem(): DropdownItemData {
+    const isLanItem = _ => _.value === this.langStore.lang;
+    return this.dropdownItems.find(isLanItem) as DropdownItemData;
+  }
+
+  public get dropdownItems(): DropdownItemData[] {
+    return [
+      {icon: 'flag-1.jpg', label: 'English', value: config.LANG_EN},
+      {icon: 'flag-2.jpg', label: 'German', value: config.LANG_GER},
+    ];
+  };
 
   public onDropdownClick(): void {
     this.dropdownOpen = !this.dropdownOpen;
+  }
+
+  public onDropdownItemClick(val: string) :void {
+    this.langStore.setLang(val);
+    this.dropdownOpen = false;
   }
 };
 </script>
@@ -64,6 +97,7 @@ export default class HeaderLanSelector extends Vue {
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)
   }
 
   .header-lan-selector__dropdown_state-open {
