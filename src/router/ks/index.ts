@@ -4,7 +4,7 @@ const route = {
   children: [
     {
       path: '/ks/',
-      component: () => import('src/pages/IndexPage.vue'),
+      component: () => import('src/pages/ks/IndexPage.vue'),
     },
   ],
 };
