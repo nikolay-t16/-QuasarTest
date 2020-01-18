@@ -30,9 +30,15 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import { getModule } from 'vuex-module-decorators';
-import LangStore from '../../../store/module/LangStore'
+import { Module } from 'vuex-smart-module'
+import lang, {
+  LangState,
+  LangGetters,
+  LangMutations,
+  LangActions
+}  from '../../../store/lang';
 import config from '../../../../common/config';
+import foo from '../../../store/foo';
 
 interface DropdownItemData {
   icon: string;
@@ -42,20 +48,18 @@ interface DropdownItemData {
 
 @Component
 export default class HeaderLanSelector extends Vue {
-  protected langStore:LangStore  = getModule(LangStore);
   public dropdownOpen: boolean = false;
-
-  public lan: string | null = config.defaultLang;
+  protected langStore = lang.context(this.$store);
 
   public get curDropdownItem(): DropdownItemData {
-    const isLanItem = _ => _.value === this.langStore.lang;
+    const isLanItem = _ => _.value === this.langStore.getters.lang;
     return this.dropdownItems.find(isLanItem) as DropdownItemData;
   }
 
   public get dropdownItems(): DropdownItemData[] {
     return [
-      {icon: 'flag-1.jpg', label: 'English', value: config.LANG_EN},
-      {icon: 'flag-2.jpg', label: 'German', value: config.LANG_GER},
+      {icon: 'flag-1.jpg', label: 'English', value: config.lang.en},
+      {icon: 'flag-2.jpg', label: 'German', value: config.lang.ger},
     ];
   };
 
@@ -64,7 +68,7 @@ export default class HeaderLanSelector extends Vue {
   }
 
   public onDropdownItemClick(val: string) :void {
-    this.langStore.setLang(val);
+    this.langStore.actions.setLang(val);
     this.dropdownOpen = false;
   }
 };

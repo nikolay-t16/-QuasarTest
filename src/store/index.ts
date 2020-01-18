@@ -1,14 +1,19 @@
-import Vue from 'vue';
+import Vue from 'vue'
 import Vuex from 'vuex';
-import product from './product';
-import rubric from './rubric';
-import catalog from './catalog';
-import basket from './basket';
-
-// import example from './module-example'
+import { createStore, Module} from 'vuex-smart-module';
+import lang from './lang';
 
 Vue.use(Vuex);
-
-export default new Vuex.Store({
-  strict: process.env.DEV === 'true'
+const rootModule = new Module({
+  modules: {
+    lang,
+  }
 });
+
+
+export default createStore(
+  rootModule,
+  {
+    strict: process.env.NODE_ENV !== 'production'
+  }
+);
