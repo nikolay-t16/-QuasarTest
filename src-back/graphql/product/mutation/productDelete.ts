@@ -4,7 +4,7 @@ import {
   GraphQLID,
 } from 'graphql';
 import { getRepository } from 'typeorm';
-import { Product } from '../../../entiti/Product';
+import ProductEntity from '../../../entity/ProductEntity';
 
 export const ProductDelete = {
   description: 'Delete product',
@@ -16,7 +16,7 @@ export const ProductDelete = {
     },
   },
   async resolve(root, { id }, options) {
-    const repository = getRepository(Product);
+    const repository = getRepository(ProductEntity);
     return repository
       .delete(id)
       .then(() => true)

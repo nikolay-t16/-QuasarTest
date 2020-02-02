@@ -5,17 +5,15 @@ import {
   CreateDateColumn,
   UpdateDateColumn, ManyToMany, JoinTable,
 } from 'typeorm';
-import ProductData from '../../common/data/interface/ProductData';
-import RubricData from '../../common/data/interface/RubricData';
-import { Rubric } from './Rubric';
+import Product from '../../common/data/type/Product';
+import Rubric from '../../common/data/type/Rubric';
+import { RubricEntity } from './RubricEntity';
 
 const TABLE_NAME = 'product';
 
 @Entity(TABLE_NAME)
-export class Product implements ProductData {
+class ProductEntity extends Product {
   public static TABLE_NAME = TABLE_NAME;
-
-  public static FIELD_ID = 'productId';
 
   @PrimaryGeneratedColumn()
   public productId: number | null = null;
@@ -50,7 +48,7 @@ export class Product implements ProductData {
   @UpdateDateColumn()
   public updatedAt: Date = new Date();
 
-  @ManyToMany(type => Rubric)
+  @ManyToMany(type => RubricEntity)
   @JoinTable({
     name: 'rubric_product',
     joinColumn: {
@@ -63,5 +61,7 @@ export class Product implements ProductData {
     },
   })
   // @ts-ignore
-  public rubrics: RubricData[];
+  public rubrics: RubricEntity[];
 }
+
+export default ProductEntity;

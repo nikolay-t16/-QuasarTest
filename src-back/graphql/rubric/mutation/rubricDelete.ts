@@ -4,7 +4,7 @@ import {
   GraphQLID,
 } from 'graphql';
 import { getRepository } from 'typeorm';
-import { Rubric } from '../../../entiti/Rubric';
+import { RubricEntity } from '../../../entity/RubricEntity';
 
 export const RubricDelete = {
   description: 'Delete rubric',
@@ -16,13 +16,13 @@ export const RubricDelete = {
     },
   },
   async resolve(root, { id }, options) {
-    const repository = getRepository(Rubric);
+    const repository = getRepository(RubricEntity);
     return repository
       .delete(id)
       .then(() => true)
       .catch((e) => {
         console.log(e);
-        throw new Error('Error deleting Rubric');
+        throw new Error('Error deleting RubricEntity');
       });
   },
 };

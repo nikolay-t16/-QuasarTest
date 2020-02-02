@@ -2,7 +2,7 @@ import {
   GraphQLList,
 } from 'graphql';
 import { getRepository } from 'typeorm';
-import { Product as ProductEntite } from '../../../entiti/Product';
+import ProductEntity from '../../../entity/ProductEntity';
 
 // импортируем данные из models.js
 import { ProductType } from '../type/productType';
@@ -12,7 +12,7 @@ export const Products = {
   type: new GraphQLList(ProductType),
   args: {},
   resolve(root, params, options) {
-    const repository = getRepository(ProductEntite);
+    const repository = getRepository(ProductEntity);
     return repository.find({ relations: ['rubrics'] });
   },
 };

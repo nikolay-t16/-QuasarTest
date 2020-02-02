@@ -3,7 +3,7 @@ import {
   GraphQLNonNull,
 } from 'graphql';
 import { getRepository } from 'typeorm';
-import { Product as ProductEntite } from '../../../entiti/Product';
+import ProductEntity from '../../../entity/ProductEntity';
 
 // импортируем данные из models.js
 import { ProductType } from '../type/productType';
@@ -20,7 +20,7 @@ export const Product = {
   },
   // метод, в котором формируется запрос и возвращаются данные (root, params, options)
   async resolve(root, { id }, options) {
-    const repository = getRepository(ProductEntite);
+    const repository = getRepository(ProductEntity);
     return repository.findOne(id, { relations: ['rubrics'] });
   },
 };

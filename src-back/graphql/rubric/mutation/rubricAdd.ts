@@ -3,10 +3,10 @@ import {
 } from 'graphql';
 import { getRepository } from 'typeorm';
 import { RubricType, RubricInput } from '../type';
-import { Rubric } from '../../../entiti/Rubric';
+import { RubricEntity } from '../../../entity/RubricEntity';
 
 export const RubricAdd = {
-  description: 'Create new Rubric',
+  description: 'Create new RubricEntity',
   type: RubricType,
   args: {
     data: {
@@ -15,7 +15,7 @@ export const RubricAdd = {
     },
   },
   async resolve(root, { data }, options) {
-    const repository = getRepository(Rubric);
+    const repository = getRepository(RubricEntity);
     return repository
       .createQueryBuilder()
       .insert()
@@ -25,7 +25,7 @@ export const RubricAdd = {
       .then(_ => _.raw[0])
       .catch((e) => {
         console.log(e);
-        throw new Error('Error deleting Rubric');
+        throw new Error('Error deleting RubricEntity');
       });
   },
 };

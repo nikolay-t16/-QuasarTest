@@ -3,7 +3,7 @@ import {
   GraphQLNonNull,
 } from 'graphql';
 import { getRepository } from 'typeorm';
-import { Rubric as RubricEntite } from '../../../entiti/Rubric';
+import { RubricEntity as RubricEntite } from '../../../entity/RubricEntity';
 
 // импортируем данные из models.js
 import { RubricType } from '../type/rubricType';

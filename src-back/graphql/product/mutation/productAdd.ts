@@ -3,7 +3,7 @@ import {
 } from 'graphql';
 import { getRepository } from 'typeorm';
 import { ProductType, ProductInput } from '../type';
-import { Product } from '../../../entiti/Product';
+import ProductEntity from '../../../entity/ProductEntity';
 
 export const ProductAdd = {
   description: 'Create new Product',
@@ -15,12 +15,12 @@ export const ProductAdd = {
     },
   },
   async resolve(root, { data }, options) {
-    const repository = getRepository(Product);
+    const repository = getRepository(ProductEntity);
     return repository
       .createQueryBuilder()
       .insert()
       .values({ ...data })
-      .returning(Product.FIELD_ID)
+      .returning(ProductEntity.FIELD_ID)
       .execute()
       .then(_ => _.raw[0])
       .catch((e) => {

@@ -4,7 +4,7 @@ import {
 } from 'graphql';
 import { getRepository } from 'typeorm';
 import { ProductInput } from '../type';
-import { Product } from '../../../entiti/Product';
+import ProductEntity from '../../../entity/ProductEntity';
 
 export const ProductEdit = {
   description: 'Edit product',
@@ -17,13 +17,13 @@ export const ProductEdit = {
   },
   async resolve(root, params, options) {
     console.log(params.data);
-    const id = params.data[Product.FIELD_ID];
+    const id = params.data[ProductEntity.FIELD_ID];
     const values = { ...params.data };
-    const repository = getRepository(Product);
+    const repository = getRepository(ProductEntity);
     return repository
       .createQueryBuilder()
       .update(values)
-      .where(`${Product.FIELD_ID} = :id`, { id })
+      .where(`${ProductEntity.FIELD_ID} = :id`, { id })
       .execute()
       .then(() => true)
       .catch((e) => {

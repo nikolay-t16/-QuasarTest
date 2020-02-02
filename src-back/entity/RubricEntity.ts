@@ -9,17 +9,15 @@ import {
   JoinTable,
   JoinColumn,
 } from 'typeorm';
-import RubricData from '../../common/data/interface/RubricData';
-import ProductData from '../../common/data/interface/ProductData';
-import {Product} from './Product';
+import Rubric from '../../common/data/type/Rubric';
+import Product from '../../common/data/type/Product';
+import ProductEntity from './ProductEntity';
 
 const TABLE_NAME = 'rubric';
 
 @Entity(TABLE_NAME)
-export class Rubric implements RubricData {
+export class RubricEntity extends Rubric {
   public static TABLE_NAME = TABLE_NAME;
-
-  public static FIELD_ID = 'rubricId';
 
   @PrimaryGeneratedColumn()
   public rubricId: number | null = null;
@@ -55,14 +53,14 @@ export class Rubric implements RubricData {
   public updatedAt: Date = new Date;
 
   // eslint-disable-next-line no-unused-vars
-  @OneToOne(type => Rubric)
+  @OneToOne(type => RubricEntity)
   @JoinColumn({
     name: 'parentId',
   })
-  public parent: RubricData | null = null;
+  public parent: RubricEntity | null = null;
 
   // eslint-disable-next-line no-unused-vars
-  @ManyToMany(type => Product)
+  @ManyToMany(type => ProductEntity)
   @JoinTable({
     name: 'rubric_product',
     joinColumn: {
@@ -75,5 +73,5 @@ export class Rubric implements RubricData {
     },
   })
   // @ts-ignore
-  public products: ProductData[];
+  public products: Product[];
 }
