@@ -9,7 +9,7 @@ export default async () => createConnection({
   password: '123',
   database: 'shop',
   entities: [
-    'src-back/entiti/*.ts',
+    'src-back/entity/*.ts',
   ],
   logging: ['query', 'error'],
   // synchronize: true,
